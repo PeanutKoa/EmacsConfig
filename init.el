@@ -36,6 +36,7 @@
 (use-package rainbow-delimiters
   :straight t)
 
+;; evil
 (straight-use-package 'evil)  
 (use-package evil
   :init
@@ -60,3 +61,8 @@
   :after evil
   :config
   (evil-collection-init))
+;; doom modeline
+(use-package doom-modeline
+  :straight t
+  :init (doom-modeline-mode 1))
+(straight-use-package 'nerd-icons)

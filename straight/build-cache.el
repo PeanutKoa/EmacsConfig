@@ -3,7 +3,7 @@
 
 "30.1"
 
-#s(hash-table test equal data ("straight" ("2025-05-27 21:36:22" ("emacs") (:type git :host github :repo "radian-software/straight.el" :files ("straight*.el") :branch "master" :package "straight" :local-repo "straight.el")) "org-elpa" ("2025-05-27 21:36:22" nil (:local-repo nil :package "org-elpa" :type git)) "melpa" ("2025-05-27 21:36:22" nil (:type git :host github :repo "melpa/melpa" :build nil :package "melpa" :local-repo "melpa")) "gnu-elpa-mirror" ("2025-05-27 21:36:22" nil (:type git :host github :repo "emacs-straight/gnu-elpa-mirror" :build nil :package "gnu-elpa-mirror" :local-repo "gnu-elpa-mirror")) "nongnu-elpa" ("2025-05-27 21:36:22" nil (:type git :repo "https://git.savannah.gnu.org/git/emacs/nongnu.git" :depth (full single-branch) :local-repo "nongnu-elpa" :build nil :package "nongnu-elpa")) "el-get" ("2025-05-27 21:36:22" nil (:type git :host github :repo "dimitri/el-get" :build nil :files (:defaults "methods" ("recipes" "recipes/el-get.rcp") "el-get-pkg.el") :package "el-get" :local-repo "el-get")) "emacsmirror-mirror" ("2025-05-27 21:36:22" nil (:type git :host github :repo "emacs-straight/emacsmirror-mirror" :build nil :package "emacsmirror-mirror" :local-repo "emacsmirror-mirror")) "use-package" ("2025-05-27 21:36:22" ("emacs" "bind-key") (:type git :host github :repo "emacs-straight/use-package" :files ("*" (:exclude ".git")) :package "use-package" :local-repo "use-package")) "bind-key" ("2025-05-27 21:36:22" ("emacs") (:type git :host github :repo "emacs-straight/bind-key" :files ("*" (:exclude ".git")) :package "bind-key" :local-repo "bind-key")) "catppuccin-theme" ("2025-05-27 21:36:22" ("emacs") (:type git :host github :repo "catppuccin/emacs" :package "catppuccin-theme" :local-repo "emacs")) "rainbow-delimiters" ("2025-05-27 21:36:23" nil (:type git :host github :repo "Fanael/rainbow-delimiters" :package "rainbow-delimiters" :local-repo "rainbow-delimiters")) "evil" ("2025-05-27 21:36:23" ("emacs" "cl-lib" "goto-chg" "nadvice") (:type git :files (:defaults "doc/build/texinfo/evil.texi" (:exclude "evil-test-helpers.el") "evil-pkg.el") :host github :repo "emacs-evil/evil" :package "evil" :local-repo "evil")) "goto-chg" ("2025-05-27 21:36:23" ("emacs") (:type git :host github :repo "emacs-evil/goto-chg" :package "goto-chg" :local-repo "goto-chg"))))
+#s(hash-table test equal data ("straight" ("2025-05-27 21:45:02" ("emacs") (:type git :host github :repo "radian-software/straight.el" :files ("straight*.el") :branch "master" :package "straight" :local-repo "straight.el")) "org-elpa" ("2025-05-27 21:45:02" nil (:local-repo nil :package "org-elpa" :type git)) "melpa" ("2025-05-27 21:45:02" nil (:type git :host github :repo "melpa/melpa" :build nil :package "melpa" :local-repo "melpa")) "gnu-elpa-mirror" ("2025-05-27 21:45:02" nil (:type git :host github :repo "emacs-straight/gnu-elpa-mirror" :build nil :package "gnu-elpa-mirror" :local-repo "gnu-elpa-mirror")) "nongnu-elpa" ("2025-05-27 21:45:02" nil (:type git :repo "https://git.savannah.gnu.org/git/emacs/nongnu.git" :depth (full single-branch) :local-repo "nongnu-elpa" :build nil :package "nongnu-elpa")) "el-get" ("2025-05-27 21:45:02" nil (:type git :host github :repo "dimitri/el-get" :build nil :files (:defaults "methods" ("recipes" "recipes/el-get.rcp") "el-get-pkg.el") :package "el-get" :local-repo "el-get")) "emacsmirror-mirror" ("2025-05-27 21:45:02" nil (:type git :host github :repo "emacs-straight/emacsmirror-mirror" :build nil :package "emacsmirror-mirror" :local-repo "emacsmirror-mirror")) "use-package" ("2025-05-27 21:45:02" ("emacs" "bind-key") (:type git :host github :repo "emacs-straight/use-package" :files ("*" (:exclude ".git")) :package "use-package" :local-repo "use-package")) "bind-key" ("2025-05-27 21:45:02" ("emacs") (:type git :host github :repo "emacs-straight/bind-key" :files ("*" (:exclude ".git")) :package "bind-key" :local-repo "bind-key")) "catppuccin-theme" ("2025-05-27 21:45:03" ("emacs") (:type git :host github :repo "catppuccin/emacs" :package "catppuccin-theme" :local-repo "emacs")) "rainbow-delimiters" ("2025-05-27 21:45:03" nil (:type git :host github :repo "Fanael/rainbow-delimiters" :package "rainbow-delimiters" :local-repo "rainbow-delimiters")) "evil" ("2025-05-27 21:45:03" ("emacs" "cl-lib" "goto-chg" "nadvice") (:type git :files (:defaults "doc/build/texinfo/evil.texi" (:exclude "evil-test-helpers.el") "evil-pkg.el") :host github :repo "emacs-evil/evil" :package "evil" :local-repo "evil")) "goto-chg" ("2025-05-27 21:45:03" ("emacs") (:type git :host github :repo "emacs-evil/goto-chg" :package "goto-chg" :local-repo "goto-chg")) "evil-collection" ("2025-05-27 21:45:03" ("emacs" "evil" "annalist") (:type git :files (:defaults "modes" "evil-collection-pkg.el") :host github :repo "emacs-evil/evil-collection" :package "evil-collection" :local-repo "evil-collection")) "annalist" ("2025-05-27 21:45:03" ("emacs" "cl-lib") (:type git :host github :repo "noctuid/annalist.el" :package "annalist" :local-repo "annalist.el")) "doom-modeline" ("2025-05-27 21:45:03" ("emacs" "compat" "nerd-icons" "shrink-path") (:type git :host github :repo "seagle0128/doom-modeline" :package "doom-modeline" :local-repo "doom-modeline")) "compat" ("2025-05-27 21:45:03" ("emacs" "seq") (:type git :host github :repo "emacs-straight/compat" :files ("*" (:exclude ".git")) :package "compat" :local-repo "compat")) "seq" ("2025-05-27 21:45:03" nil (:type git :host github :repo "emacs-straight/seq" :files ("*" (:exclude ".git")) :package "seq" :local-repo "seq")) "nerd-icons" ("2025-05-27 21:45:03" ("emacs") (:type git :files (:defaults "data" "nerd-icons-pkg.el") :host github :repo "rainstormstudio/nerd-icons.el" :package "nerd-icons" :local-repo "nerd-icons.el")) "shrink-path" ("2025-05-27 21:45:03" ("emacs" "s" "dash" "f") (:type git :host gitlab :repo "bennya/shrink-path.el" :package "shrink-path" :local-repo "shrink-path.el")) "s" ("2025-05-27 21:45:03" nil (:type git :host github :repo "magnars/s.el" :package "s" :local-repo "s.el")) "dash" ("2025-05-27 21:45:03" ("emacs") (:type git :files ("dash.el" "dash.texi" "dash-pkg.el") :host github :repo "magnars/dash.el" :package "dash" :local-repo "dash.el")) "f" ("2025-05-27 21:45:03" ("emacs" "s" "dash") (:type git :host github :repo "rejeep/f.el" :package "f" :local-repo "f.el"))))
 
 #s(hash-table test equal data ("straight" ((straight-ert-print-hack straight-autoloads straight straight-x) (autoload 'straight-remove-unused-repos "straight" "Remove unused repositories from the repos and build directories.
 A repo is considered \"unused\" if it was not explicitly requested via
@@ -519,10 +519,283 @@ If DIGRAPH is a list (CHAR1 CHAR2), return the corresponding character;
 if DIGRAPH is a character, return the corresponding list.
 Searches in `evil-digraphs-table-user' and `evil-digraphs-table'.
 
-(fn DIGRAPH)") (register-definition-prefixes "evil-digraphs" '("evil-digraphs-table")) (register-definition-prefixes "evil-ex" '("evil-")) (register-definition-prefixes "evil-integration" '("evil-")) (register-definition-prefixes "evil-jumps" '("evil-")) (register-definition-prefixes "evil-keybindings" '("evil--set-motion-state")) (register-definition-prefixes "evil-macros" '("evil-")) (register-definition-prefixes "evil-maps" '("evil-")) (register-definition-prefixes "evil-repeat" '("evil-")) (register-definition-prefixes "evil-search" '("evil-")) (register-definition-prefixes "evil-states" '("evil-")) (register-definition-prefixes "evil-types" '("evil-ex-get-optional-register-and-count")) (register-definition-prefixes "evil-vars" '("evil-")) (provide 'evil-autoloads))))
+(fn DIGRAPH)") (register-definition-prefixes "evil-digraphs" '("evil-digraphs-table")) (register-definition-prefixes "evil-ex" '("evil-")) (register-definition-prefixes "evil-integration" '("evil-")) (register-definition-prefixes "evil-jumps" '("evil-")) (register-definition-prefixes "evil-keybindings" '("evil--set-motion-state")) (register-definition-prefixes "evil-macros" '("evil-")) (register-definition-prefixes "evil-maps" '("evil-")) (register-definition-prefixes "evil-repeat" '("evil-")) (register-definition-prefixes "evil-search" '("evil-")) (register-definition-prefixes "evil-states" '("evil-")) (register-definition-prefixes "evil-types" '("evil-ex-get-optional-register-and-count")) (register-definition-prefixes "evil-vars" '("evil-")) (provide 'evil-autoloads)) "annalist" ((annalist annalist-autoloads) (autoload 'annalist-record "annalist" "In the store for ANNALIST, TYPE, and LOCAL, record RECORD.
+ANNALIST should correspond to the package/user recording this information (e.g.
+'general, 'me, etc.). TYPE is the type of information being recorded (e.g.
+'keybindings). LOCAL corresponds to whether to store RECORD only for the current
+buffer. This information together is used to select where RECORD should be
+stored in and later retrieved from with `annalist-describe'. RECORD should be a
+list of items to record and later print as org headings and column entries in a
+single row. If PLIST is non-nil, RECORD should be a plist instead of an ordered
+list (e.g. '(keymap org-mode-map key \"C-c a\" ...)). The plist keys should be
+the symbols used for the definition of TYPE.
 
-#s(hash-table test eq data (org-elpa #s(hash-table test equal data (version 15 "melpa" nil "gnu-elpa-mirror" nil "nongnu-elpa" nil "el-get" nil "emacsmirror-mirror" nil "straight" nil "use-package" nil "bind-key" nil "catppuccin-theme" nil "rainbow-delimiters" nil "evil" nil "cl-lib" nil "goto-chg" nil)) melpa #s(hash-table test equal data (version 2 "gnu-elpa-mirror" nil "nongnu-elpa" nil "el-get" (el-get :type git :files (:defaults "methods" ("recipes" "recipes/el-get.rcp") "el-get-pkg.el") :host github :repo "dimitri/el-get") "emacsmirror-mirror" nil "straight" nil "use-package" nil "bind-key" nil "catppuccin-theme" (catppuccin-theme :type git :host github :repo "catppuccin/emacs") "rainbow-delimiters" (rainbow-delimiters :type git :host github :repo "Fanael/rainbow-delimiters") "evil" (evil :type git :files (:defaults "doc/build/texinfo/evil.texi" (:exclude "evil-test-helpers.el") "evil-pkg.el") :host github :repo "emacs-evil/evil") "cl-lib" nil "goto-chg" (goto-chg :type git :host github :repo "emacs-evil/goto-chg"))) gnu-elpa-mirror #s(hash-table test equal data (version 3 "nongnu-elpa" nil "emacsmirror-mirror" nil "straight" nil "use-package" (use-package :type git :host github :repo "emacs-straight/use-package" :files ("*" (:exclude ".git"))) "bind-key" (bind-key :type git :host github :repo "emacs-straight/bind-key" :files ("*" (:exclude ".git"))) "cl-lib" nil)) nongnu-elpa #s(hash-table test equal data (version 4 "emacsmirror-mirror" nil "straight" nil "cl-lib" nil)) el-get #s(hash-table test equal data (version 2 "emacsmirror-mirror" nil "straight" nil "cl-lib" nil)) emacsmirror-mirror #s(hash-table test equal data (version 2 "straight" (straight :type git :host github :repo "emacsmirror/straight") "cl-lib" nil))))
+(fn ANNALIST TYPE RECORD &key LOCAL PLIST)") (autoload 'annalist-describe "annalist" "Describe information recorded by ANNALIST for TYPE.
+For example: (annalist-describe 'general 'keybindings) If VIEW is non-nil, use
+those settings for displaying recorded information instead of the defaults.
 
-("nadvice" "goto-chg" "cl-lib" "evil" "rainbow-delimiters" "catppuccin-theme" "bind-key" "use-package" "emacs" "straight" "emacsmirror-mirror" "el-get" "nongnu-elpa" "gnu-elpa-mirror" "melpa" "org-elpa")
+(fn ANNALIST TYPE &optional VIEW)") (register-definition-prefixes "annalist" '("annalist-")) (provide 'annalist-autoloads)) "evil-collection" ((evil-collection evil-collection-autoloads) (autoload 'evil-collection-translate-minor-mode-key "evil-collection" "Translate keys in the keymap(s) corresponding to STATES and MODES.
+
+Similar to `evil-collection-translate-key' but for minor modes.
+STATES should be the name of an evil state, a list of states, or nil. MODES
+should be a symbol corresponding to minor-mode to make the translations in or a
+list of minor-mode symbols. TRANSLATIONS corresponds to a list of
+key replacement pairs. For example, specifying \"a\" \"b\" will bind \"a\" to
+\"b\"'s definition in the keymap. Specifying nil as a replacement will unbind a
+key. If DESTRUCTIVE is nil, a backup of the keymap will be stored on the initial
+invocation, and future invocations will always look up keys in the backup
+keymap. When no TRANSLATIONS are given, this function will only create the
+backup keymap without making any translations. On the other hand, if DESTRUCTIVE
+is non-nil, the keymap will be destructively altered without creating a backup.
+For example, calling this function multiple times with \"a\" \"b\" \"b\" \"a\"
+would continue to swap and unswap the definitions of these keys. This means that
+when DESTRUCTIVE is non-nil, all related swaps/cycles should be done in the same
+invocation.
+
+(fn STATES MODES &rest TRANSLATIONS &key DESTRUCTIVE &allow-other-keys)") (function-put 'evil-collection-translate-minor-mode-key 'lisp-indent-function 'defun) (autoload 'evil-collection-translate-key "evil-collection" "Translate keys in the keymap(s) corresponding to STATES and KEYMAPS.
+STATES should be the name of an evil state, a list of states, or nil. KEYMAPS
+should be a symbol corresponding to the keymap to make the translations in or a
+list of keymap symbols. Like `evil-define-key', when a keymap does not exist,
+the keybindings will be deferred until the keymap is defined, so
+`with-eval-after-load' is not necessary. TRANSLATIONS corresponds to a list of
+key replacement pairs. For example, specifying \"a\" \"b\" will bind \"a\" to
+\"b\"'s definition in the keymap. Specifying nil as a replacement will unbind a
+key. If DESTRUCTIVE is nil, a backup of the keymap will be stored on the initial
+invocation, and future invocations will always look up keys in the backup
+keymap. When no TRANSLATIONS are given, this function will only create the
+backup keymap without making any translations. On the other hand, if DESTRUCTIVE
+is non-nil, the keymap will be destructively altered without creating a backup.
+For example, calling this function multiple times with \"a\" \"b\" \"b\" \"a\"
+would continue to swap and unswap the definitions of these keys. This means that
+when DESTRUCTIVE is non-nil, all related swaps/cycles should be done in the same
+invocation.
+
+(fn STATES KEYMAPS &rest TRANSLATIONS &key DESTRUCTIVE &allow-other-keys)") (function-put 'evil-collection-translate-key 'lisp-indent-function 'defun) (autoload 'evil-collection-swap-key "evil-collection" "Wrapper around `evil-collection-translate-key' for swapping keys.
+STATES, KEYMAPS, and ARGS are passed to `evil-collection-translate-key'. ARGS
+should consist of key swaps (e.g. \"a\" \"b\" is equivalent to \"a\" \"b\" \"b\"
+\"a\" with `evil-collection-translate-key') and optionally keyword arguments for
+`evil-collection-translate-key'.
+
+(fn STATES KEYMAPS &rest ARGS)" nil t) (function-put 'evil-collection-swap-key 'lisp-indent-function 'defun) (autoload 'evil-collection-swap-minor-mode-key "evil-collection" "Wrapper around `evil-collection-translate-minor-mode-key' for swapping keys.
+STATES, MODES, and ARGS are passed to
+`evil-collection-translate-minor-mode-key'. ARGS should consist of key swaps
+(e.g. \"a\" \"b\" is equivalent to \"a\" \"b\" \"b\" \"a\"
+with `evil-collection-translate-minor-mode-key') and optionally keyword
+arguments for `evil-collection-translate-minor-mode-key'.
+
+(fn STATES MODES &rest ARGS)" nil t) (function-put 'evil-collection-swap-minor-mode-key 'lisp-indent-function 'defun) (autoload 'evil-collection-require "evil-collection" "Require the evil-collection-MODE file, but do not activate it.
+
+MODE should be a symbol. This requires the evil-collection-MODE
+feature without needing to manipulate `load-path'. NOERROR is
+forwarded to `require'.
+
+(fn MODE &optional NOERROR)") (autoload 'evil-collection-init "evil-collection" "Register the Evil bindings for all modes in `evil-collection-mode-list'.
+
+Alternatively, you may register select bindings manually, for
+instance:
+
+  (with-eval-after-load ='calendar
+    (evil-collection-calendar-setup))
+
+If MODES is specified (as either one mode or a list of modes), use those modes
+instead of the modes in `evil-collection-mode-list'.
+
+(fn &optional MODES)" t) (register-definition-prefixes "evil-collection" '("evil-collection-")) (provide 'evil-collection-autoloads)) "seq" ((seq-autoloads seq-24 seq-25 seq-pkg seq) (register-definition-prefixes "seq-24" '("seq")) (autoload 'seq-subseq "seq-25" "Return the sequence of elements of SEQUENCE from START to END.
+END is exclusive.
+
+If END is omitted, it defaults to the length of the sequence.  If
+START or END is negative, it counts from the end.  Signal an
+error if START or END are outside of the sequence (i.e too large
+if positive or too small if negative).
+
+(fn SEQUENCE START &optional END)") (autoload 'seq-take "seq-25" "Return the sequence made of the first N elements of SEQUENCE.
+The result is a sequence of the same type as SEQUENCE.
+
+If N is a negative integer or zero, an empty sequence is
+returned.
+
+(fn SEQUENCE N)") (autoload 'seq-sort-by "seq-25" "Sort SEQUENCE transformed by FUNCTION using PRED as the comparison function.
+Elements of SEQUENCE are transformed by FUNCTION before being
+sorted.  FUNCTION must be a function of one argument.
+
+(fn FUNCTION PRED SEQUENCE)") (autoload 'seq-filter "seq-25" "Return a list of all the elements in SEQUENCE for which PRED returns non-nil.
+
+(fn PRED SEQUENCE)") (autoload 'seq-remove "seq-25" "Return a list of all the elements in SEQUENCE for which PRED returns nil.
+
+(fn PRED SEQUENCE)") (autoload 'seq-remove-at-position "seq-25" "Return a copy of SEQUENCE with the element at index N removed.
+
+N is the (zero-based) index of the element that should not be in
+the result.
+
+The result is a sequence of the same type as SEQUENCE.
+
+(fn SEQUENCE N)") (autoload 'seq-reduce "seq-25" "Reduce the function FUNCTION across SEQUENCE, starting with INITIAL-VALUE.
+
+Return the result of calling FUNCTION with INITIAL-VALUE and the
+first element of SEQUENCE, then calling FUNCTION with that result
+and the second element of SEQUENCE, then with that result and the
+third element of SEQUENCE, etc.  FUNCTION will be called with
+INITIAL-VALUE (and then the accumulated value) as the first
+argument, and the elements from SEQUENCE as the second argument.
+
+If SEQUENCE is empty, return INITIAL-VALUE and FUNCTION is not called.
+
+(fn FUNCTION SEQUENCE INITIAL-VALUE)") (autoload 'seq-every-p "seq-25" "Return non-nil if PRED returns non-nil for all the elements of SEQUENCE.
+
+(fn PRED SEQUENCE)") (autoload 'seq-some "seq-25" "Return non-nil if PRED returns non-nil for at least one element of SEQUENCE.
+If the value is non-nil, it is the first non-nil value returned by PRED.
+
+(fn PRED SEQUENCE)") (autoload 'seq-find "seq-25" "Return the first element in SEQUENCE for which PRED returns non-nil.
+If no such element is found, return DEFAULT.
+
+Note that `seq-find' has an ambiguity if the found element is
+identical to DEFAULT, as in that case it is impossible to know
+whether an element was found or not.
+
+(fn PRED SEQUENCE &optional DEFAULT)") (autoload 'seq-position "seq-25" "Return the (zero-based) index of the first element in SEQUENCE \"equal\" to ELT.
+\"Equality\" is defined by the function TESTFN, which defaults to `equal'.
+
+(fn SEQUENCE ELT &optional TESTFN)") (autoload 'seq-positions "seq-25" "Return list of indices of SEQUENCE elements for which TESTFN returns non-nil.
+
+TESTFN is a two-argument function which is called with each element of
+SEQUENCE as the first argument and ELT as the second.
+TESTFN defaults to `equal'.
+
+The result is a list of (zero-based) indices.
+
+(fn SEQUENCE ELT &optional TESTFN)") (autoload 'seq-uniq "seq-25" "Return a list of the elements of SEQUENCE with duplicates removed.
+TESTFN is used to compare elements, and defaults to `equal'.
+
+(fn SEQUENCE &optional TESTFN)") (autoload 'seq-union "seq-25" "Return a list of all the elements that appear in either SEQUENCE1 or SEQUENCE2.
+\"Equality\" of elements is defined by the function TESTFN, which
+defaults to `equal'.
+
+(fn SEQUENCE1 SEQUENCE2 &optional TESTFN)") (autoload 'seq-intersection "seq-25" "Return a list of all the elements that appear in both SEQUENCE1 and SEQUENCE2.
+\"Equality\" of elements is defined by the function TESTFN, which
+defaults to `equal'.
+
+(fn SEQUENCE1 SEQUENCE2 &optional TESTFN)") (autoload 'seq-group-by "seq-25" "Apply FUNCTION to each element of SEQUENCE.
+Separate the elements of SEQUENCE into an alist using the results as
+keys.  Keys are compared using `equal'.
+
+(fn FUNCTION SEQUENCE)") (autoload 'seq-max "seq-25" "Return the largest element of SEQUENCE.
+SEQUENCE must be a sequence of numbers or markers.
+
+(fn SEQUENCE)") (autoload 'seq-random-elt "seq-25" "Return a randomly chosen element from SEQUENCE.
+Signal an error if SEQUENCE is empty.
+
+(fn SEQUENCE)") (register-definition-prefixes "seq-25" '("seq-")) (provide 'seq-autoloads)) "compat" ((compat-autoloads compat-macs compat-29 compat-25 compat-30 compat-28 compat compat-26 compat-pkg compat-27) (register-definition-prefixes "compat" '("compat-")) (register-definition-prefixes "compat-macs" '("compat-")) (provide 'compat-autoloads)) "nerd-icons" ((nerd-icons nerd-icons-faces nerd-icons-data nerd-icons-autoloads) (autoload 'nerd-icons-install-fonts "nerd-icons" "Helper function to download and install the latests fonts based on OS.
+The provided Nerd Font is Symbols Nerd Font Mono.
+When PFX is non-nil, ignore the prompt and just install
+
+(fn &optional PFX)" t) (autoload 'nerd-icons-insert "nerd-icons" "Interactive icon insertion function.
+When Prefix ARG is non-nil, insert the propertized icon.
+When GLYPH-SET is non-nil, limit the candidates to the icon set matching it.
+
+(fn &optional ARG GLYPH-SET)" t) (autoload 'nerd-icons-icon-for-dir "nerd-icons" "Get the formatted icon for DIR.
+ARG-OVERRIDES should be a plist containining `:height',
+`:v-adjust' or `:face' properties like in the normal icon
+inserting functions.
+
+(fn DIR &rest ARG-OVERRIDES)") (autoload 'nerd-icons-icon-for-file "nerd-icons" "Get the formatted icon for FILE.
+ARG-OVERRIDES should be a plist containining `:height',
+`:v-adjust' or `:face' properties like in the normal icon
+inserting functions.
+
+(fn FILE &rest ARG-OVERRIDES)") (autoload 'nerd-icons-icon-for-extension "nerd-icons" "Get the formatted icon for EXT.
+ARG-OVERRIDES should be a plist containining `:height',
+`:v-adjust' or `:face' properties like in the normal icon
+inserting functions.
+
+(fn EXT &rest ARG-OVERRIDES)") (autoload 'nerd-icons-icon-for-mode "nerd-icons" "Get the formatted icon for MODE.
+ARG-OVERRIDES should be a plist containining `:height',
+`:v-adjust' or `:face' properties like in the normal icon
+inserting functions.
+
+(fn MODE &rest ARG-OVERRIDES)") (autoload 'nerd-icons-icon-for-url "nerd-icons" "Get the formatted icon for URL.
+If an icon for URL isn't found in `nerd-icons-url-alist', a globe is used.
+ARG-OVERRIDES should be a plist containining `:height',
+`:v-adjust' or `:face' properties like in the normal icon
+inserting functions.
+
+(fn URL &rest ARG-OVERRIDES)") (autoload 'nerd-icons-icon-for-buffer "nerd-icons" "Get the formatted icon for the current buffer.
+
+This function prioritises the use of the buffers file extension to
+discern the icon when its `major-mode' matches its auto mode,
+otherwise it will use the buffers `major-mode' to decide its
+icon.") (register-definition-prefixes "nerd-icons" '("nerd-icons-")) (provide 'nerd-icons-autoloads)) "s" ((s-autoloads s) (register-definition-prefixes "s" '("s-")) (provide 's-autoloads)) "dash" ((dash-autoloads dash) (autoload 'dash-fontify-mode "dash" "Toggle fontification of Dash special variables.
+
+Dash-Fontify mode is a buffer-local minor mode intended for Emacs
+Lisp buffers.  Enabling it causes the special variables bound in
+anaphoric Dash macros to be fontified.  These anaphoras include
+`it', `it-index', `acc', and `other'.  In older Emacs versions
+which do not dynamically detect macros, Dash-Fontify mode
+additionally fontifies Dash macro calls.
+
+See also `dash-fontify-mode-lighter' and
+`global-dash-fontify-mode'.
+
+This is a minor mode.  If called interactively, toggle the `Dash-Fontify
+mode' mode.  If the prefix argument is positive, enable the mode, and if
+it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
+mode if ARG is nil, omitted, or is a positive number.  Disable the mode
+if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate the variable `dash-fontify-mode'.
+
+The mode's hook is called both when the mode is enabled and when it is
+disabled.
+
+(fn &optional ARG)" t) (put 'global-dash-fontify-mode 'globalized-minor-mode t) (defvar global-dash-fontify-mode nil "Non-nil if Global Dash-Fontify mode is enabled.
+See the `global-dash-fontify-mode' command
+for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `global-dash-fontify-mode'.") (custom-autoload 'global-dash-fontify-mode "dash" nil) (autoload 'global-dash-fontify-mode "dash" "Toggle Dash-Fontify mode in all buffers.
+With prefix ARG, enable Global Dash-Fontify mode if ARG is positive;
+otherwise, disable it.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.
+Enable the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+Dash-Fontify mode is enabled in all buffers where
+`dash--turn-on-fontify-mode' would do it.
+
+See `dash-fontify-mode' for more information on Dash-Fontify mode.
+
+(fn &optional ARG)" t) (autoload 'dash-register-info-lookup "dash" "Register the Dash Info manual with `info-lookup-symbol'.
+This allows Dash symbols to be looked up with \\[info-lookup-symbol]." t) (register-definition-prefixes "dash" '("!cdr" "!cons" "--" "->" "-a" "-butlast" "-c" "-d" "-e" "-f" "-gr" "-i" "-juxt" "-keep" "-l" "-m" "-no" "-o" "-p" "-r" "-s" "-t" "-u" "-value-to-list" "-when-let" "-zip" "dash-")) (provide 'dash-autoloads)) "f" ((f-autoloads f-shortdoc f) (register-definition-prefixes "f" '("f-")) (provide 'f-autoloads)) "shrink-path" ((shrink-path shrink-path-autoloads) (register-definition-prefixes "shrink-path" '("shrink-path-")) (provide 'shrink-path-autoloads)) "doom-modeline" ((doom-modeline-core doom-modeline-autoloads doom-modeline-env doom-modeline doom-modeline-segments) (autoload 'doom-modeline-set-main-modeline "doom-modeline" "Set main mode-line.
+If DEFAULT is non-nil, set the default mode-line for all buffers.
+
+(fn &optional DEFAULT)") (defvar doom-modeline-mode nil "Non-nil if Doom-Modeline mode is enabled.
+See the `doom-modeline-mode' command
+for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `doom-modeline-mode'.") (custom-autoload 'doom-modeline-mode "doom-modeline" nil) (autoload 'doom-modeline-mode "doom-modeline" "Toggle `doom-modeline' on or off.
+
+This is a global minor mode.  If called interactively, toggle the
+`Doom-Modeline mode' mode.  If the prefix argument is positive, enable
+the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable the
+mode if ARG is nil, omitted, or is a positive number.  Disable the mode
+if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `(default-value \\='doom-modeline-mode)'.
+
+The mode's hook is called both when the mode is enabled and when it is
+disabled.
+
+(fn &optional ARG)" t) (register-definition-prefixes "doom-modeline" '("doom-modeline-")) (register-definition-prefixes "doom-modeline-core" '("doom-modeline")) (autoload 'doom-modeline-env-setup-python "doom-modeline-env") (autoload 'doom-modeline-env-setup-ruby "doom-modeline-env") (autoload 'doom-modeline-env-setup-perl "doom-modeline-env") (autoload 'doom-modeline-env-setup-go "doom-modeline-env") (autoload 'doom-modeline-env-setup-elixir "doom-modeline-env") (autoload 'doom-modeline-env-setup-rust "doom-modeline-env") (register-definition-prefixes "doom-modeline-env" '("doom-modeline-")) (register-definition-prefixes "doom-modeline-segments" '("doom-modeline-")) (provide 'doom-modeline-autoloads))))
+
+#s(hash-table test eq data (org-elpa #s(hash-table test equal data (version 15 "melpa" nil "gnu-elpa-mirror" nil "nongnu-elpa" nil "el-get" nil "emacsmirror-mirror" nil "straight" nil "use-package" nil "bind-key" nil "catppuccin-theme" nil "rainbow-delimiters" nil "evil" nil "cl-lib" nil "goto-chg" nil "evil-collection" nil "annalist" nil "doom-modeline" nil "compat" nil "seq" nil "nerd-icons" nil "shrink-path" nil "s" nil "dash" nil "f" nil)) melpa #s(hash-table test equal data (version 2 "gnu-elpa-mirror" nil "nongnu-elpa" nil "el-get" (el-get :type git :files (:defaults "methods" ("recipes" "recipes/el-get.rcp") "el-get-pkg.el") :host github :repo "dimitri/el-get") "emacsmirror-mirror" nil "straight" nil "use-package" nil "bind-key" nil "catppuccin-theme" (catppuccin-theme :type git :host github :repo "catppuccin/emacs") "rainbow-delimiters" (rainbow-delimiters :type git :host github :repo "Fanael/rainbow-delimiters") "evil" (evil :type git :files (:defaults "doc/build/texinfo/evil.texi" (:exclude "evil-test-helpers.el") "evil-pkg.el") :host github :repo "emacs-evil/evil") "cl-lib" nil "goto-chg" (goto-chg :type git :host github :repo "emacs-evil/goto-chg") "evil-collection" (evil-collection :type git :files (:defaults "modes" "evil-collection-pkg.el") :host github :repo "emacs-evil/evil-collection") "annalist" (annalist :type git :host github :repo "noctuid/annalist.el") "doom-modeline" (doom-modeline :type git :host github :repo "seagle0128/doom-modeline") "compat" nil "seq" nil "nerd-icons" (nerd-icons :type git :files (:defaults "data" "nerd-icons-pkg.el") :host github :repo "rainstormstudio/nerd-icons.el") "shrink-path" (shrink-path :type git :host gitlab :repo "bennya/shrink-path.el") "s" (s :type git :host github :repo "magnars/s.el") "dash" (dash :type git :files ("dash.el" "dash.texi" "dash-pkg.el") :host github :repo "magnars/dash.el") "f" (f :type git :host github :repo "rejeep/f.el"))) gnu-elpa-mirror #s(hash-table test equal data (version 3 "nongnu-elpa" nil "emacsmirror-mirror" nil "straight" nil "use-package" (use-package :type git :host github :repo "emacs-straight/use-package" :files ("*" (:exclude ".git"))) "bind-key" (bind-key :type git :host github :repo "emacs-straight/bind-key" :files ("*" (:exclude ".git"))) "cl-lib" nil "compat" (compat :type git :host github :repo "emacs-straight/compat" :files ("*" (:exclude ".git"))) "seq" (seq :type git :host github :repo "emacs-straight/seq" :files ("*" (:exclude ".git"))))) nongnu-elpa #s(hash-table test equal data (version 4 "emacsmirror-mirror" nil "straight" nil "cl-lib" nil)) el-get #s(hash-table test equal data (version 2 "emacsmirror-mirror" nil "straight" nil "cl-lib" nil)) emacsmirror-mirror #s(hash-table test equal data (version 2 "straight" (straight :type git :host github :repo "emacsmirror/straight") "cl-lib" nil))))
+
+("f" "dash" "s" "shrink-path" "nerd-icons" "seq" "compat" "doom-modeline" "annalist" "evil-collection" "nadvice" "goto-chg" "cl-lib" "evil" "rainbow-delimiters" "catppuccin-theme" "bind-key" "use-package" "emacs" "straight" "emacsmirror-mirror" "el-get" "nongnu-elpa" "gnu-elpa-mirror" "melpa" "org-elpa")
 
 t
