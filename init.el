@@ -23,3 +23,4 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 (use-package catppuccin-theme :straight t)
+(load-theme 'catppuccin :no-confirm)
