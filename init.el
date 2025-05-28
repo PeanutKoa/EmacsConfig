@@ -19,6 +19,7 @@
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
 (setq inhibit-startup-message t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(setq ring-bell-function 'ignore)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode)
@@ -34,7 +35,8 @@
 (use-package catppuccin-theme :straight t)
 (load-theme 'catppuccin :no-confirm)
 (use-package rainbow-delimiters
-  :straight t)
+  :straight t
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; evil
 (straight-use-package 'evil)  
