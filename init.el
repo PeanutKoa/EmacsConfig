@@ -34,10 +34,9 @@
 (use-package catppuccin-theme :straight t)
 (load-theme 'catppuccin :no-confirm)
 (use-package rainbow-delimiters
-  :straight t
-  :hook (prog-mode . (rainbow-delimiters-mode))
+  :straight t)
 
-  
+(straight-use-package 'evil)  
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -57,6 +56,7 @@
   (evil-set-initial-state 'dashboard-mode 'normal))
 
 (use-package evil-collection
+  :straight t
   :after evil
   :config
   (evil-collection-init))
