@@ -95,10 +95,10 @@
   :after evil
   :config
   (general-evil-setup)
-  (general-create-definer pkoa/leader-keys
-  :keymaps '(normal insert visual emacs)
+  (general-create-definer pkoa/leader
+  :states '(normal insert visual emacs)
   :prefix "SPC"
-  :global-prefix "C-SPC"))
+  :non-normal-prefix "C-SPC"))
 
 (general-define-key
  "C-x M-x" 'redraw-display
@@ -107,6 +107,8 @@
 (use-package doom-modeline
   :straight t
   :init (doom-modeline-mode 1))
+
+(which-key-mode 1)
 
 (use-package toc-org
   :straight t

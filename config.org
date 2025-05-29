@@ -26,6 +26,7 @@
 - [[#ui-and-ivy][UI and Ivy]]
   - [[#ui][UI]]
     - [[#doom-modeline][Doom Modeline]]
+    - [[#which-key][Which-Key]]
 - [[#org-mode][Org Mode]]
   - [[#toc-org][TOC-ORG]]
     - [[#setup-2][Setup]]
@@ -177,10 +178,10 @@
     :after evil
     :config
     (general-evil-setup)
-    (general-create-definer pkoa/leader-keys
-    :keymaps '(normal insert visual emacs)
+    (general-create-definer pkoa/leader
+    :states '(normal insert visual emacs)
     :prefix "SPC"
-    :global-prefix "C-SPC"))
+    :non-normal-prefix "C-SPC"))
 #+END_SRC
 
 *** Global/Non-Leader Keybinds
@@ -201,6 +202,10 @@
     :init (doom-modeline-mode 1))
 #+END_SRC
 
+*** Which-Key
+#+BEGIN_SRC emacs-lisp
+  (which-key-mode 1)
+#+END_SRC
 * Org Mode
 
 ** TOC-ORG
