@@ -21,6 +21,7 @@
   - [[#keybindings][Keybindings]]
     - [[#evil-mode][Evil Mode]]
     - [[#evil-collection][Evil Collection]]
+    - [[#evil-commenter][Evil Commenter]]
     - [[#general-setup][General Setup]]
     - [[#globalnon-leader-keybinds][Global/Non-Leader Keybinds]]
 - [[#ui-and-ivy][UI and Ivy]]
@@ -46,6 +47,8 @@
     - [[#magit-setup][Magit Setup]]
     - [[#magit-forge][Magit Forge]]
   - [[#dired-config][Dired Config]]
+    - [[#nerd-icons][Nerd Icons]]
+    - [[#single-buffer-mode][Single Buffer Mode]]
 - [[#lsp][LSP]]
 
 * Package Management, Basic Keybinds, Other Startup Stuff
@@ -190,6 +193,13 @@
     (evil-collection-init))
 #+END_SRC
 
+*** Evil Commenter
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-nerd-commenter
+    :straight t)
+  ;; please bind to "<leader>"+";"
+#+END_SRC
+
 *** General Setup
 #+BEGIN_SRC emacs-lisp
   (use-package general
@@ -322,6 +332,7 @@
 *** Setup
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
+    :straight t
     :diminish projectile-mode
     :config (projectile-mode)
     :custom ((projectile-completion-system 'ivy))
@@ -332,6 +343,7 @@
 *** Counsel Integration
 #+BEGIN_SRC emacs-lisp
   (use-package counsel-projectile
+    :straight t
     :after projectile
     :config (counsel-projectile-mode))
 #+END_SRC
@@ -353,5 +365,18 @@
 #+END_SRC 
 
 ** Dired Config
+
+*** Nerd Icons
+#+BEGIN_SRC emacs-lisp
+  (use-package nerd-icons-dired
+    :straight t
+    :hook (dired-mode . nerd-icons-dired-mode))
+#+END_SRC
+
+*** Single Buffer Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package dired-single
+    :straight t)
+#+END_SRC
 
 * LSP
