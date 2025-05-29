@@ -40,6 +40,8 @@
     - [[#setup-3][Setup]]
 - [[#project-management][Project Management]]
   - [[#projectile][Projectile]]
+    - [[#setup-4][Setup]]
+    - [[#counsel-integration][Counsel Integration]]
   - [[#magit][Magit]]
   - [[#dired-config][Dired Config]]
 - [[#lsp][LSP]]
@@ -314,6 +316,23 @@
 * Project Management
 
 ** Projectile
+
+*** Setup
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :diminish projectile-mode
+    :config (projectile-mode)
+    :custom ((projectile-completion-system 'ivy))
+    :bind-keymap
+    ("C-c p" . projectile-command-map))
+#+END_SRC
+
+*** Counsel Integration
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel-projectile
+    :after projectile
+    :config (counsel-projectile-mode))
+#+END_SRC
 
 ** Magit
 

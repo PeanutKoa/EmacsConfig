@@ -112,6 +112,17 @@
 
 (which-key-mode 1)
 
+(use-package helpful
+  :commands (helpful-callable helpful-variable helpful-command helpful-key)
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
 (use-package ivy
   :straight t
   :diminish
@@ -157,3 +168,14 @@
 (use-package toc-org
   :straight t
   :hook (org-mode . toc-org-mode))
+
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map))
+
+(use-package counsel-projectile
+  :after projectile
+  :config (counsel-projectile-mode))
