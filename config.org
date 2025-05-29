@@ -27,6 +27,11 @@
   - [[#ui][UI]]
     - [[#doom-modeline][Doom Modeline]]
     - [[#which-key][Which-Key]]
+  - [[#ivy][Ivy]]
+    - [[#ivy-setup][Ivy Setup]]
+    - [[#ivy-rich][Ivy Rich]]
+    - [[#counsel][Counsel]]
+    - [[#ivy-precient][Ivy-Precient]]
 - [[#org-mode][Org Mode]]
   - [[#toc-org][TOC-ORG]]
     - [[#setup-2][Setup]]
@@ -206,6 +211,61 @@
 #+BEGIN_SRC emacs-lisp
   (which-key-mode 1)
 #+END_SRC
+
+** Ivy
+
+*** Ivy Setup
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+    :straight t
+    :diminish
+    :bind (("C-s" . swiper)
+  	 :map ivy-minibuffer-map
+  	 ("TAB" . ivy-alt-done)
+  	 ("C-l" . ivy-alt-done)
+  	 ("C-j" . ivy-next-line)
+  	 ("C-k" . ivy-previous-line)
+  	 :map ivy-switch-buffer-map
+  	 ("C-k" . ivy-previous-line)
+  	 ("C-l" . ivy-done)
+  	 ("C-d" . ivy-switch-buffer-kill)
+  	 :map ivy-reverse-i-search-map
+  	 ("C-k" . ivy-previous-line)
+  	 ("C-d" . ivy-reverse-i-search-kill))
+    :config
+    (ivy-mode 1))
+#+END_SRC
+
+*** Ivy Rich
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-rich
+    :straight t
+    :after ivy
+    :init
+    (ivy-rich-mode 1))
+#+END_SRC
+
+*** Counsel
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :straight t
+    :custom
+    (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+    :config
+    (counsel-mode 1))
+#+END_SRC
+
+*** Ivy-Precient
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-prescient
+    :straight t
+    :config
+    (ivy-prescient-mode 1))
+#+END_SRC
+
 * Org Mode
 
 ** TOC-ORG
