@@ -1,0 +1,215 @@
+#+TITLE: Peanutkoa's Config
+#+AUTHOR: PeanutKoa
+#+DESCRIPTION: My own personal config for GNU Emacs
+
+* TABLE OF CONTENTS :TOC_3:
+- [[#package-management-basic-keybinds-other-startup-stuff][Package Management, Basic Keybinds, Other Startup Stuff]]
+  - [[#startup-info][Startup Info]]
+    - [[#setup][Setup]]
+  - [[#straightel-and-use-package][Straight.el and Use-Package]]
+    - [[#setup-1][Setup]]
+  - [[#meta-settings][Meta Settings]]
+    - [[#save-file-changes][Save File Changes]]
+    - [[#startup-fullscreen][Startup Fullscreen]]
+  - [[#beautifying][Beautifying]]
+    - [[#catppuccin][Catppuccin]]
+    - [[#rainbow-delimiters][Rainbow Delimiters]]
+    - [[#font][Font]]
+    - [[#line-numbering][Line Numbering]]
+    - [[#smoother-scrollingrefresh-display][Smoother Scrolling/Refresh Display]]
+    - [[#remove-elements][Remove Elements]]
+  - [[#keybindings][Keybindings]]
+    - [[#evil-mode][Evil Mode]]
+    - [[#evil-collection][Evil Collection]]
+    - [[#general-setup][General Setup]]
+    - [[#globalnon-leader-keybinds][Global/Non-Leader Keybinds]]
+- [[#ui-and-ivy][UI and Ivy]]
+  - [[#ui][UI]]
+    - [[#doom-modeline][Doom Modeline]]
+- [[#org-mode][Org Mode]]
+  - [[#toc-org][TOC-ORG]]
+    - [[#setup-2][Setup]]
+- [[#project-management][Project Management]]
+
+* Package Management, Basic Keybinds, Other Startup Stuff
+
+** Startup Info
+
+*** Setup
+#+BEGIN_SRC emacs-lisp
+  ;; The default is 800 kilobytes.  Measured in bytes.
+  (setq gc-cons-threshold (* 50 1000 1000))
+
+  (defun efs/display-startup-time ()
+    (message "Emacs loaded in %s with %d garbage collections."
+             (format "%.2f seconds"
+                     (float-time
+                      (time-subtract after-init-time before-init-time)))
+             gcs-done))
+
+  (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+#+END_SRC
+
+** Straight.el and Use-Package
+
+*** Setup
+#+BEGIN_SRC emacs-lisp
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name
+          "straight/repos/straight.el/bootstrap.el"
+          (or (bound-and-true-p straight-base-dir)
+              user-emacs-directory)))
+        (bootstrap-version 7))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+  (straight-use-package 'use-package)
+#+END_SRC
+
+** Meta Settings
+
+*** Save File Changes
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-default nil
+        make-backup-files nil
+        large-file-warning-threshold nil)
+#+END_SRC
+
+*** Startup Fullscreen
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+END_SRC
+** Beautifying
+
+*** Catppuccin
+#+BEGIN_SRC emacs-lisp
+  (use-package catppuccin-theme :straight t)
+  (load-theme 'catppuccin :no-confirm)
+#+END_SRC
+
+*** Rainbow Delimiters
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :straight t
+    :hook (prog-mode . rainbow-delimiters-mode))
+#+END_SRC
+
+*** Font
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
+#+END_SRC
+
+*** Line Numbering
+#+BEGIN_SRC emacs-lisp
+    ;;setup
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+  (setq display-line-numbers-type 'relative)
+    ;;turn off for some modes
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  shell-mode-hook
+                  treemacs-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+END_SRC
+
+*** Smoother Scrolling/Refresh Display
+#+BEGIN_SRC emacs-lisp
+  (setq redisplay-dont-pause t
+    scroll-margin 1
+    scroll-step 1
+    scroll-conservatively 10000
+    scroll-preserve-screen-position 1)
+#+END_SRC
+
+*** Remove Elements
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-message t)
+  (setq ring-bell-function 'ignore)
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+#+END_SRC
+
+** Keybindings
+
+*** Evil Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :straight t
+    :init
+    (setq evil-want-integration t)
+    (setq evil-want-keybinding nil)
+    (setq evil-want-C-u-scroll t)
+    (setq evil-want-C-i-jump nil)
+    :config
+    (evil-mode 1)
+    (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+
+    ;; Use visual line motions even outside of visual-line-mode buffers
+    (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+    (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+    (evil-set-initial-state 'messages-buffer-mode 'normal)
+    (evil-set-initial-state 'dashboard-mode 'normal))
+#+END_SRC
+
+*** Evil Collection
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-collection
+    :straight t
+    :after evil
+    :config
+    (evil-collection-init))
+#+END_SRC
+
+*** General Setup
+#+BEGIN_SRC emacs-lisp
+  (use-package general
+    :straight t
+    :after evil
+    :config
+    (general-evil-setup)
+    (general-create-definer pkoa/leader-keys
+    :keymaps '(normal insert visual emacs)
+    :prefix "SPC"
+    :global-prefix "C-SPC"))
+#+END_SRC
+
+*** Global/Non-Leader Keybinds
+#+BEGIN_SRC emacs-lisp
+  (general-define-key
+   "C-x M-x" 'redraw-display
+   "<escape>" 'keyboard-escape-quit)
+#+END_SRC
+
+* UI and Ivy
+
+** UI
+
+*** Doom Modeline
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-modeline
+    :straight t
+    :init (doom-modeline-mode 1))
+#+END_SRC
+
+* Org Mode
+
+** TOC-ORG
+
+*** Setup
+#+BEGIN_SRC emacs-lisp
+  (use-package toc-org
+    :straight t
+    :hook (org-mode . toc-org-mode))
+#+END_SRC
+
+* Project Management
