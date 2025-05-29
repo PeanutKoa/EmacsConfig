@@ -43,6 +43,8 @@
     - [[#setup-4][Setup]]
     - [[#counsel-integration][Counsel Integration]]
   - [[#magit][Magit]]
+    - [[#magit-setup][Magit Setup]]
+    - [[#magit-forge][Magit Forge]]
   - [[#dired-config][Dired Config]]
 - [[#lsp][LSP]]
 
@@ -335,6 +337,20 @@
 #+END_SRC
 
 ** Magit
+
+*** Magit Setup
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :straight t
+    :commands magit-status)
+#+END_SRC
+
+*** Magit Forge
+#+BEGIN_SRC emacs-lisp
+  (use-package forge
+    :after magit
+    :straight t)
+#+END_SRC 
 
 ** Dired Config
 

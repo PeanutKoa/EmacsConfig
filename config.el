@@ -179,3 +179,11 @@
 (use-package counsel-projectile
   :after projectile
   :config (counsel-projectile-mode))
+
+(use-package magit
+  :straight t
+  :commands magit-status)
+
+(use-package forge
+  :after magit
+  :straight t)
