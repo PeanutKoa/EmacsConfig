@@ -27,15 +27,22 @@
   - [[#ui][UI]]
     - [[#doom-modeline][Doom Modeline]]
     - [[#which-key][Which-Key]]
+    - [[#helpful][Helpful]]
   - [[#ivy][Ivy]]
     - [[#ivy-setup][Ivy Setup]]
     - [[#ivy-rich][Ivy Rich]]
     - [[#counsel][Counsel]]
     - [[#ivy-precient][Ivy-Precient]]
 - [[#org-mode][Org Mode]]
-  - [[#toc-org][TOC-ORG]]
+  - [[#org-bullet-mode][Org Bullet Mode]]
     - [[#setup-2][Setup]]
+  - [[#toc-org][TOC-ORG]]
+    - [[#setup-3][Setup]]
 - [[#project-management][Project Management]]
+  - [[#projectile][Projectile]]
+  - [[#magit][Magit]]
+  - [[#dired-config][Dired Config]]
+- [[#lsp][LSP]]
 
 * Package Management, Basic Keybinds, Other Startup Stuff
 
@@ -91,6 +98,7 @@
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+END_SRC
+
 ** Beautifying
 
 *** Catppuccin/Theme
@@ -214,6 +222,20 @@
   (which-key-mode 1)
 #+END_SRC
 
+*** Helpful
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful
+    :commands (helpful-callable helpful-variable helpful-command helpful-key)
+    :custom
+    (counsel-describe-function-function #'helpful-callable)
+    (counsel-describe-variable-function #'helpful-variable)
+    :bind
+    ([remap describe-function] . counsel-describe-function)
+    ([remap describe-command] . helpful-command)
+    ([remap describe-variable] . counsel-describe-variable)
+    ([remap describe-key] . helpful-key))
+#+END_SRC
+
 ** Ivy
 
 *** Ivy Setup
@@ -270,6 +292,16 @@
 
 * Org Mode
 
+** Org Bullet Mode
+
+*** Setup
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :straight t
+    :hook (org-mode . org-indent-mode))
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+END_SRC
+
 ** TOC-ORG
 
 *** Setup
@@ -280,3 +312,11 @@
 #+END_SRC
 
 * Project Management
+
+** Projectile
+
+** Magit
+
+** Dired Config
+
+* LSP

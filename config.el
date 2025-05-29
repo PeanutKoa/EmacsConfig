@@ -149,6 +149,11 @@
   :config
   (ivy-prescient-mode 1))
 
+(use-package org-bullets
+  :straight t
+  :hook (org-mode . org-indent-mode))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
 (use-package toc-org
   :straight t
   :hook (org-mode . toc-org-mode))
