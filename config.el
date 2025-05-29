@@ -33,7 +33,9 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(use-package catppuccin-theme :straight t)
+(use-package catppuccin-theme
+  :straight t)
+(straight-use-package 'doom-themes)
 (load-theme 'catppuccin :no-confirm)
 
 (use-package rainbow-delimiters
