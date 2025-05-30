@@ -92,6 +92,10 @@
   :config
   (evil-collection-init))
 
+(use-package evil-nerd-commenter
+  :straight t)
+;; please bind to "<leader>"+";"
+
 (use-package general
   :straight t
   :after evil
@@ -142,18 +146,15 @@
   :config
   (ivy-mode 1))
 
-(use-package ivy-rich
-  :straight t
-  :after ivy
-  :init
-  (ivy-rich-mode 1))
-
 (use-package counsel
   :straight t
   :custom
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
   (counsel-mode 1))
+
+(use-package ivy-rich :straight t)
+(ivy-rich-mode 1)
 
 (use-package ivy-prescient
   :straight t
@@ -170,6 +171,7 @@
   :hook (org-mode . toc-org-mode))
 
 (use-package projectile
+  :straight t
   :diminish projectile-mode
   :config (projectile-mode)
   :custom ((projectile-completion-system 'ivy))
@@ -177,6 +179,7 @@
   ("C-c p" . projectile-command-map))
 
 (use-package counsel-projectile
+  :straight t
   :after projectile
   :config (counsel-projectile-mode))
 
@@ -191,3 +194,6 @@
 (use-package nerd-icons-dired
   :straight t
   :hook (dired-mode . nerd-icons-dired-mode))
+
+(use-package dired-single
+  :straight t)

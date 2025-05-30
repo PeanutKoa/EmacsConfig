@@ -275,14 +275,6 @@
     (ivy-mode 1))
 #+END_SRC
 
-*** Ivy Rich
-#+BEGIN_SRC emacs-lisp
-  (use-package ivy-rich
-    :straight t
-    :after ivy
-    :init
-    (ivy-rich-mode 1))
-#+END_SRC
 
 *** Counsel
 
@@ -293,6 +285,12 @@
     (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
     :config
     (counsel-mode 1))
+#+END_SRC
+
+*** Ivy Rich
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-rich :straight t)
+  (ivy-rich-mode 1)
 #+END_SRC
 
 *** Ivy-Precient
