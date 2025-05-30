@@ -295,8 +295,10 @@
 
 *** Ivy Rich
 #+BEGIN_SRC emacs-lisp
-  (use-package ivy-rich :straight t)
-  (ivy-rich-mode 1)
+  (use-package ivy-rich
+    :straight t
+    :config
+    (ivy-rich-mode 1))
 #+END_SRC
 
 *** Ivy-Precient
