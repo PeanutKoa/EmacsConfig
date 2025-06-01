@@ -57,6 +57,9 @@
     - [[#company-mode][Company-Mode]]
 - [[#terminal-and-shell][Terminal and Shell]]
 - [[#keybindings-leader][Keybindings Leader]]
+- [[#ending-script][Ending Script]]
+  - [[#optimization][Optimization]]
+    - [[#gc-faster][GC faster]]
 
 * Package Management, Basic Keybinds, Other Startup Stuff
 
@@ -447,3 +450,12 @@
 * Terminal and Shell
 
 * Keybindings Leader
+
+* Ending Script
+
+** Optimization
+
+*** GC faster
+#+BEGIN_SRC
+  (setq gc-cons-threshold (* 2 1000 1000))
+#+END_SRC
