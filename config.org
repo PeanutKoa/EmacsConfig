@@ -55,6 +55,7 @@
     - [[#lsp-uicompatibility][LSP UI/Compatibility]]
   - [[#company][Company]]
     - [[#company-mode][Company-Mode]]
+- [[#terminal-and-shell][Terminal and Shell]]
 - [[#keybindings-leader][Keybindings Leader]]
 
 * Package Management, Basic Keybinds, Other Startup Stuff
@@ -442,5 +443,7 @@
     :straight t
     :hook (company-mode . company-box-mode))
 #+END_SRC
+
+* Terminal and Shell
 
 * Keybindings Leader

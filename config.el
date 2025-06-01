@@ -153,8 +153,10 @@
   :config
   (counsel-mode 1))
 
-(use-package ivy-rich :straight t)
-(ivy-rich-mode 1)
+(use-package ivy-rich
+  :straight t
+  :config
+  (ivy-rich-mode 1))
 
 (use-package ivy-prescient
   :straight t
