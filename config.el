@@ -53,7 +53,8 @@
                 term-mode-hook
                 shell-mode-hook
                 treemacs-mode-hook
-                eshell-mode-hook))
+                eshell-mode-hook
+		  vterm-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (setq redisplay-dont-pause t
@@ -242,6 +243,10 @@
 (use-package company-box
   :straight t
   :hook (company-mode . company-box-mode))
+
+(use-package company-prescient
+  :straight t
+  :hook (company-mode . company-prescient-mode))
 
 (use-package term
   :commands term
