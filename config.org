@@ -55,6 +55,7 @@
     - [[#lsp-uicompatibility][LSP UI/Compatibility]]
   - [[#company][Company]]
     - [[#company-mode][Company-Mode]]
+    - [[#company-prescient][Company-Prescient]]
 - [[#terminal-and-shell][Terminal and Shell]]
   - [[#term][Term]]
     - [[#better-term][Better Term]]
@@ -451,6 +452,13 @@
   (use-package company-box
     :straight t
     :hook (company-mode . company-box-mode))
+#+END_SRC
+
+*** Company-Prescient
+#+BEGIN_SRC emacs-lisp
+  (use-package company-prescient
+    :straight t
+    :hook (company-mode . company-prescient-mode))
 #+END_SRC
 
 * Terminal and Shell
