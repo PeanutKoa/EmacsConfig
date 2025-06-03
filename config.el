@@ -54,7 +54,7 @@
                 shell-mode-hook
                 treemacs-mode-hook
                 eshell-mode-hook
-		  vterm-mode-hook))
+		  eat-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (setq redisplay-dont-pause t
@@ -261,13 +261,16 @@
   :straight t
   :hook (term-mode . eterm-256color-mode))
 
-(use-package vterm
-  :straight t
-  :commands vterm
-  :config
-  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
-  ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
-  (setq vterm-max-scrollback 10000))
+(straight-use-package
+ '(eat :type git
+       :host codeberg
+       :repo "akib/emacs-eat"
+       :files ("*.el" ("term" "term/*.el") "*.texi"
+               "*.ti" ("terminfo/e" "terminfo/e/*")
+               ("terminfo/65" "terminfo/65/*")
+               ("integration" "integration/*")
+               (:exclude ".dir-locals.el" "*-tests.el"))
+       :hook (eshell-load . eat-eshell-mode)))
 
 (defun efs/configure-eshell ()
   ;; Save command history when commands are entered
