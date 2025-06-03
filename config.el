@@ -281,9 +281,9 @@
   
   ;; Bind some useful keys for evil-mode
   (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'counsel-esh-history)
-  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
+  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'beginning-of-line)
   (evil-normalize-keymaps)
-
+  
   (setq eshell-history-size         10000
         eshell-buffer-maximum-lines 10000
         eshell-hist-ignoredups t
@@ -292,6 +292,15 @@
 (use-package eshell-git-prompt
   :straight t
   :after eshell)
+
+(use-package eshell-z
+  :straight t
+  :after eshell)
+
+(use-package esh-help
+  :straight t
+  :after eshell
+  :config (setup-esh-help-eldoc))
 
 (use-package eshell
   :hook (eshell-first-time-mode . efs/configure-eshell)
@@ -302,5 +311,16 @@
     (setq eshell-visual-commands '("htop" "nvim")))
   
   (eshell-git-prompt-use-theme 'powerline))
+
+(pkoa/leader
+    "w" '(:ignore t :which-key "Window")
+    "wd" '(delete-window :which-key "Delete Window")
+    "wv" '(evil-window-vsplit :which-key "Split Vertically")
+    "ws" '(evil-window-split :which-key "Split Horizontally")
+"wh" '(evil-window-left :which-key "Switch Window Left")
+"wl" '(evil-window-right :which-key "Switch Window Right")
+"wk" '(evil-window-up :which-key "Switch Window Up")
+"wj" '(evil-window-down :which-key "Switch Window Down")
+"wr" '(redraw-display :which-key "Refresh Window/Display"))
 
 (setq gc-cons-threshold (* 2 1000 1000))
