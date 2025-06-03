@@ -487,16 +487,16 @@
 
 *** EaT (Better Term)
 #+BEGIN_SRC emacs-lisp
-  (straight-use-package
-   '(eat :type git
-         :host codeberg
-         :repo "akib/emacs-eat"
-         :files ("*.el" ("term" "term/*.el") "*.texi"
-                 "*.ti" ("terminfo/e" "terminfo/e/*")
-                 ("terminfo/65" "terminfo/65/*")
-                 ("integration" "integration/*")
-                 (:exclude ".dir-locals.el" "*-tests.el"))
-         :hook (eshell-load . eat-eshell-mode)))
+    (straight-use-package
+     '(eat :type git
+           :host codeberg
+           :repo "akib/emacs-eat"
+           :files ("*.el" ("term" "term/*.el") "*.texi"
+                   "*.ti" ("terminfo/e" "terminfo/e/*")
+                   ("terminfo/65" "terminfo/65/*")
+                   ("integration" "integration/*")
+                   (:exclude ".dir-locals.el" "*-tests.el"))
+           :hook (eshell-load . eat-eshell-mode)))
 #+END_SRC
 
 ** Shell
