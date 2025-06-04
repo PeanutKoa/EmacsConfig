@@ -118,6 +118,7 @@
 (which-key-mode 1)
 
 (use-package helpful
+  :straight t
   :commands (helpful-callable helpful-variable helpful-command helpful-key)
   :custom
   (counsel-describe-function-function #'helpful-callable)
@@ -185,6 +186,12 @@
   :straight t
   :after projectile
   :config (counsel-projectile-mode))
+
+(use-package rg
+  :straight t)
+
+(use-package ag
+  :straight t)
 
 (use-package magit
   :straight t
@@ -308,19 +315,27 @@
 
   (with-eval-after-load 'esh-opt
     (setq eshell-destroy-buffer-when-process-dies t)
-    (setq eshell-visual-commands '("htop" "nvim")))
+    (setq eshell-visual-commands '("htop" "nvim" "gdu")))
   
   (eshell-git-prompt-use-theme 'powerline))
 
 (pkoa/leader
-    "w" '(:ignore t :which-key "Window")
-    "wd" '(delete-window :which-key "Delete Window")
-    "wv" '(evil-window-vsplit :which-key "Split Vertically")
-    "ws" '(evil-window-split :which-key "Split Horizontally")
-"wh" '(evil-window-left :which-key "Switch Window Left")
-"wl" '(evil-window-right :which-key "Switch Window Right")
-"wk" '(evil-window-up :which-key "Switch Window Up")
-"wj" '(evil-window-down :which-key "Switch Window Down")
-"wr" '(redraw-display :which-key "Refresh Window/Display"))
+  "w" '(:ignore t :which-key "Window")
+  "wd" '(delete-window :which-key "Delete Window")
+  "wv" '(evil-window-vsplit :which-key "Split Vertically")
+  "ws" '(evil-window-split :which-key "Split Horizontally")
+  "wh" '(evil-window-left :which-key "Switch Window Left")
+  "wl" '(evil-window-right :which-key "Switch Window Right")
+  "wk" '(evil-window-up :which-key "Switch Window Up")
+  "wj" '(evil-window-down :which-key "Switch Window Down")
+  "wr" '(redraw-display :which-key "Refresh Window/Display")
+  "wi" '(delete-other-windows :which-key "Isolate Window"))
+
+(pkoa/leader
+ "b" '(:ignore t :which-key "Buffer")
+ "bc" '(recenter :which-key "Center on Cursor")
+ "bw" '(save-buffer :which-key "Save Current Buffer")
+ "bd" '(kill-buffer :which-key "Kill Current Buffer")
+ "bs" '(switch-to-buffer :which-key "Switch Buffer"))
 
 (setq gc-cons-threshold (* 2 1000 1000))

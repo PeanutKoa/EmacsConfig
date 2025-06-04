@@ -43,6 +43,7 @@
   - [[#projectile][Projectile]]
     - [[#setup-4][Setup]]
     - [[#counsel-integration][Counsel Integration]]
+    - [[#projectile-rgag-integration][Projectile RG/AG Integration]]
   - [[#magit][Magit]]
     - [[#magit-setup][Magit Setup]]
     - [[#magit-forge][Magit Forge]]
@@ -66,6 +67,7 @@
 - [[#keybindings-leader][Keybindings Leader]]
   - [[#ui-1][UI]]
     - [[#window-w][Window (w)]]
+    - [[#buffer-b][Buffer (b)]]
   - [[#actions][Actions]]
 - [[#ending-script][Ending Script]]
   - [[#optimization][Optimization]]
@@ -260,6 +262,7 @@
 *** Helpful
 #+BEGIN_SRC emacs-lisp
   (use-package helpful
+    :straight t
     :commands (helpful-callable helpful-variable helpful-command helpful-key)
     :custom
     (counsel-describe-function-function #'helpful-callable)
@@ -368,6 +371,15 @@
     :after projectile
     :config (counsel-projectile-mode))
 #+END_SRC
+
+*** Projectile RG/AG Integration
+#+BEGIN_SRC emacs-lisp
+  (use-package rg
+    :straight t)
+
+  (use-package ag
+    :straight t)
+#+END_SRC 
 
 ** Magit
 
@@ -543,7 +555,7 @@
 
     (with-eval-after-load 'esh-opt
       (setq eshell-destroy-buffer-when-process-dies t)
-      (setq eshell-visual-commands '("htop" "nvim")))
+      (setq eshell-visual-commands '("htop" "nvim" "gdu")))
     
     (eshell-git-prompt-use-theme 'powerline))
 
@@ -555,16 +567,27 @@
 
 *** Window (w)
 #+BEGIN_SRC emacs-lisp
-          (pkoa/leader
-            "w" '(:ignore t :which-key "Window")
-            "wd" '(delete-window :which-key "Delete Window")
-            "wv" '(evil-window-vsplit :which-key "Split Vertically")
-            "ws" '(evil-window-split :which-key "Split Horizontally")
-    	"wh" '(evil-window-left :which-key "Switch Window Left")
-    	"wl" '(evil-window-right :which-key "Switch Window Right")
-    	"wk" '(evil-window-up :which-key "Switch Window Up")
-    	"wj" '(evil-window-down :which-key "Switch Window Down")
-  	"wr" '(redraw-display :which-key "Refresh Window/Display"))
+    (pkoa/leader
+      "w" '(:ignore t :which-key "Window")
+      "wd" '(delete-window :which-key "Delete Window")
+      "wv" '(evil-window-vsplit :which-key "Split Vertically")
+      "ws" '(evil-window-split :which-key "Split Horizontally")
+      "wh" '(evil-window-left :which-key "Switch Window Left")
+      "wl" '(evil-window-right :which-key "Switch Window Right")
+      "wk" '(evil-window-up :which-key "Switch Window Up")
+      "wj" '(evil-window-down :which-key "Switch Window Down")
+      "wr" '(redraw-display :which-key "Refresh Window/Display")
+      "wi" '(delete-other-windows :which-key "Isolate Window"))
+#+END_SRC
+
+*** Buffer (b)
+#+BEGIN_SRC emacs-lisp
+  (pkoa/leader
+   "b" '(:ignore t :which-key "Buffer")
+   "bc" '(recenter :which-key "Center on Cursor")
+   "bw" '(save-buffer :which-key "Save Current Buffer")
+   "bd" '(kill-buffer :which-key "Kill Current Buffer")
+   "bs" '(switch-to-buffer :which-key "Switch Buffer"))
 #+END_SRC
 
 ** Actions
