@@ -69,6 +69,7 @@
     - [[#window-w][Window (w)]]
     - [[#buffer-b][Buffer (b)]]
   - [[#actions][Actions]]
+    - [[#file-f][File (f)]]
 - [[#ending-script][Ending Script]]
   - [[#optimization][Optimization]]
     - [[#gc-faster][GC faster]]
@@ -591,6 +592,15 @@
 #+END_SRC
 
 ** Actions
+
+*** File (f)
+#+BEGIN_SRC emacs-lisp
+  (pkoa/leader
+    "f" '(:ignore t :which-key "File")
+    "ff" '(find-file :which-key "Find File")
+    "fr" '(rg :which-key "RipGrep")
+    "fs" '(swiper :which-key "Search File"))
+#+END_SRC 
 
 * Ending Script
 
