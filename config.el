@@ -131,6 +131,11 @@
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
 
+(use-package jinx
+  :straight t
+  :bind (("M-$" . jinx-correct)
+       ("C-M-$" . jinx-languages)))
+
 (use-package ivy
   :straight t
   :diminish
@@ -156,6 +161,9 @@
   (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config
   (counsel-mode 1))
+
+(use-package flycheck
+  :straight t)
 
 (use-package ivy-rich
   :straight t

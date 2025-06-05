@@ -29,6 +29,7 @@
     - [[#doom-modeline][Doom Modeline]]
     - [[#which-key][Which-Key]]
     - [[#helpful][Helpful]]
+    - [[#jinxspellcheck][Jinx/Spellcheck]]
   - [[#ivy][Ivy]]
     - [[#ivy-setup][Ivy Setup]]
     - [[#counsel][Counsel]]
@@ -277,6 +278,14 @@
     ([remap describe-key] . helpful-key))
 #+END_SRC
 
+*** Jinx/Spellcheck
+#+BEGIN_SRC emacs-lisp
+  (use-package jinx
+    :straight t
+    :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
+#+END_SRC
+
 ** Ivy
 
 *** Ivy Setup
@@ -312,6 +321,9 @@
     (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
     :config
     (counsel-mode 1))
+
+  (use-package flycheck
+    :straight t)
 #+END_SRC
 
 *** Ivy Rich
@@ -601,6 +613,7 @@
    "f" '(:ignore t :which-key "File")
   "ff" '(find-file :which-key "Find File")
   "fg" '(rg :which-key "RipGrep")
+  "fG" '(ag :which-key "Silver-Searcher")
   "fs" '(swiper :which-key "Search File")
   "fw" '(write-file :which-key "Write File to...")
   "fr" '(recentf-open-files :which-key "Recent Files"))
