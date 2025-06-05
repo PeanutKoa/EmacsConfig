@@ -1,6 +1,8 @@
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
+(recentf-mode 1)
+
 (defun efs/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
            (format "%.2f seconds"
@@ -337,5 +339,13 @@
  "bw" '(save-buffer :which-key "Save Current Buffer")
  "bd" '(kill-buffer :which-key "Kill Current Buffer")
  "bs" '(switch-to-buffer :which-key "Switch Buffer"))
+
+(pkoa/leader
+ "f" '(:ignore t :which-key "File")
+"ff" '(find-file :which-key "Find File")
+"fg" '(rg :which-key "RipGrep")
+"fs" '(swiper :which-key "Search File")
+"fw" '(write-file :which-key "Write File to...")
+"fr" '(recentf-open-files :which-key "Recent Files"))
 
 (setq gc-cons-threshold (* 2 1000 1000))
