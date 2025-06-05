@@ -22,6 +22,7 @@
     - [[#evil-mode][Evil Mode]]
     - [[#evil-collection][Evil Collection]]
     - [[#evil-commenter][Evil Commenter]]
+    - [[#blimpy][Blimpy]]
     - [[#general-setup][General Setup]]
     - [[#globalnon-leader-keybinds][Global/Non-Leader Keybinds]]
 - [[#ui-and-ivy][UI and Ivy]]
@@ -225,6 +226,16 @@
   (use-package evil-nerd-commenter
     :straight t)
   ;; please bind to "<leader>"+";"
+#+END_SRC
+
+*** Blimpy
+#+BEGIN_SRC emacs-lisp
+(straight-use-package '(blimpy :host github :repo "progfolio/blimpy"))
+  (use-package blimpy
+    :after (evil)
+    :config
+    (add-hook 'blimpy-before-typing-the-word-blimpy-in-emacs-hook
+              (apply-partially #'evil-insert 1)))
 #+END_SRC
 
 *** General Setup

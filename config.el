@@ -99,6 +99,13 @@
   :straight t)
 ;; please bind to "<leader>"+";"
 
+(straight-use-package '(blimpy :host github :repo "progfolio/blimpy"))
+  (use-package blimpy
+    :after (evil)
+    :config
+    (add-hook 'blimpy-before-typing-the-word-blimpy-in-emacs-hook
+              (apply-partially #'evil-insert 1)))
+
 (use-package general
   :straight t
   :after evil
@@ -352,6 +359,7 @@
  "f" '(:ignore t :which-key "File")
 "ff" '(find-file :which-key "Find File")
 "fg" '(rg :which-key "RipGrep")
+"fG" '(ag :which-key "Silver-Searcher")
 "fs" '(swiper :which-key "Search File")
 "fw" '(write-file :which-key "Write File to...")
 "fr" '(recentf-open-files :which-key "Recent Files"))
