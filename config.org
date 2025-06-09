@@ -15,6 +15,7 @@
   - [[#beautifying][Beautifying]]
     - [[#catppuccintheme][Catppuccin/Theme]]
     - [[#rainbow-delimiters][Rainbow Delimiters]]
+    - [[#rainbow-mode][Rainbow Mode]]
     - [[#font][Font]]
     - [[#line-numbering][Line Numbering]]
     - [[#smoother-scrollingrefresh-display][Smoother Scrolling/Refresh Display]]
@@ -155,6 +156,15 @@
   (use-package rainbow-delimiters
     :straight t
     :hook (prog-mode . rainbow-delimiters-mode))
+#+END_SRC
+
+*** Rainbow Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :straight t
+    :hook
+    (prog-mode . rainbow-mode)
+    (org-mode . rainbow-mode))
 #+END_SRC
 
 *** Font
