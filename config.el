@@ -35,6 +35,9 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+(use-package sudo-edit
+  :straight t)
+
 (use-package catppuccin-theme
   :straight t)
 (straight-use-package 'doom-themes)
@@ -50,13 +53,14 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
-  ;;turn off for some modes
+;;turn off for some modes
 (dolist (mode '(org-mode-hook
                 term-mode-hook
                 shell-mode-hook
                 treemacs-mode-hook
                 eshell-mode-hook
-		  eat-mode-hook))
+		eat-mode-hook
+		eww-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (setq redisplay-dont-pause t
@@ -172,9 +176,14 @@
 (use-package flycheck
   :straight t)
 
+(use-package all-the-icons-ivy-rich
+  :straight t
+  :init
+  (all-the-icons-ivy-rich-mode 1))
+
 (use-package ivy-rich
   :straight t
-  :config
+  :init
   (ivy-rich-mode 1))
 
 (use-package ivy-prescient
@@ -356,12 +365,17 @@
  "bs" '(switch-to-buffer :which-key "Switch Buffer"))
 
 (pkoa/leader
- "f" '(:ignore t :which-key "File")
-"ff" '(find-file :which-key "Find File")
-"fg" '(rg :which-key "RipGrep")
-"fG" '(ag :which-key "Silver-Searcher")
-"fs" '(swiper :which-key "Search File")
-"fw" '(write-file :which-key "Write File to...")
-"fr" '(recentf-open-files :which-key "Recent Files"))
+  "f" '(:ignore t :which-key "File")
+  "ff" '(find-file :which-key "Find File")
+  "fP" '((lambda () (interactive)
+	 (find-file "~/.emacs.d/config.org"))
+	 :which-key "Emacs config.org")
+  "fg" '(rg :which-key "RipGrep")
+  "fG" '(ag :which-key "Silver-Searcher")
+  "fs" '(swiper :which-key "Search File")
+  "fw" '(write-file :which-key "Write File to...")
+  "fr" '(recentf-open-files :which-key "Recent Files")
+  "fu" '(sudo-edit-find-file :j which-key "Sudo Find File")
+  "fU" '(sudo-edit :which-key "Sudo Edit File"))
 
 (setq gc-cons-threshold (* 2 1000 1000))

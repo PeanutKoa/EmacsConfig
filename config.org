@@ -11,6 +11,7 @@
   - [[#meta-settings][Meta Settings]]
     - [[#save-file-changes][Save File Changes]]
     - [[#startup-fullscreen][Startup Fullscreen]]
+    - [[#sudo-edit][Sudo Edit]]
   - [[#beautifying][Beautifying]]
     - [[#catppuccintheme][Catppuccin/Theme]]
     - [[#rainbow-delimiters][Rainbow Delimiters]]
@@ -133,6 +134,12 @@
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+END_SRC
 
+*** Sudo Edit
+#+BEGIN_SRC emacs-lisp
+  (use-package sudo-edit
+    :straight t)
+#+END_SRC
+
 ** Beautifying
 
 *** Catppuccin/Theme
@@ -157,18 +164,19 @@
 
 *** Line Numbering
 #+BEGIN_SRC emacs-lisp
-      ;;setup
-    (column-number-mode)
-    (global-display-line-numbers-mode t)
-    (setq display-line-numbers-type 'relative)
-      ;;turn off for some modes
-    (dolist (mode '(org-mode-hook
-                    term-mode-hook
-                    shell-mode-hook
-                    treemacs-mode-hook
-                    eshell-mode-hook
-  		  eat-mode-hook))
-      (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  ;;setup
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+  (setq display-line-numbers-type 'relative)
+  ;;turn off for some modes
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  shell-mode-hook
+                  treemacs-mode-hook
+                  eshell-mode-hook
+  		eat-mode-hook
+  		eww-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+END_SRC
 
 *** Smoother Scrolling/Refresh Display
@@ -339,9 +347,14 @@
 
 *** Ivy Rich
 #+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons-ivy-rich
+    :straight t
+    :init
+    (all-the-icons-ivy-rich-mode 1))
+
   (use-package ivy-rich
     :straight t
-    :config
+    :init
     (ivy-rich-mode 1))
 #+END_SRC
 
@@ -621,13 +634,18 @@
 *** File (f)
 #+BEGIN_SRC emacs-lisp
   (pkoa/leader
-   "f" '(:ignore t :which-key "File")
-  "ff" '(find-file :which-key "Find File")
-  "fg" '(rg :which-key "RipGrep")
-  "fG" '(ag :which-key "Silver-Searcher")
-  "fs" '(swiper :which-key "Search File")
-  "fw" '(write-file :which-key "Write File to...")
-  "fr" '(recentf-open-files :which-key "Recent Files"))
+    "f" '(:ignore t :which-key "File")
+    "ff" '(find-file :which-key "Find File")
+    "fP" '((lambda () (interactive)
+  	 (find-file "~/.emacs.d/config.org"))
+  	 :which-key "Emacs config.org")
+    "fg" '(rg :which-key "RipGrep")
+    "fG" '(ag :which-key "Silver-Searcher")
+    "fs" '(swiper :which-key "Search File")
+    "fw" '(write-file :which-key "Write File to...")
+    "fr" '(recentf-open-files :which-key "Recent Files")
+    "fu" '(sudo-edit-find-file :j which-key "Sudo Find File")
+    "fU" '(sudo-edit :which-key "Sudo Edit File"))
 #+END_SRC 
 
 * Ending Script
