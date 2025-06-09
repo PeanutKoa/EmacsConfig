@@ -354,6 +354,7 @@
   "wl" '(evil-window-right :which-key "Switch Window Right")
   "wk" '(evil-window-up :which-key "Switch Window Up")
   "wj" '(evil-window-down :which-key "Switch Window Down")
+  "ww" '(evil-window-next :which-key "Next Window")
   "wr" '(redraw-display :which-key "Refresh Window/Display")
   "wi" '(delete-other-windows :which-key "Isolate Window"))
 
@@ -374,7 +375,7 @@
   "fG" '(ag :which-key "Silver-Searcher")
   "fs" '(swiper :which-key "Search File")
   "fw" '(write-file :which-key "Write File to...")
-  "fr" '(recentf-open-files :which-key "Recent Files")
+  "fr" '(counsel-recentf :which-key "Recent Files")
   "fu" '(sudo-edit-find-file :j which-key "Sudo Find File")
   "fU" '(sudo-edit :which-key "Sudo Edit File"))
 
