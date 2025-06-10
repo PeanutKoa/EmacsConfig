@@ -4,11 +4,7 @@
 (recentf-mode 1)
 
 (defun efs/display-startup-time ()
-  (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
+  (message "Emacs loaded with %d garbage collections." gcs-done))
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
 
@@ -47,6 +43,12 @@
   :straight t
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package rainbow-mode
+  :straight t
+  :hook
+  (prog-mode . rainbow-mode)
+  (org-mode . rainbow-mode))
+
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
 
 ;;setup
@@ -74,6 +76,30 @@
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+
+(use-package nerd-icons
+  :straight t)
+
+(use-package dashboard
+  :straight t
+  :init
+  (setq initial-buffer-choice 'dashboard-open)
+  (setq dashboard-display-icons-p t)     ; display icons on both GUI and terminal
+  (setq dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-center-content t)
+  (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Evil!")
+  (setq dashboard-startup-banner "~/.emacs.d/evil.png") 
+  (setq dashboard-items '((recents   . 5)
+  			  (bookmarks . 5)
+  			  (projects  . 5)
+  			  (registers . 5)))
+  :custom
+  (dashboard-modify-heading-icons '((recents . "file-text")
+                                    (bookmarks . "book")))
+  :config
+  (dashboard-setup-startup-hook))
 
 (use-package evil
   :straight t
@@ -176,15 +202,15 @@
 (use-package flycheck
   :straight t)
 
-(use-package all-the-icons-ivy-rich
+(use-package nerd-icons-ivy-rich
   :straight t
   :init
-  (all-the-icons-ivy-rich-mode 1))
+  (nerd-icons-ivy-rich-mode 1))
 
-(use-package ivy-rich
-  :straight t
-  :init
-  (ivy-rich-mode 1))
+  (use-package ivy-rich
+    :straight t
+    :init
+    (ivy-rich-mode 1))
 
 (use-package ivy-prescient
   :straight t
@@ -280,6 +306,9 @@
 (use-package company-prescient
   :straight t
   :hook (company-mode . company-prescient-mode))
+
+(use-package lua-mode
+  :straight t)
 
 (use-package term
   :commands term
