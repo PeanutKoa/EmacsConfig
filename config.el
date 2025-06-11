@@ -34,6 +34,9 @@
 (use-package sudo-edit
   :straight t)
 
+(use-package diminish
+  :straight t)
+
 (use-package catppuccin-theme
   :straight t)
 (straight-use-package 'doom-themes)
@@ -78,7 +81,9 @@
 (tool-bar-mode -1)
 
 (use-package nerd-icons
-  :straight t)
+  :straight t
+  :custom
+  (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
 (use-package dashboard
   :straight t
@@ -95,9 +100,6 @@
   			  (bookmarks . 5)
   			  (projects  . 5)
   			  (registers . 5)))
-  :custom
-  (dashboard-modify-heading-icons '((recents . "file-text")
-                                    (bookmarks . "book")))
   :config
   (dashboard-setup-startup-hook))
 
@@ -173,6 +175,28 @@
   :bind (("M-$" . jinx-correct)
        ("C-M-$" . jinx-languages)))
 
+(use-package treemacs
+  :straight t
+  :defer t)
+
+(use-package treemacs-evil
+  :after (treemacs evil)
+  :straight t)
+
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :straight t)
+
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :straight t)
+
+(use-package treemacs-nerd-icons
+  :straight t
+  :after treemacs
+  :config
+  (treemacs-load-theme "nerd-icons"))
+
 (use-package ivy
   :straight t
   :diminish
@@ -200,7 +224,10 @@
   (counsel-mode 1))
 
 (use-package flycheck
-  :straight t)
+  :straight t
+  :defer t
+  :diminish
+  :init (global-flycheck-mode))
 
 (use-package nerd-icons-ivy-rich
   :straight t
@@ -290,14 +317,14 @@
 (use-package company
   :straight t
   :after lsp-mode
-  :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
               ("<tab>" . company-complete-selection))
   (:map lsp-mode-map
         ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  (company-idle-delay 0.0)
+  (global-company-mode t))
 
 (use-package company-box
   :straight t

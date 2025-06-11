@@ -6,3 +6,4 @@ forge-database.sqlite
 transient/
 .cache/
 recentf
+url/
