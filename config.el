@@ -94,6 +94,8 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-center-content t)
+  (setq dashboard-projects-backend 'projectile)
+  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name)
   (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Evil!")
   (setq dashboard-startup-banner "~/.emacs.d/evil.png") 
   (setq dashboard-items '((recents   . 5)
@@ -102,6 +104,8 @@
   			  (registers . 5)))
   :config
   (dashboard-setup-startup-hook))
+
+(add-to-list 'default-frame-alist '(alpha-background . 95))
 
 (use-package evil
   :straight t
@@ -177,6 +181,8 @@
 
 (use-package treemacs
   :straight t
+  :config
+  (setq treemacs-position 'right)
   :defer t)
 
 (use-package treemacs-evil
@@ -225,9 +231,10 @@
 
 (use-package flycheck
   :straight t
+  :after lsp-mode
   :defer t
   :diminish
-  :init (global-flycheck-mode))
+  :hook (lsp-mode . flycheck-mode))
 
 (use-package nerd-icons-ivy-rich
   :straight t
@@ -286,6 +293,20 @@
 
 (use-package dired-single
   :straight t)
+
+(use-package dired-open
+  :straight t
+  :config
+  (setq dired-open-extensions '(("gif" .  "gwenview")
+				("jpg" .  "gwenview")
+				("png" .  "gwenview")
+				("mov" .    "haruna")
+				("mp4" .    "haruna")
+				("mkv" .    "haruna")
+				("mp3" . "audacious")
+				("ogg" . "audacious")
+				("acm" . "audacious")
+				("wav" . "audacious"))))
 
 (defun pkoa/lsp-mode-setup ()
   (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
