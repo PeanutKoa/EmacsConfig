@@ -791,6 +791,7 @@
     "m" '(:ignore t :which-key "Magit")
     "mm" '(magit-status :which-key "Magit Status")
     "md" '(magit-dispatch :which-key "Dispatch")
+    "mf" '(with-editor-finish :which-key "Confirm")
     "ms" '(magit-stage-modified :which-key "Stage")
     "mS" '(magit-unstage-all :which-key "Unstage")
     "mc" '(magit-commit :which-key "Commit")
