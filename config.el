@@ -37,6 +37,27 @@
 (use-package diminish
   :straight t)
 
+(use-package app-launcher
+  :straight '(app-launcher :host github :repo "SebastienWae/app-launcher"))
+
+(defun emacs-run-launcher ()
+  "Creates a Run Launcher similar to KRunner"
+  (interactive)
+  (with-selected-frame 
+    (make-frame '((name . "emacs-run-launcher")
+                  (minibuffer . only)
+                  (fullscreen . 0) ; no fullscreen
+                  (undecorated . t) ; remove title bar
+                  ;;(auto-raise . t) ; focus on this frame
+                  ;;(tool-bar-lines . 0)
+                  ;;(menu-bar-lines . 0)
+                  (internal-border-width . 10)
+                  (width . 80)
+                  (height . 11)))
+                  (unwind-protect
+                    (app-launcher-run-app)
+                    (delete-frame))))
+
 (use-package catppuccin-theme
   :straight t)
 (straight-use-package 'doom-themes)

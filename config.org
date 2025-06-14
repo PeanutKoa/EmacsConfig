@@ -13,6 +13,7 @@
     - [[#startup-fullscreen][Startup Fullscreen]]
     - [[#sudo-edit][Sudo Edit]]
     - [[#diminish][Diminish]]
+    - [[#app-launcher][App Launcher]]
   - [[#beautifying][Beautifying]]
     - [[#catppuccintheme][Catppuccin/Theme]]
     - [[#rainbow-delimiters][Rainbow Delimiters]]
@@ -81,6 +82,7 @@
     - [[#buffer-b][Buffer (b)]]
   - [[#actions][Actions]]
     - [[#file-f][File (f)]]
+    - [[#magit-m][Magit (m)]]
 - [[#ending-script][Ending Script]]
   - [[#optimization][Optimization]]
     - [[#gc-faster][GC faster]]
@@ -148,6 +150,30 @@
 #+BEGIN_SRC emacs-lisp
   (use-package diminish
     :straight t)
+#+END_SRC
+
+*** App Launcher
+#+BEGIN_SRC emacs-lisp
+  (use-package app-launcher
+    :straight '(app-launcher :host github :repo "SebastienWae/app-launcher"))
+
+  (defun emacs-run-launcher ()
+    "Creates a Run Launcher similar to KRunner, set to C-M-<SPC>"
+    (interactive)
+    (with-selected-frame 
+      (make-frame '((name . "emacs-run-launcher")
+                    (minibuffer . only)
+                    (fullscreen . 0) ; no fullscreen
+                    (undecorated . t) ; remove title bar
+                    (auto-raise . t) ; focus on this frame
+                    ;;(tool-bar-lines . 0)
+                    ;;(menu-bar-lines . 0)
+                    (internal-border-width . 10)
+                    (width . 80)
+                    (height . 11)))
+                    (unwind-protect
+                      (app-launcher-run-app)
+                      (delete-frame))))
 #+END_SRC
 
 ** Beautifying
@@ -360,29 +386,29 @@
 
 *** Treemacs
 #+BEGIN_SRC emacs-lisp
-  (use-package treemacs
-    :straight t
-    :config
-    (setq treemacs-position 'right)
-    :defer t)
+    (use-package treemacs
+      :straight t
+      :config
+      (setq treemacs-position 'right)
+      :defer t)
 
-  (use-package treemacs-evil
-    :after (treemacs evil)
-    :straight t)
+    (use-package treemacs-evil
+      :after (treemacs evil)
+      :straight t)
 
-  (use-package treemacs-projectile
-    :after (treemacs projectile)
-    :straight t)
+    (use-package treemacs-projectile
+      :after (treemacs projectile)
+      :straight t)
 
-  (use-package treemacs-magit
-    :after (treemacs magit)
-    :straight t)
+    (use-package treemacs-magit
+      :after (treemacs magit)
+      :straight t)
 
-  (use-package treemacs-nerd-icons
-    :straight t
-    :after treemacs
-    :config
-    (treemacs-load-theme "nerd-icons"))
+    (use-package treemacs-nerd-icons
+      :straight t
+      :after treemacs
+      :config
+      (treemacs-load-theme "nerd-icons"))
 
 #+END_SRC
 
@@ -759,6 +785,18 @@
     "fU" '(sudo-edit :which-key "Sudo Edit File"))
 #+END_SRC 
 
+*** Magit (m)
+#+BEGIN_SRC emacs-lisp
+  (pkoa/leader
+    "m" '(:ignore t :which-key "Magit")
+    "mm" '(magit-status :which-key "Magit Status")
+    "md" '(magit-dispatch :which-key "Dispatch")
+    "ms" '(magit-stage-modified :which-key "Stage")
+    "mS" '(magit-unstage-all :which-key "Unstage")
+    "mc" '(magit-commit :which-key "Commit")
+    "mp" '(magit-push :which-key "Push")
+    "mP" '(magit-pull :which-key "Pull"))
+#+END_SRC
 * Ending Script
 
 ** Optimization
