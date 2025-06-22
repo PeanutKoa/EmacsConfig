@@ -41,14 +41,14 @@
   :straight '(app-launcher :host github :repo "SebastienWae/app-launcher"))
 
 (defun emacs-run-launcher ()
-  "Creates a Run Launcher similar to KRunner"
+  "Creates a Run Launcher similar to KRunner, set to C-M-<SPC>"
   (interactive)
   (with-selected-frame 
     (make-frame '((name . "emacs-run-launcher")
                   (minibuffer . only)
                   (fullscreen . 0) ; no fullscreen
                   (undecorated . t) ; remove title bar
-                  ;;(auto-raise . t) ; focus on this frame
+                  (auto-raise . t) ; focus on this frame
                   ;;(tool-bar-lines . 0)
                   ;;(menu-bar-lines . 0)
                   (internal-border-width . 10)
@@ -86,6 +86,7 @@
                 treemacs-mode-hook
                 eshell-mode-hook
 		eat-mode-hook
+		woman-mode-hook
 		eww-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
@@ -272,9 +273,28 @@
   :config
   (ivy-prescient-mode 1))
 
-(use-package org-bullets
+(defun pkoa/hyphen-dot ()
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))))
+
+  (use-package org
+    :hook (org-mode . visual-line-mode)
+    (org-mode . org-indent-mode)
+    :config
+    (setq org-ellipsis " ▾")
+    (pkoa/hyphen-dot))
+
+(use-package visual-fill-column
   :straight t
-  :hook (org-mode . org-indent-mode))
+  :config
+  (setq visual-fill-column-width 170
+	visual-fill-column-center-text t)
+  :hook (org-mode . visual-fill-column-mode))
+
+(use-package org-bullets
+  :straight t)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (use-package toc-org
@@ -471,10 +491,22 @@
 	 :which-key "Emacs config.org")
   "fg" '(rg :which-key "RipGrep")
   "fG" '(ag :which-key "Silver-Searcher")
+  "fe" '(eval-last-sexp :which-key "evaluate")
   "fs" '(swiper :which-key "Search File")
   "fw" '(write-file :which-key "Write File to...")
   "fr" '(counsel-recentf :which-key "Recent Files")
   "fu" '(sudo-edit-find-file :j which-key "Sudo Find File")
   "fU" '(sudo-edit :which-key "Sudo Edit File"))
+
+(pkoa/leader
+  "m" '(:ignore t :which-key "Magit")
+  "mm" '(magit-status :which-key "Magit Status")
+  "md" '(magit-dispatch :which-key "Dispatch")
+  "mf" '(with-editor-finish :which-key "Confirm")
+  "ms" '(magit-stage-modified :which-key "Stage")
+  "mS" '(magit-unstage-all :which-key "Unstage")
+  "mc" '(magit-commit :which-key "Commit")
+  "mp" '(magit-push :which-key "Push")
+  "mP" '(magit-pull :which-key "Pull"))
 
 (setq gc-cons-threshold (* 2 1000 1000))

@@ -44,13 +44,15 @@
     - [[#ivy-rich][Ivy Rich]]
     - [[#ivy-precient][Ivy-Precient]]
 - [[#org-mode][Org Mode]]
-  - [[#org-bullet-mode][Org Bullet Mode]]
-    - [[#setup-2][Setup]]
-  - [[#toc-org][TOC-ORG]]
-    - [[#setup-3][Setup]]
+  - [[#beautifying-1][Beautifying]]
+    - [[#basic-setup][Basic Setup]]
+    - [[#visual-fill][Visual-Fill]]
+    - [[#org-bullets][Org-Bullets]]
+  - [[#functional][Functional]]
+    - [[#toc-org][TOC-Org]]
 - [[#project-management][Project Management]]
   - [[#projectile][Projectile]]
-    - [[#setup-4][Setup]]
+    - [[#setup-2][Setup]]
     - [[#counsel-integration][Counsel Integration]]
     - [[#projectile-rgag-integration][Projectile RG/AG Integration]]
   - [[#magit][Magit]]
@@ -220,6 +222,7 @@
                   treemacs-mode-hook
                   eshell-mode-hook
   		eat-mode-hook
+  		woman-mode-hook
   		eww-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+END_SRC
@@ -480,19 +483,44 @@
 
 * Org Mode
 
-** Org Bullet Mode
+** Beautifying
 
-*** Setup
+*** Basic Setup
+#+BEGIN_SRC emacs-lisp
+  (defun pkoa/hyphen-dot ()
+    ;; Replace list hyphen with dot
+    (font-lock-add-keywords 'org-mode
+                            '(("^ *\\([-]\\) "
+                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))))
+
+    (use-package org
+      :hook (org-mode . visual-line-mode)
+      (org-mode . org-indent-mode)
+      :config
+      (setq org-ellipsis " ▾")
+      (pkoa/hyphen-dot))
+#+END_SRC
+
+*** Visual-Fill
+#+BEGIN_SRC emacs-lisp
+  (use-package visual-fill-column
+    :straight t
+    :config
+    (setq visual-fill-column-width 170
+  	visual-fill-column-center-text t)
+    :hook (org-mode . visual-fill-column-mode))
+#+END_SRC
+
+*** Org-Bullets
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
-    :straight t
-    :hook (org-mode . org-indent-mode))
+    :straight t)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+END_SRC
 
-** TOC-ORG
+** Functional
 
-*** Setup
+*** TOC-Org
 #+BEGIN_SRC emacs-lisp
   (use-package toc-org
     :straight t
@@ -778,6 +806,7 @@
   	 :which-key "Emacs config.org")
     "fg" '(rg :which-key "RipGrep")
     "fG" '(ag :which-key "Silver-Searcher")
+    "fe" '(eval-last-sexp :which-key "evaluate")
     "fs" '(swiper :which-key "Search File")
     "fw" '(write-file :which-key "Write File to...")
     "fr" '(counsel-recentf :which-key "Recent Files")
