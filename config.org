@@ -85,6 +85,8 @@
   - [[#actions][Actions]]
     - [[#file-f][File (f)]]
     - [[#magit-m][Magit (m)]]
+    - [[#org-o][Org (o)]]
+    - [[#misc-non-prefixed][Misc (non-prefixed)]]
 - [[#ending-script][Ending Script]]
   - [[#optimization][Optimization]]
     - [[#gc-faster][GC faster]]
@@ -320,12 +322,12 @@
 
 *** Blimpy
 #+BEGIN_SRC emacs-lisp
-(straight-use-package '(blimpy :host github :repo "progfolio/blimpy"))
-  (use-package blimpy
-    :after (evil)
-    :config
-    (add-hook 'blimpy-before-typing-the-word-blimpy-in-emacs-hook
-              (apply-partially #'evil-insert 1)))
+    (use-package blimpy
+      :straight (blimpy :host github :repo "progfolio/blimpy")
+      :after (evil)
+      :config
+      (add-hook 'blimpy-before-typing-the-word-blimpy-in-emacs-hook
+                (apply-partially #'evil-insert 1)))
 #+END_SRC
 
 *** General Setup
@@ -827,6 +829,20 @@
     "mp" '(magit-push :which-key "Push")
     "mP" '(magit-pull :which-key "Pull"))
 #+END_SRC
+
+
+*** Org (o)
+#+BEGIN_SRC emacs-lisp
+    (pkoa/leader
+    "o" '(:ignore t :which-key "Org"))
+#+END_SRC
+
+*** Misc (non-prefixed)
+#+BEGIN_SRC emacs-lisp
+  (pkoa/leader
+    "SPC" '(counsel-M-x :which-key "M-x"))
+#+END_SRC
+
 * Ending Script
 
 ** Optimization
