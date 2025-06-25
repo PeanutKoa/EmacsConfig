@@ -158,9 +158,6 @@
 
 *** App Launcher
 #+BEGIN_SRC emacs-lisp
-  (use-package app-launcher
-    :straight '(app-launcher :host github :repo "SebastienWae/app-launcher"))
-
   (defun emacs-run-launcher ()
     "Creates a Run Launcher similar to KRunner, set to C-M-<SPC>"
     (interactive)
@@ -176,7 +173,7 @@
                     (width . 80)
                     (height . 11)))
                     (unwind-protect
-                      (app-launcher-run-app)
+                      (counsel-linux-app)
                       (delete-frame))))
 #+END_SRC
 
@@ -636,10 +633,6 @@
     :hook (lsp-mode . lsp-ui-mode)
     :custom
     (lsp-ui-doc-position 'bottom))
-
-  (use-package lsp-treemacs
-    :straight t 
-    :after lsp)
 
   (use-package lsp-ivy
     :straight t

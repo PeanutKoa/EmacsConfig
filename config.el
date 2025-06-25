@@ -157,12 +157,12 @@
   :straight t)
 ;; please bind to "<leader>"+";"
 
-(straight-use-package '(blimpy :host github :repo "progfolio/blimpy"))
-  (use-package blimpy
-    :after (evil)
-    :config
-    (add-hook 'blimpy-before-typing-the-word-blimpy-in-emacs-hook
-              (apply-partially #'evil-insert 1)))
+(use-package blimpy
+  :straight (blimpy :host github :repo "progfolio/blimpy")
+  :after (evil)
+  :config
+  (add-hook 'blimpy-before-typing-the-word-blimpy-in-emacs-hook
+            (apply-partially #'evil-insert 1)))
 
 (use-package general
   :straight t
@@ -368,10 +368,6 @@
   :custom
   (lsp-ui-doc-position 'bottom))
 
-(use-package lsp-treemacs
-  :straight t 
-  :after lsp)
-
 (use-package lsp-ivy
   :straight t
   :after lsp)
@@ -508,5 +504,11 @@
   "mc" '(magit-commit :which-key "Commit")
   "mp" '(magit-push :which-key "Push")
   "mP" '(magit-pull :which-key "Pull"))
+
+(pkoa/leader
+"o" '(:ignore t :which-key "Org"))
+
+(pkoa/leader
+  "SPC" '(counsel-M-x :which-key "M-x"))
 
 (setq gc-cons-threshold (* 2 1000 1000))
