@@ -37,9 +37,6 @@
 (use-package diminish
   :straight t)
 
-(use-package app-launcher
-  :straight '(app-launcher :host github :repo "SebastienWae/app-launcher"))
-
 (defun emacs-run-launcher ()
   "Creates a Run Launcher similar to KRunner, set to C-M-<SPC>"
   (interactive)
@@ -55,7 +52,7 @@
                   (width . 80)
                   (height . 11)))
                   (unwind-protect
-                    (app-launcher-run-app)
+                    (counsel-linux-app)
                     (delete-frame))))
 
 (use-package catppuccin-theme
@@ -394,6 +391,14 @@
 
 (use-package lua-mode
   :straight t)
+
+(use-package rspec-mode
+  :straight t)
+(use-package inf-ruby
+  :straight t)
+(use-package robe
+  :straight t
+  :hook (ruby-mode . robe-mode))
 
 (use-package term
   :commands term

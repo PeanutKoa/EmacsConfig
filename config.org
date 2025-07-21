@@ -71,6 +71,7 @@
     - [[#company-prescient][Company-Prescient]]
   - [[#languages][Languages]]
     - [[#lua][Lua]]
+    - [[#ruby][Ruby]]
 - [[#terminal-and-shell][Terminal and Shell]]
   - [[#term][Term]]
     - [[#better-term][Better Term]]
@@ -673,6 +674,17 @@
 #+BEGIN_SRC emacs-lisp
   (use-package lua-mode
     :straight t)
+#+END_SRC
+
+*** Ruby
+#+BEGIN_SRC emacs-lisp
+  (use-package rspec-mode
+    :straight t)
+  (use-package inf-ruby
+    :straight t)
+  (use-package robe
+    :straight t
+    :hook (ruby-mode . robe-mode))
 #+END_SRC
 
 * Terminal and Shell
