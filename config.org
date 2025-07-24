@@ -72,6 +72,7 @@
   - [[#languages][Languages]]
     - [[#lua][Lua]]
     - [[#ruby][Ruby]]
+    - [[#hyprlang][Hyprlang]]
 - [[#terminal-and-shell][Terminal and Shell]]
   - [[#term][Term]]
     - [[#better-term][Better Term]]
@@ -685,6 +686,14 @@
   (use-package robe
     :straight t
     :hook (ruby-mode . robe-mode))
+#+END_SRC
+
+*** Hyprlang
+#+BEGIN_SRC emacs-lisp
+  (use-package hyprlang-ts-mode
+    :straight t)
+  (add-to-list 'treesit-language-source-alist
+  	     '(hyprlang "https://github.com/tree-sitter-grammars/tree-sitter-hyprlang"))
 #+END_SRC
 
 * Terminal and Shell

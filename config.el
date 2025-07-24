@@ -400,6 +400,9 @@
   :straight t
   :hook (ruby-mode . robe-mode))
 
+(add-to-list 'treesit-language-source-alist
+	     '(hyprlang "https://github.com/tree-sitter-grammars/tree-sitter-hyprlang"))
+
 (use-package term
   :commands term
   :config
