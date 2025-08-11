@@ -346,40 +346,20 @@
 				("acm" . "audacious")
 				("wav" . "audacious"))))
 
-(defun pkoa/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
-
-(use-package lsp-mode
-  :straight t
-  :commands (lsp lsp-deferred)
-  :hook (lsp-mode . pkoa/lsp-mode-setup)
-  :init
-  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-  :config
-  (lsp-enable-which-key-integration t))
-
-(use-package lsp-ui
-  :straight t
-  :hook (lsp-mode . lsp-ui-mode)
-  :custom
-  (lsp-ui-doc-position 'bottom))
-
-(use-package lsp-ivy
-  :straight t
-  :after lsp)
+(use-package eglot
+  :defer t
+  :hook (prog-mode . eglot-ensure))
 
 (use-package company
   :straight t
-  :after lsp-mode
+  :after eglot
   :bind (:map company-active-map
               ("<tab>" . company-complete-selection))
-  (:map lsp-mode-map
-        ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
-  (global-company-mode t))
+  (global-company-mode t)
+  :hook (eglot-ensure . company-mode))
 
 (use-package company-box
   :straight t
@@ -400,6 +380,8 @@
   :straight t
   :hook (ruby-mode . robe-mode))
 
+(use-package hyprlang-ts-mode
+  :straight t)
 (add-to-list 'treesit-language-source-alist
 	     '(hyprlang "https://github.com/tree-sitter-grammars/tree-sitter-hyprlang"))
 

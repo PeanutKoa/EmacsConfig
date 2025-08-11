@@ -63,9 +63,8 @@
     - [[#single-buffer-mode][Single Buffer Mode]]
     - [[#dired-open][Dired Open]]
 - [[#lsp][LSP]]
-  - [[#lsp-mode][LSP-Mode]]
-    - [[#lsp-mode-setup][LSP-Mode Setup]]
-    - [[#lsp-uicompatibility][LSP UI/Compatibility]]
+  - [[#eglot][Eglot]]
+    - [[#eglot-setup][Eglot Setup]]
   - [[#company][Company]]
     - [[#company-mode][Company-Mode]]
     - [[#company-prescient][Company-Prescient]]
@@ -610,56 +609,33 @@
 
 * LSP
 
-** LSP-Mode
+** Eglot
 
-*** LSP-Mode Setup
+*** Eglot Setup
 #+BEGIN_SRC emacs-lisp
-  (defun pkoa/lsp-mode-setup ()
-    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-    (lsp-headerline-breadcrumb-mode))
-
-  (use-package lsp-mode
-    :straight t
-    :commands (lsp lsp-deferred)
-    :hook (lsp-mode . pkoa/lsp-mode-setup)
-    :init
-    (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-    :config
-    (lsp-enable-which-key-integration t))
-#+END_SRC
-
-*** LSP UI/Compatibility
-#+BEGIN_SRC emacs-lisp
-  (use-package lsp-ui
-    :straight t
-    :hook (lsp-mode . lsp-ui-mode)
-    :custom
-    (lsp-ui-doc-position 'bottom))
-
-  (use-package lsp-ivy
-    :straight t
-    :after lsp)
+  (use-package eglot
+    :defer t
+    :hook (prog-mode . eglot-ensure))
 #+END_SRC
 
 ** Company
 
 *** Company-Mode
 #+BEGIN_SRC emacs-lisp
-  (use-package company
-    :straight t
-    :after lsp-mode
-    :bind (:map company-active-map
-                ("<tab>" . company-complete-selection))
-    (:map lsp-mode-map
-          ("<tab>" . company-indent-or-complete-common))
-    :custom
-    (company-minimum-prefix-length 1)
-    (company-idle-delay 0.0)
-    (global-company-mode t))
+    (use-package company
+      :straight t
+      :after eglot
+      :bind (:map company-active-map
+                  ("<tab>" . company-complete-selection))
+      :custom
+      (company-minimum-prefix-length 1)
+      (company-idle-delay 0.0)
+      (global-company-mode t)
+      :hook (eglot-ensure . company-mode))
 
-  (use-package company-box
-    :straight t
-    :hook (company-mode . company-box-mode))
+    (use-package company-box
+      :straight t
+      :hook (company-mode . company-box-mode))
 #+END_SRC
 
 *** Company-Prescient
