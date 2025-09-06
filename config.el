@@ -447,7 +447,7 @@
     (setq eshell-destroy-buffer-when-process-dies t)
     (setq eshell-visual-commands '("htop" "nvim" "gdu")))
   
-  (eshell-git-prompt-use-theme 'powerline))
+  (eshell-git-prompt-use-theme 'multiline2))
 
 (pkoa/leader
   "w" '(:ignore t :which-key "Window")
