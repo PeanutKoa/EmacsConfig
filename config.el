@@ -248,13 +248,6 @@
   :config
   (counsel-mode 1))
 
-(use-package flycheck
-  :straight t
-  :after lsp-mode
-  :defer t
-  :diminish
-  :hook (lsp-mode . flycheck-mode))
-
 (use-package nerd-icons-ivy-rich
   :straight t
   :init
@@ -379,6 +372,11 @@
 (use-package robe
   :straight t
   :hook (ruby-mode . robe-mode))
+
+(use-package rust-mode
+  :straight t
+  :init
+  (setq rust-mode-treesitter-derive t))
 
 (use-package hyprlang-ts-mode
   :straight t)
