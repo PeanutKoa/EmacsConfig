@@ -37,6 +37,9 @@
 (use-package diminish
   :straight t)
 
+(use-package app-launcher
+  :straight '(app-launcher :host github :repo "SebastienWae/app-launcher"))
+
 (defun emacs-run-launcher ()
   "Creates a Run Launcher similar to KRunner, set to C-M-<SPC>"
   (interactive)
@@ -52,7 +55,7 @@
                   (width . 80)
                   (height . 11)))
                   (unwind-protect
-                    (counsel-linux-app)
+                    (app-launcher-run-app)
                     (delete-frame))))
 
 (use-package catppuccin-theme
@@ -150,9 +153,7 @@
   :config
   (evil-collection-init))
 
-(use-package evil-nerd-commenter
-  :straight t)
-;; please bind to "<leader>"+";"
+(electric-pair-mode +1)
 
 (use-package blimpy
   :straight (blimpy :host github :repo "progfolio/blimpy")
@@ -180,18 +181,6 @@
   :init (doom-modeline-mode 1))
 
 (which-key-mode 1)
-
-(use-package helpful
-  :straight t
-  :commands (helpful-callable helpful-variable helpful-command helpful-key)
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
-  :bind
-  ([remap describe-function] . counsel-describe-function)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-variable] . counsel-describe-variable)
-  ([remap describe-key] . helpful-key))
 
 (use-package jinx
   :straight t
@@ -222,46 +211,69 @@
   :config
   (treemacs-load-theme "nerd-icons"))
 
-(use-package ivy
-  :straight t
-  :diminish
-  :bind (("C-s" . swiper)
-	 :map ivy-minibuffer-map
-	 ("TAB" . ivy-alt-done)
-	 ("C-l" . ivy-alt-done)
-	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
-	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-done)
-	 ("C-d" . ivy-switch-buffer-kill)
-	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-d" . ivy-reverse-i-search-kill))
-  :config
-  (ivy-mode 1))
-
-(use-package counsel
+(use-package vertico
   :straight t
   :custom
-  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-  :config
-  (counsel-mode 1))
-
-(use-package nerd-icons-ivy-rich
-  :straight t
+  (vertico-cycle t)
+  :bind
+  (:map vertico-map
+  	("C-j" . vertico-next)
+  	("C-k" . vertico-previous))
   :init
-  (nerd-icons-ivy-rich-mode 1))
 
-  (use-package ivy-rich
-    :straight t
-    :init
-    (ivy-rich-mode 1))
+  (vertico-mode))
 
-(use-package ivy-prescient
+(use-package consult
+  :straight t)
+
+(use-package marginalia
   :straight t
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+
+(use-package nerd-icons-completion
+  :straight t
+  :after marginalia
   :config
-  (ivy-prescient-mode 1))
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
+(use-package embark
+  :straight t
+  :bind
+  (("C-SPC" . embark-act)         ;; pick some comfortable binding
+   ("C-M-SPC" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  ;; Show the Embark target at point via Eldoc. You may adjust the
+  ;; Eldoc strategy, if you want to see the documentation from
+  ;; multiple providers. Beware that using this can be a little
+  ;; jarring since the message shown in the minibuffer can be more
+  ;; than one line, causing the modeline to move up and down:
+  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  (add-hook 'context-menu-functions #'embark-context-menu 100)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult
+  :straight t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+(use-package orderless
+  :straight t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles partial-completion))))
+  (completion-category-defaults nil) 
+  (completion-pcm-leading-wildcard t))
 
 (defun pkoa/hyphen-dot ()
   ;; Replace list hyphen with dot
@@ -295,14 +307,9 @@
   :straight t
   :diminish projectile-mode
   :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
+  :custom ((projectile-completion-system 'vertico))
   :bind-keymap
   ("C-c p" . projectile-command-map))
-
-(use-package counsel-projectile
-  :straight t
-  :after projectile
-  :config (counsel-projectile-mode))
 
 (use-package rg
   :straight t)
@@ -313,10 +320,6 @@
 (use-package magit
   :straight t
   :commands magit-status)
-
-(use-package forge
-  :after magit
-  :straight t)
 
 (use-package nerd-icons-dired
   :straight t
@@ -343,24 +346,29 @@
   :defer t
   :hook (prog-mode . eglot-ensure))
 
-(use-package company
+(use-package corfu
   :straight t
-  :after eglot
-  :bind (:map company-active-map
-              ("<tab>" . company-complete-selection))
   :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0)
-  (global-company-mode t)
-  :hook (eglot-ensure . company-mode))
+  (corfu-min-width 60)
+  (corfu-max-width corfu-min-width)
+  (corfu-count 14)
+  (corfu-auto t)
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.25)
+  (corfu-cycle t)
+  :bind
+  (:map corfu-map ("S-SPC" . corfu-insert-separator))
+  :init
+  (global-corfu-mode)
+  (corfu-popupinfo-mode))
+  
 
-(use-package company-box
-  :straight t
-  :hook (company-mode . company-box-mode))
-
-(use-package company-prescient
-  :straight t
-  :hook (company-mode . company-prescient-mode))
+(use-package emacs
+  :custom
+  (tab-always-indent 'complete)
+  (context-menu-mode t)
+  (enable-recursive-minibuffers t)
+  (read-extended-command-predicate #'command-completion-default-include-p))
 
 (use-package lua-mode
   :straight t)
@@ -415,7 +423,6 @@
   (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
   
   ;; Bind some useful keys for evil-mode
-  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'counsel-esh-history)
   (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'beginning-of-line)
   (evil-normalize-keymaps)
   
@@ -465,7 +472,7 @@
  "bc" '(recenter :which-key "Center on Cursor")
  "bw" '(save-buffer :which-key "Save Current Buffer")
  "bd" '(kill-buffer :which-key "Kill Current Buffer")
- "bs" '(switch-to-buffer :which-key "Switch Buffer"))
+ "bs" '(consult-buffer :which-key "Switch Buffer"))
 
 (pkoa/leader
   "f" '(:ignore t :which-key "File")
@@ -473,12 +480,12 @@
   "fP" '((lambda () (interactive)
 	 (find-file "~/.emacs.d/config.org"))
 	 :which-key "Emacs config.org")
-  "fg" '(rg :which-key "RipGrep")
+  "fg" '(consult-ripgrep :which-key "RipGrep")
   "fG" '(ag :which-key "Silver-Searcher")
   "fe" '(eval-last-sexp :which-key "evaluate")
-  "fs" '(swiper :which-key "Search File")
+  "fs" '(consult-line :which-key "Search File")
   "fw" '(write-file :which-key "Write File to...")
-  "fr" '(counsel-recentf :which-key "Recent Files")
+  "fr" '(consult-recent-file :which-key "Recent Files")
   "fu" '(sudo-edit-find-file :j which-key "Sudo Find File")
   "fU" '(sudo-edit :which-key "Sudo Edit File"))
 
@@ -497,6 +504,6 @@
 "o" '(:ignore t :which-key "Org"))
 
 (pkoa/leader
-  "SPC" '(counsel-M-x :which-key "M-x"))
+  "SPC" '(execute-extended-command :which-key "M-x"))
 
 (setq gc-cons-threshold (* 2 1000 1000))
