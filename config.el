@@ -23,6 +23,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
+(push 'org straight-built-in-pseudo-packages)
 (straight-use-package 'use-package)
 
 (setq auto-save-default nil
@@ -220,7 +221,6 @@
   	("C-j" . vertico-next)
   	("C-k" . vertico-previous))
   :init
-
   (vertico-mode))
 
 (use-package consult
@@ -281,23 +281,18 @@
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))))
 
-  (use-package org
-    :hook (org-mode . visual-line-mode)
-    (org-mode . org-indent-mode)
-    :config
-    (setq org-ellipsis " ▾")
-    (pkoa/hyphen-dot))
-
-(use-package visual-fill-column
-  :straight t
+(use-package org
+  :hook (org-mode . visual-line-mode)
   :config
-  (setq visual-fill-column-width 170
-	visual-fill-column-center-text t)
-  :hook (org-mode . visual-fill-column-mode))
+  (pkoa/hyphen-dot))
+(setq org-hide-emphasis-markers t
+	org-ellipsis "…")
 
-(use-package org-bullets
-  :straight t)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(use-package org-modern
+  :straight t
+  :init
+  (global-org-modern-mode))
+(setq org-modern-fold-stars '(("◉" . "◉") ("○" . "○") ("✸" . "✸") ("✱" . "✱") ("✿" . "✿")))
 
 (use-package toc-org
   :straight t
@@ -354,7 +349,7 @@
   (corfu-count 14)
   (corfu-auto t)
   (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.25)
+  (corfu-auto-delay 0.1)
   (corfu-cycle t)
   :bind
   (:map corfu-map ("S-SPC" . corfu-insert-separator))
@@ -362,7 +357,6 @@
   (global-corfu-mode)
   (corfu-popupinfo-mode))
   
-
 (use-package emacs
   :custom
   (tab-always-indent 'complete)
