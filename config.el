@@ -74,6 +74,10 @@
   (prog-mode . rainbow-mode)
   (org-mode . rainbow-mode))
 
+(use-package fic-mode
+  :straight t
+  :hook (prog-mode . fic-mode))
+
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
 
 ;;setup
@@ -118,7 +122,7 @@
   (setq dashboard-set-file-icons t)
   (setq dashboard-center-content t)
   (setq dashboard-projects-backend 'projectile)
-  (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name)
+  (setq dashboard-projects-switch-function 'projectile-switch-project)
   (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Evil!")
   (setq dashboard-startup-banner "~/.emacs.d/evil.png") 
   (setq dashboard-items '((recents   . 5)
@@ -246,6 +250,10 @@
   (("C-SPC" . embark-act)         ;; pick some comfortable binding
    ("C-M-SPC" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :custom
+  (embark-indicators '(embark-minimal-indicator
+                       embark-highlight-indicator
+                       embark-isearch-highlight-indicator))
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   ;; Show the Embark target at point via Eldoc. You may adjust the
@@ -302,7 +310,7 @@
   :straight t
   :diminish projectile-mode
   :config (projectile-mode)
-  :custom ((projectile-completion-system 'vertico))
+  :custom ((projectile-completion-system 'default))
   :bind-keymap
   ("C-c p" . projectile-command-map))
 
