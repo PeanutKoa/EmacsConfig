@@ -1,5 +1,7 @@
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 
 (recentf-mode 1)
 
@@ -24,7 +26,6 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 (push 'org straight-built-in-pseudo-packages)
-(push 'eglot straight-built-in-pseudo-packages)
 (straight-use-package 'use-package)
 
 (setq auto-save-default nil
@@ -345,9 +346,27 @@
 				("acm" . "audacious")
 				("wav" . "audacious"))))
 
-(use-package eglot
-  :defer t
-  :hook (prog-mode . eglot-ensure))
+(use-package lsp-mode
+  :after markdown-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook ((prog-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-treemacs
+  :straight t
+  :after lsp-mode)
+
+(use-package lsp-ui
+  :straight t
+  :after lsp-mode
+  :commands lsp-ui-mode)
+
+(use-package flycheck
+  :straight t
+  :hook (lsp-mode . flycheck-mode))
 
 (use-package corfu
   :straight t
@@ -364,6 +383,11 @@
   :init
   (global-corfu-mode)
   (corfu-popupinfo-mode))
+(setq lsp-completion-provider :none)
+(defun corfu-lsp-setup ()
+  (setq-local completion-styles '(orderless)
+              completion-category-defaults nil))
+(add-hook 'lsp-mode-hook #'corfu-lsp-setup)
 
 (use-package nerd-icons-corfu
   :straight t
@@ -385,9 +409,6 @@
   :straight t)
 (use-package inf-ruby
   :straight t)
-(use-package robe
-  :straight t
-  :hook (ruby-mode . robe-mode))
 
 (use-package rust-mode
   :straight t
