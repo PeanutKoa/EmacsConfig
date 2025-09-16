@@ -74,8 +74,8 @@
   (prog-mode . rainbow-mode)
   (org-mode . rainbow-mode))
 
-(use-package fic-mode
-  :straight t
+(use-package fic-mode-xtra
+  :straight '(fic-mode-xtra :host github :repo "PeanutKoa/fic-mode-xtra")
   :hook (prog-mode . fic-mode))
 
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
@@ -122,7 +122,6 @@
   (setq dashboard-set-file-icons t)
   (setq dashboard-center-content t)
   (setq dashboard-projects-backend 'projectile)
-  (setq dashboard-projects-switch-function 'projectile-switch-project)
   (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Evil!")
   (setq dashboard-startup-banner "~/.emacs.d/evil.png") 
   (setq dashboard-items '((recents   . 5)
