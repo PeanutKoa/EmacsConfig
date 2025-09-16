@@ -24,6 +24,7 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 (push 'org straight-built-in-pseudo-packages)
+(push 'eglot straight-built-in-pseudo-packages)
 (straight-use-package 'use-package)
 
 (setq auto-save-default nil
@@ -356,14 +357,20 @@
   (corfu-count 14)
   (corfu-auto t)
   (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.1)
+  (corfu-auto-delay 0.05)
   (corfu-cycle t)
   :bind
-  (:map corfu-map ("S-SPC" . corfu-insert-separator))
+  (:map corfu-map ("s-SPC" . corfu-insert-separator))
   :init
   (global-corfu-mode)
   (corfu-popupinfo-mode))
-  
+
+(use-package nerd-icons-corfu
+  :straight t
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
 (use-package emacs
   :custom
   (tab-always-indent 'complete)
