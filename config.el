@@ -2,7 +2,6 @@
 (setq gc-cons-threshold (* 50 1000 1000))
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
-
 (recentf-mode 1)
 
 (defun efs/display-startup-time ()
@@ -257,13 +256,6 @@
                        embark-isearch-highlight-indicator))
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
-  ;; Show the Embark target at point via Eldoc. You may adjust the
-  ;; Eldoc strategy, if you want to see the documentation from
-  ;; multiple providers. Beware that using this can be a little
-  ;; jarring since the message shown in the minibuffer can be more
-  ;; than one line, causing the modeline to move up and down:
-  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
   (add-hook 'context-menu-functions #'embark-context-menu 100)
   :config
   (add-to-list 'display-buffer-alist
@@ -355,6 +347,10 @@
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
+(use-package consult-lsp
+  :straight '(consult-lsp :host github :repo "gagbo/consult-lsp")
+  :after lsp-mode)
+
 (use-package lsp-treemacs
   :straight t
   :after lsp-mode)
@@ -367,6 +363,9 @@
 (use-package flycheck
   :straight t
   :hook (lsp-mode . flycheck-mode))
+(use-package yasnippet
+  :straight t
+  :hook ((lsp-mode . yas-minor-mode)))
 
 (use-package corfu
   :straight t

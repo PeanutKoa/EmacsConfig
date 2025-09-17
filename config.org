@@ -463,13 +463,6 @@
                          embark-isearch-highlight-indicator))
     :init
     (setq prefix-help-command #'embark-prefix-help-command)
-    ;; Show the Embark target at point via Eldoc. You may adjust the
-    ;; Eldoc strategy, if you want to see the documentation from
-    ;; multiple providers. Beware that using this can be a little
-    ;; jarring since the message shown in the minibuffer can be more
-    ;; than one line, causing the modeline to move up and down:
-    (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-    (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
     (add-hook 'context-menu-functions #'embark-context-menu 100)
     :config
     (add-to-list 'display-buffer-alist
@@ -603,24 +596,28 @@
 
 *** LSP-Mode Setup
 #+BEGIN_SRC emacs-lisp
-  (use-package lsp-mode
-    :after markdown-mode
-    :init
-    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-    (setq lsp-keymap-prefix "C-c l")
-    :hook ((prog-mode . lsp)
-           (lsp-mode . lsp-enable-which-key-integration))
-    :commands lsp)
+    (use-package lsp-mode
+      :after markdown-mode
+      :init
+      ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+      (setq lsp-keymap-prefix "C-c l")
+      :hook ((prog-mode . lsp)
+             (lsp-mode . lsp-enable-which-key-integration))
+      :commands lsp)
 
-  (use-package lsp-treemacs
-    :straight t
-    :after lsp-mode)
+    (use-package consult-lsp
+      :straight '(consult-lsp :host github :repo "gagbo/consult-lsp")
+      :after lsp-mode)
 
-  (use-package lsp-ui
-    :straight t
-    :after lsp-mode
-    :commands lsp-ui-mode)
-    
+    (use-package lsp-treemacs
+      :straight t
+      :after lsp-mode)
+
+    (use-package lsp-ui
+      :straight t
+      :after lsp-mode
+      :commands lsp-ui-mode)
+      
 #+END_SRC
 
 *** Flycheck
@@ -628,6 +625,9 @@
   (use-package flycheck
     :straight t
     :hook (lsp-mode . flycheck-mode))
+  (use-package yasnippet
+    :straight t
+    :hook ((lsp-mode . yas-minor-mode)))
 #+END_SRC
 
 ** Corfu
