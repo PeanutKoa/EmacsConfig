@@ -420,6 +420,9 @@
 (add-to-list 'treesit-language-source-alist
 	     '(hyprlang "https://github.com/tree-sitter-grammars/tree-sitter-hyprlang"))
 
+(use-package markdown-mode
+  :straight t)
+
 (use-package term
   :commands term
   :config
