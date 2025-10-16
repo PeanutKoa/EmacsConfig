@@ -343,9 +343,10 @@
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
-  :hook ((prog-mode . lsp)
+  :hook ((python-ts-mode . lsp-deferred)
+	 (rust-mode. lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+  :commands (lsp lsp-deferred))
 
 (use-package consult-lsp
   :straight '(consult-lsp :host github :repo "gagbo/consult-lsp")
@@ -508,6 +509,7 @@
 (pkoa/leader
   "f" '(:ignore t :which-key "File")
   "ff" '(find-file :which-key "Find File")
+  "fF" '(consult-fd :wich-key "Fd")
   "fP" '((lambda () (interactive)
 	 (find-file "~/.emacs.d/config.org"))
 	 :which-key "Emacs config.org")
