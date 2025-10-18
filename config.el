@@ -187,10 +187,20 @@
 
 (which-key-mode 1)
 
+(use-package helpful
+  :straight t
+  :bind (("C-h f" . helpful-callable)
+	 ("C-h v" . helpful-variable)
+	 ("C-h k"    .   helpful-key)
+	 ("C-h x"  . helpful-command)))
+
 (use-package jinx
   :straight t
   :bind (("M-$" . jinx-correct)
        ("C-M-$" . jinx-languages)))
+
+(use-package mentor
+  :straight t)
 
 (use-package treemacs
   :straight t

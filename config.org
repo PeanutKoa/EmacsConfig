@@ -36,7 +36,9 @@
   - [[#ui][UI]]
     - [[#doom-modeline][Doom Modeline]]
     - [[#which-key][Which-Key]]
+    - [[#helpful][Helpful]]
     - [[#jinxspellcheck][Jinx/Spellcheck]]
+    - [[#mentorrtorrent][Mentor/RTorrent]]
     - [[#treemacs][Treemacs]]
   - [[#vertico][Vertico]]
     - [[#vertico-1][Vertico]]
@@ -373,12 +375,28 @@
   (which-key-mode 1)
 #+END_SRC
 
+*** Helpful
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful
+    :straight t
+    :bind (("C-h f" . helpful-callable)
+  	 ("C-h v" . helpful-variable)
+  	 ("C-h k"    .   helpful-key)
+  	 ("C-h x"  . helpful-command)))
+#+END_SRC
+
 *** Jinx/Spellcheck
 #+BEGIN_SRC emacs-lisp
   (use-package jinx
     :straight t
     :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages)))
+#+END_SRC
+
+*** Mentor/RTorrent
+#+BEGIN_SRC emacs-lisp
+  (use-package mentor
+    :straight t)
 #+END_SRC
 
 *** Treemacs
