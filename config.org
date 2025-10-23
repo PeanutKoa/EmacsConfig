@@ -342,15 +342,17 @@
 
 *** General Setup
 #+BEGIN_SRC emacs-lisp
-  (use-package general
-    :straight t
-    :after evil
-    :config
-    (general-evil-setup)
-    (general-create-definer pkoa/leader
-    :states '(normal insert visual emacs)
-    :prefix "SPC"
-    :non-normal-prefix "C-SPC"))
+    (use-package general
+      :straight t
+      :after evil
+      :config
+      (general-evil-setup)
+      (general-create-definer pkoa/leader
+      :states '(normal insert visual emacs)
+      :prefix "SPC"
+      :non-normal-prefix "C-SPC"))
+    (use-package hydra
+      :straight t)
 #+END_SRC
 
 *** Global/Non-Leader Keybinds
@@ -913,8 +915,13 @@
 
 *** Org (o)
 #+BEGIN_SRC emacs-lisp
-    (pkoa/leader
-    "o" '(:ignore t :which-key "Org"))
+      (pkoa/leader
+        "o" '(:ignore t :which-key "Org")
+        "oa" '(org-agenda :which-key "Agenda")
+        "ot" '(org-todo :which-key "Todo")
+        "ol" '(org-insert-link :which-key "Insert Link")
+        "oo" '(org-open-at-point :which-key "Open")
+        "oi" '(org-set-tags-command :which-key "Set Tags"))
 #+END_SRC
 
 *** Misc (non-prefixed)

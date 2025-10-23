@@ -176,6 +176,8 @@
   :states '(normal insert visual emacs)
   :prefix "SPC"
   :non-normal-prefix "C-SPC"))
+(use-package hydra
+  :straight t)
 
 (general-define-key
  "C-x M-x" 'redraw-display
@@ -575,7 +577,9 @@
   "mP" '(magit-pull :which-key "Pull"))
 
 (pkoa/leader
-"o" '(:ignore t :which-key "Org"))
+  "o" '(:ignore t :which-key "Org")
+  "oa" '(org-agenda :which-key "Agenda")
+  "ot" '(org-todo :which-key "Todo"))
 
 (pkoa/leader
   "SPC" '(execute-extended-command :which-key "M-x"))
