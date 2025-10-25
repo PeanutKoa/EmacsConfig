@@ -124,7 +124,7 @@
   (setq dashboard-center-content t)
   (setq dashboard-projects-backend 'projectile)
   (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Evil!")
-  (setq dashboard-startup-banner "~/.emacs.d/evil.png") 
+  (setq dashboard-startup-banner "~/.emacs.d/banner.txt") 
   (setq dashboard-items '((recents   . 5)
   			  (bookmarks . 5)
   			  (projects  . 5)
@@ -151,6 +151,8 @@
 
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 
 (use-package evil-collection
   :straight t
@@ -356,7 +358,7 @@
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :hook ((python-ts-mode . lsp-deferred)
-	 (rust-mode. lsp-deferred)
+	     (rust-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 
@@ -444,6 +446,9 @@
   (context-menu-mode t)
   (enable-recursive-minibuffers t)
   (read-extended-command-predicate #'command-completion-default-include-p))
+
+(setq major-mode-remap-alist
+      '((python-mode . python-ts-mode)))
 
 (use-package lua-mode
   :straight t)
@@ -579,7 +584,10 @@
 (pkoa/leader
   "o" '(:ignore t :which-key "Org")
   "oa" '(org-agenda :which-key "Agenda")
-  "ot" '(org-todo :which-key "Todo"))
+  "ot" '(org-todo :which-key "Todo")
+  "ol" '(org-insert-link :which-key "Insert Link")
+  "oo" '(org-open-at-point :which-key "Open")
+  "oi" '(org-set-tags-command :which-key "Set Tags"))
 
 (pkoa/leader
   "SPC" '(execute-extended-command :which-key "M-x"))
