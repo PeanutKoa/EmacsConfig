@@ -91,9 +91,9 @@
                 shell-mode-hook
                 treemacs-mode-hook
                 eshell-mode-hook
-		eat-mode-hook
-		woman-mode-hook
-		eww-mode-hook))
+		        eat-mode-hook
+		        woman-mode-hook
+		        eww-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (setq redisplay-dont-pause t
@@ -126,9 +126,9 @@
   (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Evil!")
   (setq dashboard-startup-banner "~/.emacs.d/banner.txt") 
   (setq dashboard-items '((recents   . 5)
-  			  (bookmarks . 5)
-  			  (projects  . 5)
-  			  (registers . 5)))
+  			    (bookmarks . 5)
+                          (agenda    . 5)
+  	                    (projects  . 5)))
   :config
   (dashboard-setup-startup-hook))
 
@@ -190,6 +190,7 @@
   :init (doom-modeline-mode 1))
 
 (which-key-mode 1)
+(setq which-key-idle-delay -1)
 
 (use-package helpful
   :straight t
@@ -307,11 +308,15 @@
   :straight t
   :init
   (global-org-modern-mode))
-(setq org-modern-fold-stars '(("◉" . "◉") ("○" . "○") ("✸" . "✸") ("✱" . "✱") ("✿" . "✿")))
+(setq org-modern-fold-stars '(("◉" . "◉") ("○" . "○") ("✸" . "✸") ("✱" . "✱") ("✿" . "✿") ("◉" . "◉") ("○" . "○") ("✸" . "✸") ("✱" . "✱") ("✿" . "✿")))
 
 (use-package toc-org
   :straight t
   :hook (org-mode . toc-org-mode))
+
+(use-package org
+  :custom
+  (org-agenda-files '("~/Documents/org_agenda/")))
 
 (use-package projectile
   :straight t
@@ -341,16 +346,17 @@
 (use-package dired-open
   :straight t
   :config
-  (setq dired-open-extensions '(("gif" .  "gwenview")
-				("jpg" .  "gwenview")
-				("png" .  "gwenview")
-				("mov" .    "haruna")
-				("mp4" .    "haruna")
-				("mkv" .    "haruna")
-				("mp3" . "audacious")
-				("ogg" . "audacious")
-				("acm" . "audacious")
-				("wav" . "audacious"))))
+  (setq dired-open-extensions '(("gif"  .  "gwenview")
+				                ("jpg"  .  "gwenview")
+				                ("png"  .  "gwenview")
+				                ("mov"  .    "haruna")
+				                ("mp4"  .    "haruna")
+				                ("mkv"  .    "haruna")
+				                ("mp3"  . "audacious")
+                                ("flac" . "audacious")
+				                ("ogg"  . "audacious")
+				                ("acm"  . "audacious")
+				                ("wav"  . "audacious"))))
 
 (use-package lsp-mode
   :after markdown-mode
@@ -408,7 +414,7 @@
 
 (use-package flycheck
   :straight t
-  :hook (lsp-mode . flycheck-mode))
+  :hook (prog-mode . flycheck-mode))
 (use-package yasnippet
   :straight t
   :hook ((lsp-mode . yas-minor-mode)))
