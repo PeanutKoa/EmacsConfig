@@ -24,7 +24,6 @@
     - [[#smoother-scrollingrefresh-display][Smoother Scrolling/Refresh Display]]
     - [[#remove-elements][Remove Elements]]
     - [[#dashboard][Dashboard]]
-    - [[#transparency][Transparency]]
   - [[#keybindings][Keybindings]]
     - [[#evil-mode][Evil Mode]]
     - [[#evil-collection][Evil Collection]]
@@ -288,11 +287,6 @@
     	                    (projects  . 5)))
     :config
     (dashboard-setup-startup-hook))
-#+END_SRC
-
-*** Transparency
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'default-frame-alist '(alpha-background . 95))
 #+END_SRC
 
 ** Keybindings

@@ -132,8 +132,6 @@
   :config
   (dashboard-setup-startup-hook))
 
-(add-to-list 'default-frame-alist '(alpha-background . 95))
-
 (use-package evil
   :straight t
   :init
