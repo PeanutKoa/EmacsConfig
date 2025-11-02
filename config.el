@@ -79,7 +79,30 @@
   :straight '(fic-mode-xtra :host github :repo "PeanutKoa/fic-mode-xtra")
   :hook (prog-mode . fic-mode))
 
+;; sets the font directly
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
+;; ligature support
+(use-package ligature
+  :straight t
+  :init
+  (setq jetbrains-full-ligatures '("--" "---" "==" "===" "!=" "!==" "=!="
+                                   "=:=" "=/=" "<=" ">=" "&&" "&&&" "&=" "++" "+++" "***" ";;" "!!"
+                                   "??" "???" "?:" "?." "?=" "<:" ":<" ":>" ">:" "<:<" "<>" "<<<" ">>>"
+                                   "<<" ">>" "||" "-|" "_|_" "|-" "||-" "|=" "||=" "##" "###" "####"
+                                   "#{" "#[" "]#" "#(" "#?" "#_" "#_(" "#:" "#!" "#=" "^=" "<$>" "<$"
+                                   "$>" "<+>" "<+" "+>" "<*>" "<*" "*>" "</" "</>" "/>" "<!--" "<#--"
+                                   "-->" "->" "->>" "<<-" "<-" "<=<" "=<<" "<<=" "<==" "<=>" "<==>"
+                                   "==>" "=>" "=>>" ">=>" ">>=" ">>-" ">-" "-<" "-<<" ">->" "<-<" "<-|"
+                                   "<=|" "|=>" "|->" "<->" "<~~" "<~" "<~>" "~~" "~~>" "~>" "~-" "-~"
+                                   "~@" "[||]" "|]" "[|" "|}" "{|" "[<" ">]" "|>" "<|" "||>" "<||"
+                                   "|||>" "<|||" "<|>" "..." ".." ".=" "..<" ".?" "::" ":::" ":=" "::="
+                                   ":?" ":?>" "//" "///" "/*" "*/" "/=" "//=" "/==" "@_" "__" "???"
+                                   "<:<" ";;;"))
+  :config
+  (ligature-set-ligatures 'prog-mode jetbrains-full-ligatures)
+  (ligature-set-ligatures 'eshell-mode jetbrains-full-ligatures)
+  (ligature-set-ligatures 'eat-mode jetbrains-full-ligatures)
+  (global-ligature-mode t))
 
 ;;setup
 (column-number-mode)
