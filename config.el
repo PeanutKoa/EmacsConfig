@@ -118,11 +118,19 @@
 		        eww-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(setq redisplay-dont-pause t
-  scroll-margin 1
-  scroll-step 1
-  scroll-conservatively 10000
-  scroll-preserve-screen-position 1)
+;;(setq redisplay-dont-pause t
+;;      scroll-margin 1
+;;      scroll-step 1
+;;      scroll-conservatively 10000
+;;      scroll-preserve-screen-position 1)
+(use-package ultra-scroll
+  :straight t
+  :init
+  (setq scroll-conservatively 3 ; or whatever value you prefer, since v0.4
+        redisplay-dont-pause t
+        scroll-margin 0)        ; important: scroll-margin>0 not yet supported
+  :config
+  (ultra-scroll-mode 1))
 
 (setq inhibit-startup-message t)
 (setq ring-bell-function 'ignore)
@@ -338,8 +346,7 @@
 
 (use-package org-modern-indent
   :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
-  :config ; add late to hook
-  (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+  :config (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 
 (use-package toc-org
   :straight t
