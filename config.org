@@ -48,6 +48,7 @@
 - [[#org-mode][Org Mode]]
   - [[#beautifying-1][Beautifying]]
     - [[#basic-setup][Basic Setup]]
+    - [[#header-variable-size][Header Variable Size]]
     - [[#org-modern][Org Modern]]
   - [[#functional][Functional]]
     - [[#toc-org][TOC-Org]]
@@ -134,7 +135,6 @@
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
   (push 'org straight-built-in-pseudo-packages)
-  (straight-use-package 'use-package)
 #+END_SRC
 
 ** Meta Settings
@@ -223,7 +223,7 @@
 *** Font
 #+BEGIN_SRC emacs-lisp
   ;; sets the font directly
-  (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
+  (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 125)
   ;; ligature support
   (use-package ligature
     :straight t
@@ -536,27 +536,40 @@
 
 *** Basic Setup
 #+BEGIN_SRC emacs-lisp
-    (defun pkoa/hyphen-dot ()
-      ;; Replace list hyphen with dot
-      (font-lock-add-keywords 'org-mode
-                              '(("^ *\\([-]\\) "
-                                 (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))))
+  (use-package org
+    :hook (org-mode . visual-line-mode)
+    :custom
+    (org-hide-emphasis-markers t)
+    (org-ellipsis "...")
+    :hook (org-mode . org-indent-mode))
+#+END_SRC
 
-    (use-package org
-      :hook (org-mode . visual-line-mode)
-      :config
-      (pkoa/hyphen-dot))
-    (setq org-hide-emphasis-markers t
-  	org-ellipsis "…")
+*** Header Variable Size
+#+BEGIN_SRC emacs-lisp
+  (dolist (face '((org-level-1 .  1.2)
+                  (org-level-2 .  1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 .  1.0)
+                  (org-level-5 .  1.0)
+                  (org-level-6 .  1.0)
+                  (org-level-7 .  1.0)
+                  (org-level-8 .  1.0)))
+    (set-face-attribute (car face) nil :font "JetBrainsMono Nerd Font" :weight 'regular :height (cdr face)))
 #+END_SRC
 
 *** Org Modern
 #+BEGIN_SRC emacs-lisp
   (use-package org-modern
     :straight t
+    :custom
+    (org-modern-star 'replace)
+    (org-modern-replace-stars "◉○✸✱✿")
     :init
     (global-org-modern-mode))
-  (setq org-modern-fold-stars '(("◉" . "◉") ("○" . "○") ("✸" . "✸") ("✱" . "✱") ("✿" . "✿") ("◉" . "◉") ("○" . "○") ("✸" . "✸") ("✱" . "✱") ("✿" . "✿")))
+
+  (use-package org-modern-indent
+    :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
+    :config (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 #+END_SRC
 
 ** Functional

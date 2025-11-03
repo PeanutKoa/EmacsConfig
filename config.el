@@ -25,7 +25,6 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 (push 'org straight-built-in-pseudo-packages)
-(straight-use-package 'use-package)
 
 (setq auto-save-default nil
       make-backup-files nil
@@ -80,7 +79,7 @@
   :hook (prog-mode . fic-mode))
 
 ;; sets the font directly
-(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 120)
+(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 125)
 ;; ligature support
 (use-package ligature
   :straight t
@@ -312,24 +311,35 @@
   (completion-category-defaults nil) 
   (completion-pcm-leading-wildcard t))
 
-(defun pkoa/hyphen-dot ()
-  ;; Replace list hyphen with dot
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))))
-
 (use-package org
   :hook (org-mode . visual-line-mode)
-  :config
-  (pkoa/hyphen-dot))
-(setq org-hide-emphasis-markers t
-	org-ellipsis "…")
+  :custom
+  (org-hide-emphasis-markers t)
+  (org-ellipsis "...")
+  :hook (org-mode . org-indent-mode))
+
+(dolist (face '((org-level-1 .  1.2)
+                (org-level-2 .  1.1)
+                (org-level-3 . 1.05)
+                (org-level-4 .  1.0)
+                (org-level-5 .  1.0)
+                (org-level-6 .  1.0)
+                (org-level-7 .  1.0)
+                (org-level-8 .  1.0)))
+  (set-face-attribute (car face) nil :font "JetBrainsMono Nerd Font" :weight 'regular :height (cdr face)))
 
 (use-package org-modern
   :straight t
+  :custom
+  (org-modern-star 'replace)
+  (org-modern-replace-stars "◉○✸✱✿")
   :init
   (global-org-modern-mode))
-(setq org-modern-fold-stars '(("◉" . "◉") ("○" . "○") ("✸" . "✸") ("✱" . "✱") ("✿" . "✿") ("◉" . "◉") ("○" . "○") ("✸" . "✸") ("✱" . "✱") ("✿" . "✿")))
+
+(use-package org-modern-indent
+  :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
+  :config ; add late to hook
+  (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
 
 (use-package toc-org
   :straight t
