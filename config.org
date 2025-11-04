@@ -74,6 +74,7 @@
     - [[#lua][Lua]]
     - [[#ruby][Ruby]]
     - [[#cc][C/C++]]
+    - [[#rust][Rust]]
     - [[#hyprlang][Hyprlang]]
     - [[#markdown][Markdown]]
     - [[#tree-sitter-remapping][Tree-Sitter Remapping]]
@@ -795,6 +796,12 @@
     :config
     (setq c-ts-mode-indent-offset 8)
     (setq c-ts-mode-indent-style 'linux))
+#+END_SRC
+
+*** Rust
+#+BEGIN_SRC emacs-lisp
+  (use-package rust-mode
+    :straight t)
 #+END_SRC
 
 *** Hyprlang

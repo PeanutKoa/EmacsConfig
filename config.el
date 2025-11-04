@@ -501,6 +501,9 @@
   (setq c-ts-mode-indent-offset 8)
   (setq c-ts-mode-indent-style 'linux))
 
+(use-package rust-mode
+  :straight t)
+
 (use-package hyprlang-ts-mode
   :straight t)
 (add-to-list 'treesit-language-source-alist
