@@ -118,11 +118,6 @@
 		        eww-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-;;(setq redisplay-dont-pause t
-;;      scroll-margin 1
-;;      scroll-step 1
-;;      scroll-conservatively 10000
-;;      scroll-preserve-screen-position 1)
 (use-package ultra-scroll
   :straight t
   :init
@@ -215,7 +210,8 @@
 
 (use-package doom-modeline
   :straight t
-  :init (doom-modeline-mode 1))
+  :init (doom-modeline-mode 1)
+  (display-battery-mode))
 
 (which-key-mode 1)
 (setq which-key-idle-delay -1)
@@ -402,7 +398,8 @@
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :hook ((python-ts-mode . lsp-deferred)
-	     (rust-mode . lsp-deferred)
+	     (rust-ts-mode .   lsp-deferred)
+         (c-ts-mode    .   lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 
@@ -491,9 +488,6 @@
   (enable-recursive-minibuffers t)
   (read-extended-command-predicate #'command-completion-default-include-p))
 
-(setq major-mode-remap-alist
-      '((python-mode . python-ts-mode)))
-
 (use-package lua-mode
   :straight t)
 
@@ -502,10 +496,10 @@
 (use-package inf-ruby
   :straight t)
 
-(use-package rust-mode
-  :straight t
-  :init
-  (setq rust-mode-treesitter-derive t))
+(use-package c-ts-mode
+  :config
+  (setq c-ts-mode-indent-offset 8)
+  (setq c-ts-mode-indent-style 'linux))
 
 (use-package hyprlang-ts-mode
   :straight t)
@@ -514,6 +508,13 @@
 
 (use-package markdown-mode
   :straight t)
+
+(use-package treesit-auto
+  :straight t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (global-treesit-auto-mode))
 
 (use-package term
   :commands term

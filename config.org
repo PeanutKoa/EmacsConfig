@@ -71,12 +71,12 @@
   - [[#corfu][Corfu]]
     - [[#corfu-1][Corfu]]
   - [[#languages][Languages]]
-    - [[#python][Python]]
     - [[#lua][Lua]]
     - [[#ruby][Ruby]]
-    - [[#rust][Rust]]
+    - [[#cc][C/C++]]
     - [[#hyprlang][Hyprlang]]
     - [[#markdown][Markdown]]
+    - [[#tree-sitter-remapping][Tree-Sitter Remapping]]
 - [[#terminal-and-shell][Terminal and Shell]]
   - [[#term][Term]]
     - [[#better-term][Better Term]]
@@ -394,7 +394,8 @@
 #+BEGIN_SRC emacs-lisp
   (use-package doom-modeline
     :straight t
-    :init (doom-modeline-mode 1))
+    :init (doom-modeline-mode 1)
+    (display-battery-mode))
 #+END_SRC
 
 *** Which-Key
@@ -669,7 +670,8 @@
     ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
     (setq lsp-keymap-prefix "C-c l")
     :hook ((python-ts-mode . lsp-deferred)
-  	     (rust-mode . lsp-deferred)
+  	     (rust-ts-mode .   lsp-deferred)
+           (c-ts-mode    .   lsp-deferred)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands (lsp lsp-deferred))
 
@@ -773,12 +775,6 @@
 
 ** Languages
 
-*** Python
-#+BEGIN_SRC emacs-lisp
-  (setq major-mode-remap-alist
-        '((python-mode . python-ts-mode)))
-#+end_SRC
-
 *** Lua
 #+BEGIN_SRC emacs-lisp
   (use-package lua-mode
@@ -793,13 +789,12 @@
     :straight t)
 #+END_SRC
 
-*** Rust
+*** C/C++
 #+BEGIN_SRC emacs-lisp
-  (use-package rust-mode
-    :straight t
-    :init
-    (setq rust-mode-treesitter-derive t))
-
+  (use-package c-ts-mode
+    :config
+    (setq c-ts-mode-indent-offset 8)
+    (setq c-ts-mode-indent-style 'linux))
 #+END_SRC
 
 *** Hyprlang
@@ -814,6 +809,16 @@
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
     :straight t)
+#+END_SRC
+
+*** Tree-Sitter Remapping
+#+BEGIN_SRC emacs-lisp
+  (use-package treesit-auto
+    :straight t
+    :custom
+    (treesit-auto-install 'prompt)
+    :config
+    (global-treesit-auto-mode))
 #+END_SRC
 
 * Terminal and Shell
