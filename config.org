@@ -38,6 +38,7 @@
     - [[#helpful][Helpful]]
     - [[#jinxspellcheck][Jinx/Spellcheck]]
     - [[#mentorrtorrent][Mentor/RTorrent]]
+    - [[#tldr][TLDR]]
     - [[#treemacs][Treemacs]]
   - [[#vertico][Vertico]]
     - [[#vertico-1][Vertico]]
@@ -309,9 +310,8 @@
     (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Evil!")
     (setq dashboard-startup-banner "~/.emacs.d/banner.txt") 
     (setq dashboard-items '((recents   . 5)
-    			    (bookmarks . 5)
-                            (agenda    . 5)
-    	                    (projects  . 5)))
+    			  (bookmarks . 5)
+    	                  (projects  . 5)))
     :config
     (dashboard-setup-startup-hook))
 #+END_SRC
@@ -395,8 +395,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package doom-modeline
     :straight t
-    :init (doom-modeline-mode 1)
-    (display-battery-mode))
+    :init (doom-modeline-mode 1))
 #+END_SRC
 
 *** Which-Key
@@ -426,6 +425,12 @@
 *** Mentor/RTorrent
 #+BEGIN_SRC emacs-lisp
   (use-package mentor
+    :straight t)
+#+END_SRC
+
+*** TLDR
+#+BEGIN_SRC emacs-lisp
+  (use-package tldr
     :straight t)
 #+END_SRC
 
@@ -772,6 +777,28 @@
     (context-menu-mode t)
     (enable-recursive-minibuffers t)
     (read-extended-command-predicate #'command-completion-default-include-p))
+
+  (use-package cape
+    :straight t
+    ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
+    ;; Press C-c p ? to for help.
+    :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
+    ;; Alternatively bind Cape commands individually.
+    ;; :bind (("C-c p d" . cape-dabbrev)
+    ;;        ("C-c p h" . cape-history)
+    ;;        ("C-c p f" . cape-file)
+    ;;        ...)
+    :init
+    ;; Add to the global default value of `completion-at-point-functions' which is
+    ;; used by `completion-at-point'.  The order of the functions matters, the
+    ;; first function returning a result wins.  Note that the list of buffer-local
+    ;; completion functions takes precedence over the global list.
+    (add-hook 'completion-at-point-functions #'cape-file)
+    (add-hook 'completion-at-point-functions #'cape-keyword)
+    (add-hook 'completion-at-point-functions #'cape-elisp-block)
+    ;; (add-hook 'completion-at-point-functions #'cape-history)
+    ;; ...
+    )
 #+END_SRC
 
 ** Languages
