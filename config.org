@@ -674,6 +674,7 @@
     :after markdown-mode
     :init
     ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+    (setq lsp-enable-on-type-formatting nil)
     (setq lsp-keymap-prefix "C-c l")
     :hook ((python-ts-mode . lsp-deferred)
   	     (rust-ts-mode .   lsp-deferred)
