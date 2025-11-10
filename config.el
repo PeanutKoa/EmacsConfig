@@ -99,8 +99,6 @@
                                    "<:<" ";;;"))
   :config
   (ligature-set-ligatures 'prog-mode jetbrains-full-ligatures)
-  (ligature-set-ligatures 'eshell-mode jetbrains-full-ligatures)
-  (ligature-set-ligatures 'eat-mode jetbrains-full-ligatures)
   (global-ligature-mode t))
 
 ;;setup
@@ -115,6 +113,7 @@
                 eshell-mode-hook
 		        eat-mode-hook
 		        woman-mode-hook
+                tldr-mode-hook
 		        eww-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
@@ -217,9 +216,9 @@
 (use-package helpful
   :straight t
   :bind (("C-h f" . helpful-callable)
-	 ("C-h v" . helpful-variable)
-	 ("C-h k"    .   helpful-key)
-	 ("C-h x"  . helpful-command)))
+	     ("C-h v" . helpful-variable)
+	     ("C-h k"    .   helpful-key)
+	     ("C-h x"  . helpful-command)))
 
 (use-package jinx
   :straight t
@@ -228,6 +227,18 @@
 
 (use-package mentor
   :straight t)
+
+(use-package emms
+  :straight t
+  :init
+  (emms-all)
+  :custom
+  (emms-player-list '(emms-player-mpv))
+  (emms-info-functions '(emms-info-native
+                         emms-info-metaflac
+                         emms-info-ogginfo))
+  (emms-volume-change-function 'emms-volume-mpv-change)
+  (emms-volume-mpv-method 'smart))
 
 (use-package tldr
   :straight t)
@@ -371,9 +382,24 @@
   :straight t
   :commands magit-status)
 
-(use-package nerd-icons-dired
+(use-package dirvish
   :straight t
-  :hook (dired-mode . nerd-icons-dired-mode))
+  :init (dirvish-override-dired-mode)
+  :custom (dirvish-attributes
+           (append
+            ;; The order of these attributes is insignificant, they are always
+            ;; displayed in the same position.
+            '(vc-state subtree-state nerd-icons collapse)
+            ;; Other attributes are displayed in the order they appear in this list.
+            '(git-msg file-modes file-time file-size))))
+(dirvish-define-preview eza (file)
+  "Use `eza' to generate directory preview."
+  :require ("eza") ; tell Dirvish to check if we have the executable
+  (when (file-directory-p file) ; we only interest in directories here
+    `(shell . ("eza" "-al" "--color=always" "--icons=always"
+               "--group-directories-first" ,file))))
+
+(push 'eza dirvish-preview-dispatchers)
 
 (use-package dired-single
   :straight t)
