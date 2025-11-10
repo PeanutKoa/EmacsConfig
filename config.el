@@ -66,7 +66,7 @@
 
 (use-package rainbow-delimiters
   :straight t
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook ((prog-mode html-ts-mode css-ts-mode) . rainbow-delimiters-mode))
 
 (use-package indent-bars
   :straight t
@@ -75,15 +75,15 @@
   (indent-bars-treesit-wrap '((c argument_list parameter_list init_declarator parenthesized_expression)
                               (rust arguments parameters)))
   (indent-bars-treesit-scope '((rust trait_item impl_item 
-                                 macro_definition macro_invocation 
-                                 struct_item enum_item mod_item 
-                                 const_item let_declaration 
-                                 function_item for_expression 
-                                 if_expression loop_expression 
-                                 while_expression match_expression 
-                                 match_arm call_expression 
-                                 token_tree token_tree_pattern 
-                                 token_repetition)
+                                     macro_definition macro_invocation 
+                                     struct_item enum_item mod_item 
+                                     const_item let_declaration 
+                                     function_item for_expression 
+                                     if_expression loop_expression 
+                                     while_expression match_expression 
+                                     match_arm call_expression 
+                                     token_tree token_tree_pattern 
+                                     token_repetition)
                                (python function_definition class_definition for_statement
 			                           if_statement with_statement while_statement)))
   (indent-bars-treesit-ignore-blank-lines-types '("module"))
@@ -100,11 +100,13 @@
    indent-bars-ts-color '(inherit fringe :face-bg t :blend 0.2))
   :hook ((rust-ts-mode python-ts-mode c-ts-mode) . indent-bars-mode))
 
-(use-package rainbow-mode
+(use-package colorful-mode
+  :diminish
   :straight t
-  :hook
-  (prog-mode . rainbow-mode)
-  (org-mode . rainbow-mode))
+  :custom
+  (colorful-only-strings 'only-prog)
+  (css-fontify-colors nil)
+  :hook ((helpful-mode mhtml-mode html-ts-mode css-ts-mode prog-mode org-mode) . colorful-mode))
 
 (use-package fic-mode-xtra
   :straight '(fic-mode-xtra :host github :repo "PeanutKoa/fic-mode-xtra")
@@ -131,6 +133,9 @@
                                    "<:<" ";;;"))
   :config
   (ligature-set-ligatures 'prog-mode jetbrains-full-ligatures)
+  (ligature-set-ligatures 'html-ts-mode jetbrains-full-ligatures)
+  (ligature-set-ligatures 'mhtml-mode jetbrains-full-ligatures)
+  (ligature-set-ligatures 'css-ts-mode jetbrains-full-ligatures)
   (global-ligature-mode t))
 
 ;;setup
