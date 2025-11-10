@@ -68,6 +68,38 @@
   :straight t
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package indent-bars
+  :straight t
+  :custom
+  (indent-bars-treesit-support t)
+  (indent-bars-treesit-wrap '((c argument_list parameter_list init_declarator parenthesized_expression)
+                              (rust arguments parameters)))
+  (indent-bars-treesit-scope '((rust trait_item impl_item 
+                                 macro_definition macro_invocation 
+                                 struct_item enum_item mod_item 
+                                 const_item let_declaration 
+                                 function_item for_expression 
+                                 if_expression loop_expression 
+                                 while_expression match_expression 
+                                 match_arm call_expression 
+                                 token_tree token_tree_pattern 
+                                 token_repetition)
+                               (python function_definition class_definition for_statement
+			                           if_statement with_statement while_statement)))
+  (indent-bars-treesit-ignore-blank-lines-types '("module"))
+  (indent-bars-no-descend-lists '(?\[ ?\())
+  :config
+  (setopt
+   indent-bars-color '(highlight :face-bg t :blend 0.8)
+   indent-bars-pattern "."
+   indent-bars-color-by-depth '(:palette ("#f38ba8" "#89b4fa" "#a6e3a1" "#fab387" "#cba6f7") :blend 0.8)
+   indent-bars-highlight-current-depth '(:blend 1.0 :width 0.4 :pad 0.1 :pattern "!.!.!." :zigzag 0.1)
+   indent-bars-pad-frac 0.3
+   indent-bars-ts-highlight-current-depth '(no-inherit) ; equivalent to nil
+   indent-bars-ts-color-by-depth '(no-inherit)
+   indent-bars-ts-color '(inherit fringe :face-bg t :blend 0.2))
+  :hook ((rust-ts-mode python-ts-mode c-ts-mode) . indent-bars-mode))
+
 (use-package rainbow-mode
   :straight t
   :hook
@@ -562,12 +594,19 @@
 (use-package markdown-mode
   :straight t)
 
+;; enables treesitter modes whenever possible
 (use-package treesit-auto
   :straight t
   :custom
   (treesit-auto-install 'prompt)
   :config
   (global-treesit-auto-mode))
+;; adds support for folding functions
+(use-package treesit-fold
+  :straight (treesit-fold :type git :host github
+                          :repo "emacs-tree-sitter/treesit-fold")
+  :init (global-treesit-fold-indicators-mode 1)
+  (treesit-fold-line-comment-mode 1))
 
 (use-package term
   :commands term
