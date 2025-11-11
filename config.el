@@ -65,15 +65,33 @@
 (load-theme 'catppuccin :no-confirm)
 
 (use-package rainbow-delimiters
-  :straight t
-  :hook ((prog-mode html-ts-mode css-ts-mode) . rainbow-delimiters-mode))
+:straight t
+:hook ((prog-mode html-ts-mode css-ts-mode) . rainbow-delimiters-mode))
 
 (use-package indent-bars
   :straight t
+  :init
+  (defun pkoa/treesit-parser-custom-lang (lang-mode-symbol)
+    (when (and (treesit-available-p)
+               (treesit-language-available-p lang-mode-symbol))
+      (treesit-parser-create lang-mode-symbol)))
+  (defun pkoa/org-simple-elisp-mode ()
+    (if (string-prefix-p " *org-src-fontification:" (buffer-name))
+  (delay-mode-hooks (emacs-lisp-mode))
+  (emacs-lisp-mode)))
+  (setf (alist-get "emacs-lisp" org-src-lang-modes) 'pkoa/org-simple-elisp)
+  :hook
+  (emacs-lisp-mode . (lambda () (pkoa/treesit-parser-custom-lang 'elisp)))
   :custom
   (indent-bars-treesit-support t)
+  (indent-bars-no-descend-lists '(?\[ ?\())
   (indent-bars-treesit-wrap '((c argument_list parameter_list init_declarator parenthesized_expression)
-                              (rust arguments parameters)))
+                              (rust arguments parameters)
+                              (python argument_list parameters
+			                          list list_comprehension
+			                          dictionary dictionary_comprehension
+			                          parenthesized_expression subscript)
+                              (elisp quote special_form function_definition)))
   (indent-bars-treesit-scope '((rust trait_item impl_item 
                                      macro_definition macro_invocation 
                                      struct_item enum_item mod_item 
@@ -83,11 +101,8 @@
                                      while_expression match_expression 
                                      match_arm call_expression 
                                      token_tree token_tree_pattern 
-                                     token_repetition)
-                               (python function_definition class_definition for_statement
-			                           if_statement with_statement while_statement)))
+                                     token_repetition)))
   (indent-bars-treesit-ignore-blank-lines-types '("module"))
-  (indent-bars-no-descend-lists '(?\[ ?\())
   :config
   (setopt
    indent-bars-color '(highlight :face-bg t :blend 0.8)
@@ -98,7 +113,7 @@
    indent-bars-ts-highlight-current-depth '(no-inherit) ; equivalent to nil
    indent-bars-ts-color-by-depth '(no-inherit)
    indent-bars-ts-color '(inherit fringe :face-bg t :blend 0.2))
-  :hook ((rust-ts-mode python-ts-mode c-ts-mode) . indent-bars-mode))
+  :hook ((rust-ts-mode python-ts-mode c-ts-mode emacs-lisp-mode) . indent-bars-mode))
 
 (use-package colorful-mode
   :diminish
