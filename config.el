@@ -65,8 +65,23 @@
 (load-theme 'catppuccin :no-confirm)
 
 (use-package rainbow-delimiters
-:straight t
-:hook ((prog-mode html-ts-mode css-ts-mode) . rainbow-delimiters-mode))
+  :straight t
+  :hook ((prog-mode html-ts-mode css-ts-mode) . rainbow-delimiters-mode)
+  :config
+  (dolist (mode '(emacs-lisp-mode-hook
+		          python-ts-mode-hook))
+    (add-hook mode (lambda () (rainbow-delimiters-mode 0)))))
+
+(use-package prism
+  :straight (prism :host github :repo "alphapapa/prism.el")
+  :config
+  (prism-set-colors
+    :lightens '(0 5 10)
+    :desaturations '(-2.5 0 2.5)
+    :colors (mapcar #'catppuccin-get-color '(red sapphire yellow green peach lavender rosewater mauve)))
+  :hook
+  (emacs-lisp-mode . prism-mode)
+  (python-ts-mode . prism-whitespace-mode))
 
 (use-package indent-bars
   :straight t
