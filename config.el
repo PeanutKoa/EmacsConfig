@@ -66,19 +66,18 @@
 
 (use-package rainbow-delimiters
   :straight t
+  :after prism
   :hook ((prog-mode html-ts-mode css-ts-mode) . rainbow-delimiters-mode)
-  :config
-  (dolist (mode '(emacs-lisp-mode-hook
-		          python-ts-mode-hook))
-    (add-hook mode (lambda () (rainbow-delimiters-mode 0)))))
+  ((prism-mode prism-whitespace-mode) . rainbow-delimiters-mode))
 
 (use-package prism
   :straight (prism :host github :repo "alphapapa/prism.el")
+  :custom (prism-comments nil)
   :config
   (prism-set-colors
     :lightens '(0 5 10)
     :desaturations '(-2.5 0 2.5)
-    :colors (mapcar #'catppuccin-get-color '(red sapphire yellow green peach lavender rosewater mauve)))
+    :colors (mapcar #'catppuccin-get-color '(red sapphire green yellow lavender peach mauve)))
   :hook
   (emacs-lisp-mode . prism-mode)
   (python-ts-mode . prism-whitespace-mode))
@@ -107,15 +106,15 @@
 			                          dictionary dictionary_comprehension
 			                          parenthesized_expression subscript)
                               (elisp quote special_form function_definition)))
-  (indent-bars-treesit-scope '((rust trait_item impl_item 
-                                     macro_definition macro_invocation 
-                                     struct_item enum_item mod_item 
-                                     const_item let_declaration 
-                                     function_item for_expression 
-                                     if_expression loop_expression 
-                                     while_expression match_expression 
-                                     match_arm call_expression 
-                                     token_tree token_tree_pattern 
+  (indent-bars-treesit-scope '((rust trait_item impl_item
+                                     macro_definition macro_invocation
+                                     struct_item enum_item mod_item
+                                     const_item let_declaration
+                                     function_item for_expression
+                                     if_expression loop_expression
+                                     while_expression match_expression
+                                     match_arm call_expression
+                                     token_tree token_tree_pattern
                                      token_repetition)))
   (indent-bars-treesit-ignore-blank-lines-types '("module"))
   :config
@@ -136,7 +135,7 @@
   :custom
   (colorful-only-strings 'only-prog)
   (css-fontify-colors nil)
-  :hook ((helpful-mode mhtml-mode html-ts-mode css-ts-mode prog-mode org-mode) . colorful-mode))
+  :hook ((prog-mode css-ts-mode html-ts-mode org-mode text-mode) . colorful-mode))
 
 (use-package fic-mode-xtra
   :straight '(fic-mode-xtra :host github :repo "PeanutKoa/fic-mode-xtra")
@@ -449,6 +448,10 @@
   :straight t
   :commands magit-status)
 
+(use-package forge
+  :straight t
+  :after magit)
+
 (use-package dirvish
   :straight t
   :init (dirvish-override-dired-mode)
@@ -599,6 +602,7 @@
   ;; first function returning a result wins.  Note that the list of buffer-local
   ;; completion functions takes precedence over the global list.
   (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-keyword)
   (add-hook 'completion-at-point-functions #'cape-elisp-block)
   ;; (add-hook 'completion-at-point-functions #'cape-history)
