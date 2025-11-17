@@ -219,8 +219,8 @@
     :custom (prism-comments nil)
     :config
     (prism-set-colors
-      :lightens '(0 5 10)
-      :desaturations '(-2.5 0 2.5)
+      :lightens '(0)
+      :desaturations '(0)
       :colors (mapcar #'catppuccin-get-color '(red sapphire green yellow lavender peach mauve)))
     :hook
     (emacs-lisp-mode . prism-mode)
