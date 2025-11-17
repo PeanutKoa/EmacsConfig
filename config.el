@@ -64,6 +64,10 @@
 (straight-use-package 'doom-themes)
 (load-theme 'catppuccin :no-confirm)
 
+(use-package solaire-mode
+  :straight t
+  :init (solaire-global-mode))
+
 (use-package rainbow-delimiters
   :straight t
   :after prism
@@ -364,8 +368,8 @@
 (use-package embark
   :straight t
   :bind
-  (("C-SPC" . embark-act)         ;; pick some comfortable binding
-   ("C-M-SPC" . embark-dwim)        ;; good alternative: M-.
+  (("C-e" . embark-act)         ;; pick some comfortable binding
+   ("M-e" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :custom
   (embark-indicators '(embark-minimal-indicator
@@ -544,6 +548,13 @@
           (cons "emacs-lsp-booster" orig-result))
       orig-result)))
 (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+
+(use-package dap-mode
+  :straight t
+  :config (add-hook 'dap-stopped-hook
+                    (lambda (arg) (call-interactively #'dap-hydra)))
+  (require 'dap-python)
+  (setq dap-python-debugger 'debugpy))
 
 (use-package flycheck
   :straight t

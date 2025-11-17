@@ -72,9 +72,11 @@
   - [[#lsp-mode][LSP-Mode]]
     - [[#lsp-mode-setup][LSP-Mode Setup]]
     - [[#lsp-booster][LSP-Booster]]
+    - [[#dap-mode][DAP-Mode]]
     - [[#flycheck][Flycheck]]
   - [[#corfu][Corfu]]
     - [[#corfu-1][Corfu]]
+    - [[#cape][Cape]]
   - [[#languages][Languages]]
     - [[#lua][Lua]]
     - [[#ruby][Ruby]]
@@ -594,8 +596,8 @@
   (use-package embark
     :straight t
     :bind
-    (("C-SPC" . embark-act)         ;; pick some comfortable binding
-     ("C-M-SPC" . embark-dwim)        ;; good alternative: M-.
+    (("C-e" . embark-act)         ;; pick some comfortable binding
+     ("M-e" . embark-dwim)        ;; good alternative: M-.
      ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
     :custom
     (embark-indicators '(embark-minimal-indicator
@@ -840,6 +842,16 @@
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
 #+END_SRC
 
+*** DAP-Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package dap-mode
+    :straight t
+    :config (add-hook 'dap-stopped-hook
+                      (lambda (arg) (call-interactively #'dap-hydra)))
+    (require 'dap-python)
+    (setq dap-python-debugger 'debugpy))
+#+END_SRC
+
 *** Flycheck
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
@@ -887,7 +899,10 @@
     (context-menu-mode t)
     (enable-recursive-minibuffers t)
     (read-extended-command-predicate #'command-completion-default-include-p))
+#+END_SRC
 
+*** Cape
+#+BEGIN_SRC emacs-lisp
   (use-package cape
     :straight t
     ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
