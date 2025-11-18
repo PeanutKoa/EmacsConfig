@@ -64,10 +64,6 @@
 (straight-use-package 'doom-themes)
 (load-theme 'catppuccin :no-confirm)
 
-(use-package solaire-mode
-  :straight t
-  :init (solaire-global-mode))
-
 (use-package rainbow-delimiters
   :straight t
   :after prism
@@ -554,7 +550,9 @@
   :config (add-hook 'dap-stopped-hook
                     (lambda (arg) (call-interactively #'dap-hydra)))
   (require 'dap-python)
-  (setq dap-python-debugger 'debugpy))
+  (setq dap-python-debugger 'debugpy)
+  (require 'dap-gdb)
+  (setq dap-gdb-debug-program '("rust-gdb" "-i" "dap")))
 
 (use-package flycheck
   :straight t

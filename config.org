@@ -849,7 +849,9 @@
     :config (add-hook 'dap-stopped-hook
                       (lambda (arg) (call-interactively #'dap-hydra)))
     (require 'dap-python)
-    (setq dap-python-debugger 'debugpy))
+    (setq dap-python-debugger 'debugpy)
+    (require 'dap-gdb)
+    (setq dap-gdb-debug-program '("rust-gdb" "-i" "dap")))
 #+END_SRC
 
 *** Flycheck
