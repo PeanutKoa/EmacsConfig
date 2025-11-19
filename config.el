@@ -450,6 +450,7 @@
 
 (use-package forge
   :straight t
+  :init (setq forge-add-default-bindings nil)
   :after magit)
 
 (use-package dirvish
@@ -495,9 +496,9 @@
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-enable-on-type-formatting nil)
   (setq lsp-keymap-prefix "C-c l")
-  :hook ((python-ts-mode . lsp-deferred)
-	     (rust-ts-mode .   lsp-deferred)
-         (c-ts-mode    .   lsp-deferred)
+  (setq lsp-inlay-hint-enable t)
+  :hook (((python-ts-mode rust-ts-mode c-ts-mode) . lsp-deferred)
+         (lsp-mode . lsp-inlay-hints-mode)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 
@@ -547,8 +548,7 @@
 
 (use-package dap-mode
   :straight t
-  :config (add-hook 'dap-stopped-hook
-                    (lambda (arg) (call-interactively #'dap-hydra)))
+  :init
   (require 'dap-python)
   (setq dap-python-debugger 'debugpy)
   (require 'dap-gdb)
