@@ -247,7 +247,25 @@
   :config
   (evil-collection-init))
 
+(use-package undo-tree
+  :straight t
+  :init (global-undo-tree-mode)
+  :custom (evil-undo-system 'undo-tree)
+  (undo-tree-auto-save-history nil))
+
+;; automatic pair creation
 (electric-pair-mode +1)
+;; alter existing parentheses with the vim keybind 'cs'
+;; 'S' can be used as "surround"
+;; documentation: https://github.com/emacs-evil/evil-surround 
+(use-package evil-surround
+  :straight t
+  :config
+  (global-evil-surround-mode 1))
+;; some parentheses-manipulation stuff; mainly soft-deletion
+(use-package puni
+  :straight t
+  :hook (rainbow-delimiters-mode . puni-mode))
 
 (use-package blimpy
   :straight (blimpy :host github :repo "progfolio/blimpy")
@@ -364,8 +382,8 @@
 (use-package embark
   :straight t
   :bind
-  (("C-e" . embark-act)         ;; pick some comfortable binding
-   ("M-e" . embark-dwim)        ;; good alternative: M-.
+  (("M-e" . embark-act)         ;; pick some comfortable binding
+   ("M-E" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :custom
   (embark-indicators '(embark-minimal-indicator
@@ -633,6 +651,12 @@
 
 (use-package rust-mode
   :straight t)
+(use-package cargo
+  :straight t
+  :hook (rust-ts-mode . cargo-minor-mode))
+(use-package flycheck-rust
+  :straight t
+  :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
 (use-package hyprlang-ts-mode
   :straight t)
@@ -683,14 +707,12 @@
 (defun efs/configure-eshell ()
   ;; Save command history when commands are entered
   (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
-  
   ;; Truncate buffer for performance
   (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
-  
   ;; Bind some useful keys for evil-mode
   (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'beginning-of-line)
   (evil-normalize-keymaps)
-  
+
   (setq eshell-history-size         10000
         eshell-buffer-maximum-lines 10000
         eshell-hist-ignoredups t
@@ -699,11 +721,9 @@
 (use-package eshell-git-prompt
   :straight t
   :after eshell)
-
 (use-package eshell-z
   :straight t
   :after eshell)
-
 (use-package esh-help
   :straight t
   :after eshell
@@ -712,11 +732,9 @@
 (use-package eshell
   :hook (eshell-first-time-mode . efs/configure-eshell)
   :config
-
   (with-eval-after-load 'esh-opt
     (setq eshell-destroy-buffer-when-process-dies t)
     (setq eshell-visual-commands '("htop" "nvim" "gdu")))
-  
   (eshell-git-prompt-use-theme 'multiline2))
 
 (pkoa/leader
@@ -773,6 +791,14 @@
   "ol" '(org-insert-link :which-key "Insert Link")
   "oo" '(org-open-at-point :which-key "Open")
   "oi" '(org-set-tags-command :which-key "Set Tags"))
+
+(pkoa/leader
+  "p" '(:ignore t :which-key "Parentheses/Puni")
+  "ps" '(evil-surround-region :which-key "Surround")
+  "pe" '(evil-surround-edit :which-key "Edit Parentheses")
+  "pd" '(:ignore t :which-key "Delete")
+  "pdl" '(puni-kill-line :which-key "Delete Line")
+  "pdr" '(puni-kill-region :which-key "Delete Region"))
 
 (pkoa/leader
   "SPC" '(execute-extended-command :which-key "M-x"))
