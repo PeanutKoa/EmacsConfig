@@ -519,6 +519,7 @@
   :hook (((python-ts-mode rust-ts-mode c-ts-mode) . lsp-deferred)
          (lsp-mode . lsp-inlay-hints-mode)
          (lsp-mode . lsp-enable-which-key-integration))
+  :config (set-face-attribute 'lsp-inlay-hint-face nil :font "JetBrainsMono Nerd Font" :height .8)
   :commands (lsp lsp-deferred))
 
 (use-package consult-lsp
