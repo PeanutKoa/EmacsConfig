@@ -23,7 +23,7 @@
     - [[#fic-mode][Fic Mode]]
     - [[#font][Font]]
     - [[#line-numbering][Line Numbering]]
-    - [[#smoother-scrollingrefresh-display][Smoother Scrolling/Refresh Display]]
+    - [[#scrolling-improvements][Scrolling Improvements]]
     - [[#remove-elements][Remove Elements]]
     - [[#dashboard][Dashboard]]
   - [[#keybindings][Keybindings]]
@@ -347,7 +347,7 @@
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+END_SRC
 
-*** Smoother Scrolling/Refresh Display
+*** Scrolling Improvements
 #+BEGIN_SRC emacs-lisp
   (use-package ultra-scroll
     :straight t
@@ -660,6 +660,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :hook (org-mode . visual-line-mode)
+    :config (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)
     :custom
     (org-hide-emphasis-markers t)
     (org-ellipsis "...")

@@ -413,6 +413,7 @@
 
 (use-package org
   :hook (org-mode . visual-line-mode)
+  :config (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)
   :custom
   (org-hide-emphasis-markers t)
   (org-ellipsis "...")
