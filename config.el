@@ -141,8 +141,10 @@
   :straight '(fic-mode-xtra :host github :repo "PeanutKoa/fic-mode-xtra")
   :hook (prog-mode . fic-mode))
 
-;; sets the font directly
+;; sets the fonts directly
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 125)
+(set-face-attribute 'fixed-pitch nil :font "JetBrainsMono Nerd Font" :height 125)
+(set-face-attribute 'variable-pitch nil :font "Iosevka Aile" :height 125)
 ;; ligature support
 (use-package ligature
   :straight t
@@ -413,21 +415,26 @@
 
 (use-package org
   :hook (org-mode . visual-line-mode)
-  :config (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)
+  :config
+  (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)
+  (set-face-attribute 'org-table nil :inherit 'variable-pitch)
+  (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
   :custom
   (org-hide-emphasis-markers t)
   (org-ellipsis "...")
-  :hook (org-mode . org-indent-mode))
+  :hook
+  (org-mode . org-indent-mode)
+  (org-mode . (lambda () (variable-pitch-mode t))))
 
-(dolist (face '((org-level-1 .  1.2)
-                (org-level-2 .  1.1)
-                (org-level-3 . 1.05)
-                (org-level-4 .  1.0)
-                (org-level-5 .  1.0)
-                (org-level-6 .  1.0)
-                (org-level-7 .  1.0)
-                (org-level-8 .  1.0)))
-  (set-face-attribute (car face) nil :font "JetBrainsMono Nerd Font" :weight 'regular :height (cdr face)))
+(dolist (face '((org-level-1 .  1.25)
+                (org-level-2 .  1.2)
+                (org-level-3 .  1.15)
+                (org-level-4 .  1.1)
+                (org-level-5 .  1.1)
+                (org-level-6 .  1.1)
+                (org-level-7 .  1.1)
+                (org-level-8 .  1.1)))
+  (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'regular :height (cdr face)))
 
 (use-package org-modern
   :straight t
