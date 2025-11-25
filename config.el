@@ -1,5 +1,5 @@
 ;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+(setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 (recentf-mode 1)
@@ -137,9 +137,31 @@
   (css-fontify-colors nil)
   :hook ((prog-mode css-ts-mode html-ts-mode org-mode text-mode) . colorful-mode))
 
-(use-package fic-mode-xtra
-  :straight '(fic-mode-xtra :host github :repo "PeanutKoa/fic-mode-xtra")
-  :hook (prog-mode . fic-mode))
+;; actual prettifying
+(use-package hl-todo
+  :straight t
+  :init
+  (global-hl-todo-mode)
+  :config
+  (setq hl-todo-keyword-faces
+        '(("TODO"    . "#89b4fa")
+          ("DONE"    . "#6c7086")
+          ("FIXED"   . "#6c7086")
+          ("FIXME"   . "#89dceb")
+          ("WONTFIX" . "#f38ba8")
+          ("WARN"    . "#f9e2af")
+          ("WARNING" . "#f9e2af")
+          ("BUG"     . "#a6e3a1")
+          ("HACK"    . "#cba6f7")
+          ("INFO"    . "#74c7ec")
+          ("NOTICE"  . "#74c7ec"))))
+;;functionality improvements 
+(use-package consult-todo
+  :straight t)
+(use-package magit-todos
+  :straight t
+  :after magit
+  :config (magit-todos-mode 1))
 
 ;; sets the fonts directly
 (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font" :height 125)
@@ -417,14 +439,14 @@
   :hook (org-mode . visual-line-mode)
   :config
   (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)
-  (set-face-attribute 'org-table nil :inherit 'variable-pitch)
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
   :custom
   (org-hide-emphasis-markers t)
   (org-ellipsis "...")
   :hook
   (org-mode . org-indent-mode)
-  (org-mode . (lambda () (variable-pitch-mode t))))
+  (org-mode . (lambda () (variable-pitch-mode 1))))
 
 (dolist (face '((org-level-1 .  1.25)
                 (org-level-2 .  1.2)
@@ -441,8 +463,9 @@
   :custom
   (org-modern-star 'replace)
   (org-modern-replace-stars "◉○✸✱✿")
-  :init
-  (global-org-modern-mode))
+  :init (global-org-modern-mode)
+  :config (set-face-attribute 'org-modern-symbol nil :family "JetBrainsMono Nerd Font")
+  :hook (org-agenda-finalize . org-modern-agenda))
 
 (use-package org-modern-indent
   :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
@@ -519,14 +542,15 @@
 (use-package lsp-mode
   :after markdown-mode
   :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-enable-on-type-formatting nil)
   (setq lsp-keymap-prefix "C-c l")
-  (setq lsp-inlay-hint-enable t)
   :hook (((python-ts-mode rust-ts-mode c-ts-mode) . lsp-deferred)
-         (rust-ts-mode . lsp-inlay-hints-mode)
+         ((rust-ts-mode c-ts-mode) . lsp-inlay-hints-mode)
          (lsp-mode . lsp-enable-which-key-integration))
   :config (set-face-attribute 'lsp-inlay-hint-face nil :font "JetBrainsMono Nerd Font" :height .8)
+  :custom
+  (lsp-modeline-code-actions-segments '(count))
+  (lsp-enable-on-type-formatting nil)
+  (lsp-inlay-hint-enable t)
   :commands (lsp lsp-deferred))
 
 (use-package consult-lsp
@@ -540,6 +564,10 @@
 (use-package lsp-ui
   :straight t
   :after lsp-mode
+  :config
+  (lsp-ui-peek-enable t)
+  :custom
+  (lsp-ui-sideline-diagnostic-max-lines '5)
   :commands lsp-ui-mode)
 
 (defun lsp-booster--advice-json-parse (old-fn &rest args)
@@ -647,6 +675,8 @@
 
 (use-package web-mode
   :straight t
+  :custom
+  (web-mode-enable-css-colorization nil)
   :mode (("\\.html?\\'" . web-mode)))
 
 (use-package lua-mode
@@ -815,5 +845,3 @@
 
 (pkoa/leader
   "SPC" '(execute-extended-command :which-key "M-x"))
-
-(setq gc-cons-threshold (* 2 1000 1000))
