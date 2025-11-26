@@ -463,6 +463,7 @@
   :custom
   (org-modern-star 'replace)
   (org-modern-replace-stars "◉○✸✱✿")
+  (org-modern-table nil)
   :init (global-org-modern-mode)
   :config (set-face-attribute 'org-modern-symbol nil :family "JetBrainsMono Nerd Font")
   :hook (org-agenda-finalize . org-modern-agenda))
@@ -666,7 +667,6 @@
   ;; first function returning a result wins.  Note that the list of buffer-local
   ;; completion functions takes precedence over the global list.
   (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-keyword)
   (add-hook 'completion-at-point-functions #'cape-elisp-block)
   ;; (add-hook 'completion-at-point-functions #'cape-history)
@@ -809,8 +809,10 @@
 	 :which-key "Emacs config.org")
   "fg" '(consult-ripgrep :which-key "RipGrep")
   "fG" '(ag :which-key "Silver-Searcher")
-  "fe" '(eval-last-sexp :which-key "evaluate")
+  "fe" '(eval-last-sexp :which-key "Evaluate")
   "fs" '(consult-line :which-key "Search File")
+  "ft" '(consult-todo :which-key "Find TODOs")
+  "fT" '(consult-todo :which-key "Project TODOs")
   "fw" '(write-file :which-key "Write File to...")
   "fr" '(consult-recent-file :which-key "Recent Files")
   "fu" '(sudo-edit-find-file :j which-key "Sudo Find File")
