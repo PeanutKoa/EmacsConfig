@@ -201,7 +201,7 @@
                 shell-mode-hook
                 treemacs-mode-hook
                 eshell-mode-hook
-		        eat-mode-hook
+		        vterm-mode-hook
 		        woman-mode-hook
                 tldr-mode-hook
 		        eww-mode-hook))
@@ -463,6 +463,10 @@
   :custom
   (org-modern-star 'replace)
   (org-modern-replace-stars "◉○✸✱✿")
+  (org-modern-checkbox nil)
+  (org-modern-tag nil)
+  (org-modern-priority nil)
+  (org-modern-todo nil)
   (org-modern-table nil)
   :init (global-org-modern-mode)
   :config (set-face-attribute 'org-modern-symbol nil :family "JetBrainsMono Nerd Font")
@@ -471,6 +475,16 @@
 (use-package org-modern-indent
   :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
   :config (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+
+(use-package svg-tag-mode
+  :straight t
+  :config
+  (setq svg-tag-tags
+        '(
+          ("TODO" . ((lambda (tag) (svg-tag-make "TODO" :face 'org-todo :inverse t :margin 0))))
+          ("DONE" . ((lambda (tag) (svg-tag-make "DONE" :face 'org-done :margin 0))))
+          ))
+  :hook (org-mode . svg-tag-mode))
 
 (use-package toc-org
   :straight t
@@ -701,6 +715,9 @@
   :straight t
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
+(use-package fish-mode
+  :straight t)
+
 (use-package hyprlang-ts-mode
   :straight t)
 (add-to-list 'treesit-language-source-alist
@@ -736,16 +753,12 @@
   :straight t
   :hook (term-mode . eterm-256color-mode))
 
-(straight-use-package
- '(eat :type git
-       :host codeberg
-       :repo "akib/emacs-eat"
-       :files ("*.el" ("term" "term/*.el") "*.texi"
-               "*.ti" ("terminfo/e" "terminfo/e/*")
-               ("terminfo/65" "terminfo/65/*")
-               ("integration" "integration/*")
-               (:exclude ".dir-locals.el" "*-tests.el"))
-       :hook (eshell-load . eat-eshell-mode)))
+(use-package vterm
+  :straight t
+  :commands vterm
+  :custom
+  (vterm-max-scrollback 10000)
+  (vterm-shell "fish"))
 
 (defun efs/configure-eshell ()
   ;; Save command history when commands are entered

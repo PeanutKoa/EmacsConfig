@@ -55,9 +55,10 @@
     - [[#basic-setup][Basic Setup]]
     - [[#header-variable-size][Header Variable Size]]
     - [[#org-modern][Org Modern]]
+    - [[#svg-tags][SVG Tags]]
   - [[#functional][Functional]]
     - [[#toc-org][TOC-Org]]
-    - [[#agendatodo][Agenda/TODO]]
+    - [[#agendatodo][Agenda/Todo]]
 - [[#project-management][Project Management]]
   - [[#projectile][Projectile]]
     - [[#setup-2][Setup]]
@@ -84,6 +85,7 @@
     - [[#ruby][Ruby]]
     - [[#cc][C/C++]]
     - [[#rust][Rust]]
+    - [[#fish][Fish]]
     - [[#hyprlang][Hyprlang]]
     - [[#markdown][Markdown]]
     - [[#tree-sitter-config][Tree-Sitter Config]]
@@ -91,7 +93,7 @@
   - [[#term][Term]]
     - [[#better-term][Better Term]]
     - [[#term-256-color][Term 256 Color]]
-    - [[#eat-better-term][EaT (Better Term)]]
+    - [[#vterm][Vterm]]
   - [[#shell][Shell]]
     - [[#better-eshell][Better eShell]]
 - [[#keybindings-leader][Keybindings Leader]]
@@ -362,7 +364,7 @@
                   shell-mode-hook
                   treemacs-mode-hook
                   eshell-mode-hook
-  		        eat-mode-hook
+  		        vterm-mode-hook
   		        woman-mode-hook
                   tldr-mode-hook
   		        eww-mode-hook))
@@ -714,6 +716,10 @@
     :custom
     (org-modern-star 'replace)
     (org-modern-replace-stars "◉○✸✱✿")
+    (org-modern-checkbox nil)
+    (org-modern-tag nil)
+    (org-modern-priority nil)
+    (org-modern-todo nil)
     (org-modern-table nil)
     :init (global-org-modern-mode)
     :config (set-face-attribute 'org-modern-symbol nil :family "JetBrainsMono Nerd Font")
@@ -722,6 +728,19 @@
   (use-package org-modern-indent
     :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
     :config (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+#+END_SRC
+
+*** SVG Tags
+#+BEGIN_SRC emacs-lisp
+  (use-package svg-tag-mode
+    :straight t
+    :config
+    (setq svg-tag-tags
+          '(
+            ("TODO" . ((lambda (tag) (svg-tag-make "TODO" :face 'org-todo :inverse t :margin 0))))
+            ("DONE" . ((lambda (tag) (svg-tag-make "DONE" :face 'org-done :margin 0))))
+            ))
+    :hook (org-mode . svg-tag-mode))
 #+END_SRC
 
 ** Functional
@@ -733,11 +752,11 @@
     :hook (org-mode . toc-org-mode))
 #+END_SRC
 
-*** Agenda/TODO
+*** Agenda/Todo
 #+BEGIN_SRC emacs-lisp
-      (use-package org
-        :custom
-        (org-agenda-files '("~/Documents/org_agenda/")))
+  (use-package org
+    :custom
+    (org-agenda-files '("~/Documents/org_agenda/")))
 #+END_SRC
 
 * Project Management
@@ -1031,6 +1050,12 @@
     :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+END_SRC
 
+*** Fish
+#+BEGIN_SRC emacs-lisp
+  (use-package fish-mode
+    :straight t)
+#+END_SRC
+
 *** Hyprlang
 #+BEGIN_SRC emacs-lisp
   (use-package hyprlang-ts-mode
@@ -1085,18 +1110,14 @@
     :hook (term-mode . eterm-256color-mode))
 #+END_SRC
 
-*** EaT (Better Term)
+*** Vterm
 #+BEGIN_SRC emacs-lisp
-    (straight-use-package
-     '(eat :type git
-           :host codeberg
-           :repo "akib/emacs-eat"
-           :files ("*.el" ("term" "term/*.el") "*.texi"
-                   "*.ti" ("terminfo/e" "terminfo/e/*")
-                   ("terminfo/65" "terminfo/65/*")
-                   ("integration" "integration/*")
-                   (:exclude ".dir-locals.el" "*-tests.el"))
-           :hook (eshell-load . eat-eshell-mode)))
+  (use-package vterm
+    :straight t
+    :commands vterm
+    :custom
+    (vterm-max-scrollback 10000)
+    (vterm-shell "fish"))
 #+END_SRC
 
 ** Shell
