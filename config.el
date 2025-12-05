@@ -626,7 +626,10 @@
 
 (use-package flycheck
   :straight t
-  :hook (prog-mode . flycheck-mode))
+  :hook
+  (prog-mode . flycheck-mode)
+  (emacs-lisp-mode . (lambda () (flycheck-mode -1))))
+
 (use-package yasnippet
   :straight t
   :hook ((lsp-mode . yas-minor-mode)))
@@ -740,25 +743,22 @@
   :init (global-treesit-fold-indicators-mode 1)
   (treesit-fold-line-comment-mode 1))
 
-(use-package term
-  :commands term
-  :config
-  (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
-  ;;(setq explicit-zsh-args '())         ;; Use 'explicit-<shell>-args for shell-specific args
-  
-  ;; Match the default Bash shell prompt.  Update this if you have a custom prompt
-  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
-
-(use-package eterm-256color
-  :straight t
-  :hook (term-mode . eterm-256color-mode))
-
 (use-package vterm
   :straight t
   :commands vterm
   :custom
   (vterm-max-scrollback 10000)
   (vterm-shell "fish"))
+
+(use-package multi-vterm
+  :straight t
+  :config
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (setq-local evil-insert-state-cursor 'box)
+              (evil-insert-state)))
+  (setq multi-vterm-dedicated-window-height-percent 30)
+  )
 
 (defun efs/configure-eshell ()
   ;; Save command history when commands are entered
@@ -807,11 +807,20 @@
   "wi" '(delete-other-windows :which-key "Isolate Window"))
 
 (pkoa/leader
- "b" '(:ignore t :which-key "Buffer")
- "bc" '(recenter :which-key "Center on Cursor")
- "bw" '(save-buffer :which-key "Save Current Buffer")
- "bd" '(kill-buffer :which-key "Kill Current Buffer")
- "bs" '(consult-buffer :which-key "Switch Buffer"))
+  "b" '(:ignore t :which-key "Buffer")
+  "bc" '(recenter :which-key "Center on Cursor")
+  "bw" '(save-buffer :which-key "Save Current Buffer")
+  "bd" '(kill-buffer :which-key "Kill Current Buffer")
+  "bs" '(consult-buffer :which-key "Switch Buffer"))
+
+(pkoa/leader
+  "v" '(:ignore t :which-key "Term/Shell")
+  "vv" '(multi-vterm-dedicated-toggle :which-key "Toggle Vterm")
+  "vV" '(multi-vterm :which-key "Vterm")
+  "vj" '(multi-vterm-next :which-key "Next Vterm Session")
+  "vk" '(multi-vterm-prev :which-key "Prev Vterm Session")
+  "ve" '(eshell :which-key "EShell")
+  "vE" '(projectile-run-eshell :which-key "Project EShell"))
 
 (pkoa/leader
   "f" '(:ignore t :which-key "File")
