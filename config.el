@@ -336,6 +336,9 @@
 (use-package mentor
   :straight t)
 
+(use-package ement
+  :straight t)
+
 (use-package emms
   :straight t
   :init
@@ -727,6 +730,9 @@
 	     '(hyprlang "https://github.com/tree-sitter-grammars/tree-sitter-hyprlang"))
 
 (use-package markdown-mode
+  :straight t)
+
+(use-package yaml-mode
   :straight t)
 
 ;; enables treesitter modes whenever possible

@@ -41,6 +41,7 @@
     - [[#helpful][Helpful]]
     - [[#jinxspellcheck][Jinx/Spellcheck]]
     - [[#mentorrtorrent][Mentor/RTorrent]]
+    - [[#ementmatrix][Ement/Matrix]]
     - [[#emms][EMMS]]
     - [[#tldr][TLDR]]
     - [[#treemacs][Treemacs]]
@@ -88,6 +89,7 @@
     - [[#fish][Fish]]
     - [[#hyprlang][Hyprlang]]
     - [[#markdown][Markdown]]
+    - [[#yaml][YAML]]
     - [[#tree-sitter-config][Tree-Sitter Config]]
 - [[#terminal-and-shell][Terminal and Shell]]
   - [[#term][Term]]
@@ -548,6 +550,12 @@
 *** Mentor/RTorrent
 #+BEGIN_SRC emacs-lisp
   (use-package mentor
+    :straight t)
+#+END_SRC
+
+*** Ement/Matrix
+#+BEGIN_SRC emacs-lisp
+  (use-package ement
     :straight t)
 #+END_SRC
 
@@ -1070,6 +1078,12 @@
 *** Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
+    :straight t)
+#+END_SRC
+
+*** YAML
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
     :straight t)
 #+END_SRC
 
