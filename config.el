@@ -240,19 +240,22 @@
   (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Evil!")
   (setq dashboard-startup-banner "~/.emacs.d/banner.txt") 
   (setq dashboard-items '((recents   . 5)
-  			  (bookmarks . 5)
-  	                  (projects  . 5)))
+                          (bookmarks . 5)
+                          (projects  . 5)))
   :config
   (dashboard-setup-startup-hook))
 
 (use-package evil
   :straight t
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-C-i-jump nil)
+  :custom
+  (evil-want-integration t)
+  (evil-want-keybinding nil)
+  (evil-want-C-u-scroll t)
+  (evil-want-C-i-jump nil)
   :config
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
 
@@ -262,8 +265,6 @@
 
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
 
 (use-package evil-collection
   :straight t
