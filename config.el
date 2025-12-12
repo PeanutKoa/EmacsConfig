@@ -237,7 +237,7 @@
   (setq dashboard-set-file-icons t)
   (setq dashboard-center-content t)
   (setq dashboard-projects-backend 'projectile)
-  (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Evil!")
+  (setq dashboard-banner-logo-title "PeanutKoa's Emacs, Powered by Silliness :3")
   (setq dashboard-startup-banner "~/.emacs.d/banner.txt") 
   (setq dashboard-items '((recents   . 5)
                           (bookmarks . 5)
@@ -245,68 +245,112 @@
   :config
   (dashboard-setup-startup-hook))
 
-(use-package evil
+(use-package meow
   :straight t
-  :custom
-  (evil-want-integration t)
-  (evil-want-keybinding nil)
-  (evil-want-C-u-scroll t)
-  (evil-want-C-i-jump nil)
   :config
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 4)
-
-  (evil-mode 1)
-  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-
-  ;; Use visual line motions even outside of visual-line-mode buffers
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
-  (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal))
-
-(use-package evil-collection
-  :straight t
-  :after evil
-  :config
-  (evil-collection-init))
+  (defun meow-setup ()
+    (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+    (meow-motion-define-key
+     '("j" . meow-next)
+     '("k" . meow-prev)
+     '("<escape>" . ignore))
+    (meow-leader-define-key
+     ;; Use SPC (0-9) for digit arguments.
+     '("1" . meow-digit-argument)
+     '("2" . meow-digit-argument)
+     '("3" . meow-digit-argument)
+     '("4" . meow-digit-argument)
+     '("5" . meow-digit-argument)
+     '("6" . meow-digit-argument)
+     '("7" . meow-digit-argument)
+     '("8" . meow-digit-argument)
+     '("9" . meow-digit-argument)
+     '("0" . meow-digit-argument)
+     '("/" . meow-keypad-describe-key)
+     '("?" . meow-cheatsheet))
+    (meow-normal-define-key
+     '("0" . meow-expand-0)
+     '("9" . meow-expand-9)
+     '("8" . meow-expand-8)
+     '("7" . meow-expand-7)
+     '("6" . meow-expand-6)
+     '("5" . meow-expand-5)
+     '("4" . meow-expand-4)
+     '("3" . meow-expand-3)
+     '("2" . meow-expand-2)
+     '("1" . meow-expand-1)
+     '("-" . negative-argument)
+     '(";" . meow-reverse)
+     '("," . meow-inner-of-thing)
+     '("." . meow-bounds-of-thing)
+     '("[" . meow-beginning-of-thing)
+     '("]" . meow-end-of-thing)
+     '("a" . meow-append)
+     '("A" . meow-open-below)
+     '("b" . meow-back-word)
+     '("B" . meow-back-symbol)
+     '("c" . meow-change)
+     '("d" . meow-delete)
+     '("D" . meow-backward-delete)
+     '("e" . meow-next-word)
+     '("E" . meow-next-symbol)
+     '("f" . meow-find)
+     '("g" . meow-cancel-selection)
+     '("G" . meow-grab)
+     '("h" . meow-left)
+     '("H" . meow-left-expand)
+     '("i" . meow-insert)
+     '("I" . meow-open-above)
+     '("j" . meow-next)
+     '("J" . meow-next-expand)
+     '("k" . meow-prev)
+     '("K" . meow-prev-expand)
+     '("l" . meow-right)
+     '("L" . meow-right-expand)
+     '("m" . meow-join)
+     '("n" . meow-search)
+     '("o" . meow-block)
+     '("O" . meow-to-block)
+     '("p" . meow-yank)
+     '("q" . meow-quit)
+     '("Q" . meow-goto-line)
+     '("r" . meow-replace)
+     '("R" . meow-swap-grab)
+     '("s" . meow-kill)
+     '("t" . meow-till)
+     '("u" . meow-undo)
+     '("U" . meow-undo-in-selection)
+     '("v" . meow-visit)
+     '("w" . meow-mark-word)
+     '("W" . meow-mark-symbol)
+     '("x" . meow-line)
+     '("X" . meow-goto-line)
+     '("y" . meow-save)
+     '("Y" . meow-sync-grab)
+     '("z" . meow-pop-selection)
+     '("'" . repeat)
+     '("<escape>" . ignore)))
+  (meow-setup)
+  (meow-global-mode 1)
+  :custom (meow-use-cursor-position-hack t))
 
 (use-package undo-tree
   :straight t
   :init (global-undo-tree-mode)
-  :custom (evil-undo-system 'undo-tree)
-  (undo-tree-auto-save-history nil))
+  :custom (undo-tree-auto-save-history nil))
 
 ;; automatic pair creation
 (electric-pair-mode +1)
-;; alter existing parentheses with the vim keybind 'cs'
-;; 'S' can be used as "surround"
-;; documentation: https://github.com/emacs-evil/evil-surround 
-(use-package evil-surround
-  :straight t
-  :config
-  (global-evil-surround-mode 1))
 ;; some parentheses-manipulation stuff; mainly soft-deletion
 (use-package puni
   :straight t
   :hook (rainbow-delimiters-mode . puni-mode))
 
-(use-package blimpy
-  :straight (blimpy :host github :repo "progfolio/blimpy")
-  :after (evil)
-  :config
-  (add-hook 'blimpy-before-typing-the-word-blimpy-in-emacs-hook
-            (apply-partially #'evil-insert 1)))
-
 (use-package general
   :straight t
-  :after evil
   :config
-  (general-evil-setup)
   (general-create-definer pkoa/leader
   :states '(normal insert visual emacs)
-  :prefix "SPC"
   :non-normal-prefix "C-SPC"))
 (use-package hydra
   :straight t)
@@ -360,10 +404,6 @@
   :config
   (setq treemacs-position 'right)
   :defer t)
-
-(use-package treemacs-evil
-  :after (treemacs evil)
-  :straight t)
 
 (use-package treemacs-projectile
   :after (treemacs projectile)
@@ -760,21 +800,13 @@
 (use-package multi-vterm
   :straight t
   :config
-  (add-hook 'vterm-mode-hook
-            (lambda ()
-              (setq-local evil-insert-state-cursor 'box)
-              (evil-insert-state)))
-  (setq multi-vterm-dedicated-window-height-percent 30)
-  )
+  (setq multi-vterm-dedicated-window-height-percent 30))
 
 (defun efs/configure-eshell ()
   ;; Save command history when commands are entered
   (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
   ;; Truncate buffer for performance
   (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
-  ;; Bind some useful keys for evil-mode
-  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'beginning-of-line)
-  (evil-normalize-keymaps)
 
   (setq eshell-history-size         10000
         eshell-buffer-maximum-lines 10000
@@ -803,13 +835,9 @@
 (pkoa/leader
   "w" '(:ignore t :which-key "Window")
   "wd" '(delete-window :which-key "Delete Window")
-  "wv" '(evil-window-vsplit :which-key "Split Vertically")
-  "ws" '(evil-window-split :which-key "Split Horizontally")
-  "wh" '(evil-window-left :which-key "Switch Window Left")
-  "wl" '(evil-window-right :which-key "Switch Window Right")
-  "wk" '(evil-window-up :which-key "Switch Window Up")
-  "wj" '(evil-window-down :which-key "Switch Window Down")
-  "ww" '(evil-window-next :which-key "Next Window")
+  "wv" '(split-window-horizontally :which-key "Split Vertically")
+  "ws" '(split-window-vertically :which-key "Split Horizontally")
+  "ww" '(next-window-any-frame :which-key "Next Window")
   "wr" '(redraw-display :which-key "Refresh Window/Display")
   "wi" '(delete-other-windows :which-key "Isolate Window"))
 
@@ -868,8 +896,6 @@
 
 (pkoa/leader
   "p" '(:ignore t :which-key "Parentheses/Puni")
-  "ps" '(evil-surround-region :which-key "Surround")
-  "pe" '(evil-surround-edit :which-key "Edit Parentheses")
   "pd" '(:ignore t :which-key "Delete")
   "pdl" '(puni-kill-line :which-key "Delete Line")
   "pdr" '(puni-kill-region :which-key "Delete Region"))
