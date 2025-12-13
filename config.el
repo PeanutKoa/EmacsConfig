@@ -247,6 +247,11 @@
 
 (use-package meow
   :straight t
+  :init
+  (defun meow-find-reverse ()
+    (interactive)
+    (let ((current-prefix-arg -1))
+	 (call-interactively 'meow-find)))
   :config
   (defun meow-setup ()
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
@@ -283,48 +288,32 @@
      '(";" . meow-reverse)
      '("," . meow-inner-of-thing)
      '("." . meow-bounds-of-thing)
-     '("[" . meow-beginning-of-thing)
-     '("]" . meow-end-of-thing)
-     '("a" . meow-append)
-     '("A" . meow-open-below)
-     '("b" . meow-back-word)
-     '("B" . meow-back-symbol)
+     '("[" . meow-beginning-of-thing) '("]" . meow-end-of-thing)
+     '("a" . meow-append) '("A" . meow-open-below)
+     '("b" . meow-back-word) '("B" . meow-back-symbol)
      '("c" . meow-change)
-     '("d" . meow-delete)
-     '("D" . meow-backward-delete)
-     '("e" . meow-next-word)
-     '("E" . meow-next-symbol)
-     '("f" . meow-find)
-     '("g" . meow-cancel-selection)
-     '("G" . meow-grab)
-     '("h" . meow-left)
-     '("H" . meow-left-expand)
-     '("i" . meow-insert)
-     '("I" . meow-open-above)
-     '("j" . meow-next)
-     '("J" . meow-next-expand)
-     '("k" . meow-prev)
-     '("K" . meow-prev-expand)
-     '("l" . meow-right)
-     '("L" . meow-right-expand)
+     '("d" . meow-delete) '("D" . meow-backward-delete)
+     '("e" . meow-next-word) '("E" . meow-next-symbol)
+     '("f" . meow-find) '("F" . meow-find-reverse)
+     '("g" . meow-cancel-selection) '("G" . meow-grab)
+     '("h" . meow-left) '("H" . meow-left-expand)
+     '("i" . meow-insert) '("I" . meow-open-above)
+     '("j" . meow-next) '("J" . meow-next-expand)
+     '("k" . meow-prev) '("K" . meow-prev-expand)
+     '("l" . meow-right) '("L" . meow-right-expand)
      '("m" . meow-join)
      '("n" . meow-search)
-     '("o" . meow-block)
-     '("O" . meow-to-block)
+     '("o" . meow-block) '("O" . meow-to-block)
      '("p" . meow-yank)
-     '("q" . meow-quit)
-     '("Q" . meow-goto-line)
-     '("r" . meow-replace)
-     '("R" . meow-swap-grab)
+     '("q" . meow-quit) '("Q" . meow-goto-line)
+     '("r" . meow-replace) '("R" . meow-swap-grab)
      '("s" . meow-kill)
      '("t" . meow-till)
-     '("u" . meow-undo)
-     '("U" . meow-undo-in-selection)
-     '("v" . meow-visit)
+     '("u" . undo-tree-undo) '("U" . undo-tree-redo)
+     '("v" . meow-visit) '("V" . consult-line)
      '("w" . meow-mark-word)
      '("W" . meow-mark-symbol)
-     '("x" . meow-line)
-     '("X" . meow-goto-line)
+     '("x" . meow-line) '("X" . meow-goto-line)
      '("y" . meow-save)
      '("Y" . meow-sync-grab)
      '("z" . meow-pop-selection)
@@ -832,7 +821,7 @@
     (setq eshell-visual-commands '("htop" "nvim" "gdu")))
   (eshell-git-prompt-use-theme 'multiline2))
 
-(pkoa/leader
+'(pkoa/leader
   "w" '(:ignore t :which-key "Window")
   "wd" '(delete-window :which-key "Delete Window")
   "wv" '(split-window-horizontally :which-key "Split Vertically")
@@ -841,23 +830,23 @@
   "wr" '(redraw-display :which-key "Refresh Window/Display")
   "wi" '(delete-other-windows :which-key "Isolate Window"))
 
-(pkoa/leader
+'(pkoa/leader
   "b" '(:ignore t :which-key "Buffer")
   "bc" '(recenter :which-key "Center on Cursor")
   "bw" '(save-buffer :which-key "Save Current Buffer")
   "bd" '(kill-buffer :which-key "Kill Current Buffer")
   "bs" '(consult-buffer :which-key "Switch Buffer"))
 
-(pkoa/leader
-  "v" '(:ignore t :which-key "Term/Shell")
-  "vv" '(multi-vterm-dedicated-toggle :which-key "Toggle Vterm")
-  "vV" '(multi-vterm :which-key "Vterm")
-  "vj" '(multi-vterm-next :which-key "Next Vterm Session")
-  "vk" '(multi-vterm-prev :which-key "Prev Vterm Session")
-  "ve" '(eshell :which-key "EShell")
-  "vE" '(projectile-run-eshell :which-key "Project EShell"))
+'(pkoa/leader
+   "v" '(:ignore t :which-key "Term/Shell")
+   "vv" '(multi-vterm-dedicated-toggle :which-key "Toggle Vterm")
+   "vV" '(multi-vterm :which-key "Vterm")
+   "vj" '(multi-vterm-next :which-key "Next Vterm Session")
+   "vk" '(multi-vterm-prev :which-key "Prev Vterm Session")
+   "ve" '(eshell :which-key "EShell")
+   "vE" '(projectile-run-eshell :which-key "Project EShell"))
 
-(pkoa/leader
+'(pkoa/leader
   "f" '(:ignore t :which-key "File")
   "ff" '(find-file :which-key "Find File")
   "fF" '(consult-fd :wich-key "Fd")
@@ -875,7 +864,7 @@
   "fu" '(sudo-edit-find-file :j which-key "Sudo Find File")
   "fU" '(sudo-edit :which-key "Sudo Edit File"))
 
-(pkoa/leader
+'(pkoa/leader
   "m" '(:ignore t :which-key "Magit")
   "mm" '(magit-status :which-key "Magit Status")
   "md" '(magit-dispatch :which-key "Dispatch")
@@ -886,7 +875,7 @@
   "mp" '(magit-push :which-key "Push")
   "mP" '(magit-pull :which-key "Pull"))
 
-(pkoa/leader
+'(pkoa/leader
   "o" '(:ignore t :which-key "Org")
   "oa" '(org-agenda :which-key "Agenda")
   "ot" '(org-todo :which-key "Todo")
@@ -894,11 +883,11 @@
   "oo" '(org-open-at-point :which-key "Open")
   "oi" '(org-set-tags-command :which-key "Set Tags"))
 
-(pkoa/leader
+'(pkoa/leader
   "p" '(:ignore t :which-key "Parentheses/Puni")
   "pd" '(:ignore t :which-key "Delete")
   "pdl" '(puni-kill-line :which-key "Delete Line")
   "pdr" '(puni-kill-region :which-key "Delete Region"))
 
-(pkoa/leader
+'(pkoa/leader
   "SPC" '(execute-extended-command :which-key "M-x"))
