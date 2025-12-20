@@ -245,6 +245,8 @@
   :config
   (dashboard-setup-startup-hook))
 
+;; ADD SOME MORE LATER
+
 (use-package meow
   :straight t
   :init
@@ -319,9 +321,9 @@
      '("z" . meow-pop-selection)
      '("'" . repeat)
      '("<escape>" . ignore)))
+  (setq meow-use-clipboard t)
   (meow-setup)
-  (meow-global-mode 1)
-  :custom (meow-use-cursor-position-hack t))
+  (meow-global-mode 1))
 
 (use-package undo-tree
   :straight t
@@ -335,18 +337,8 @@
   :straight t
   :hook (rainbow-delimiters-mode . puni-mode))
 
-(use-package general
-  :straight t
-  :config
-  (general-create-definer pkoa/leader
-  :states '(normal insert visual emacs)
-  :non-normal-prefix "C-SPC"))
-(use-package hydra
-  :straight t)
-
-(general-define-key
- "C-x M-x" 'redraw-display
- "<escape>" 'keyboard-escape-quit)
+(global-set-key (kbd "C-x M-x") 'redraw-dispay)
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (use-package doom-modeline
   :straight t
@@ -420,7 +412,13 @@
   (vertico-mode))
 
 (use-package consult
-  :straight t)
+  :straight t
+  :bind (;; file related ones
+	 ("C-x C-r" . consult-recent-file)
+	 ("C-x F"   . consult-fd)
+	 ("C-x P"   . (lambda () (interactive)
+			(find-file "~/.emacs.d/config.org")))
+	 ("C-x b"   . consult-buffer)))
 
 (use-package marginalia
   :straight t
@@ -601,14 +599,6 @@
   (lsp-inlay-hint-enable t)
   :commands (lsp lsp-deferred))
 
-(use-package consult-lsp
-  :straight '(consult-lsp :host github :repo "gagbo/consult-lsp")
-  :after lsp-mode)
-
-(use-package lsp-treemacs
-  :straight t
-  :after lsp-mode)
-
 (use-package lsp-ui
   :straight t
   :after lsp-mode
@@ -617,6 +607,21 @@
   :custom
   (lsp-ui-sideline-diagnostic-max-lines '5)
   :commands lsp-ui-mode)
+
+(use-package consult-lsp
+  :straight '(consult-lsp :host github :repo "gagbo/consult-lsp")
+  :after lsp-mode)
+
+(use-package lsp-treemacs
+  :straight t
+  :after lsp-mode)
+
+(use-package lsp-pyright
+  :straight t
+  :custom (lsp-pyright-langserver-command "basedpyright")
+  :hook (python-ts-mode . (lambda ()
+                            (require 'lsp-pyright)
+                            (lsp-deferred))))
 
 (defun lsp-booster--advice-json-parse (old-fn &rest args)
   "Try to parse bytecode instead of json."

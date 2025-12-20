@@ -27,11 +27,11 @@
     - [[#remove-elements][Remove Elements]]
     - [[#dashboard][Dashboard]]
   - [[#keybindings][Keybindings]]
+    - [[#keymaps][Keymaps]]
     - [[#meow-3][Meow :3]]
     - [[#undo-tree][Undo Tree]]
     - [[#parentheses-functions][Parentheses Functions]]
-    - [[#general-setup][General Setup]]
-    - [[#globalnon-leader-keybinds][Global/Non-Leader Keybinds]]
+    - [[#generic-keybinds][Generic Keybinds]]
 - [[#ui-and-vertico][UI and Vertico]]
   - [[#ui][UI]]
     - [[#doom-modeline][Doom Modeline]]
@@ -72,6 +72,7 @@
 - [[#lsp][LSP]]
   - [[#lsp-mode][LSP-Mode]]
     - [[#lsp-mode-setup][LSP-Mode Setup]]
+    - [[#lsp-mode-integrations][LSP-Mode Integrations]]
     - [[#lsp-booster][LSP-Booster]]
     - [[#dap-mode][DAP-Mode]]
     - [[#flycheck][Flycheck]]
@@ -420,6 +421,20 @@
 
 ** Keybindings
 
+*** Keymaps
+ #+BEGIN_SRC emacs-lisp
+   ;; window-related keybinds
+   (defvar window-keymap
+     (let ((keymap (make-keymap)))
+       (define-key keymap (kbd "w") #'ace-window)
+       (define-key keymap (kbd "s") #'split-window-vertically)
+       (define-key keymap (kbd "v") #'split-window-horizontally)
+       (define-key keymap (kbd "d") #'delete-window)
+       (define-key keymap (kbd "i") #'delete-other-windows)
+       keymap))
+   (defalias 'window-keymap window-keymap)
+ #+END_SRC
+
 *** Meow :3
 #+BEGIN_SRC emacs-lisp
   (use-package meow
@@ -448,6 +463,7 @@
        '("8" . meow-digit-argument)
        '("9" . meow-digit-argument)
        '("0" . meow-digit-argument)
+       '("w" . window-keymap)
        '("/" . meow-keypad-describe-key)
        '("?" . meow-cheatsheet))
       (meow-normal-define-key
@@ -496,9 +512,9 @@
        '("z" . meow-pop-selection)
        '("'" . repeat)
        '("<escape>" . ignore)))
+    (setq meow-use-clipboard t)
     (meow-setup)
-    (meow-global-mode 1)
-    :custom (meow-use-cursor-position-hack t))
+    (meow-global-mode 1))
  #+END_SRC
 
 *** Undo Tree
@@ -519,23 +535,10 @@
     :hook (rainbow-delimiters-mode . puni-mode))
 #+END_SRC
 
-*** General Setup
+*** Generic Keybinds
 #+BEGIN_SRC emacs-lisp
-  (use-package general
-    :straight t
-    :config
-    (general-create-definer pkoa/leader
-    :states '(normal insert visual emacs)
-    :non-normal-prefix "C-SPC"))
-  (use-package hydra
-    :straight t)
-#+END_SRC
-
-*** Global/Non-Leader Keybinds
-#+BEGIN_SRC emacs-lisp
-  (general-define-key
-   "C-x M-x" 'redraw-display
-   "<escape>" 'keyboard-escape-quit)
+  (global-set-key (kbd "C-x M-x") 'redraw-dispay)
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 #+END_SRC
 
 * UI and Vertico
@@ -648,7 +651,13 @@
 *** Consult
 #+BEGIN_SRC emacs-lisp
   (use-package consult
-    :straight t)
+    :straight t
+    :bind (;; file related ones
+  	 ("C-x C-r" . consult-recent-file)
+  	 ("C-x F"   . consult-fd)
+  	 ("C-x P"   . (lambda () (interactive)
+  			(find-file "~/.emacs.d/config.org")))
+  	 ("C-x b"   . consult-buffer)))
 #+END_SRC
 
 *** Marginalia
@@ -898,14 +907,6 @@
     (lsp-inlay-hint-enable t)
     :commands (lsp lsp-deferred))
 
-  (use-package consult-lsp
-    :straight '(consult-lsp :host github :repo "gagbo/consult-lsp")
-    :after lsp-mode)
-
-  (use-package lsp-treemacs
-    :straight t
-    :after lsp-mode)
-
   (use-package lsp-ui
     :straight t
     :after lsp-mode
@@ -914,6 +915,24 @@
     :custom
     (lsp-ui-sideline-diagnostic-max-lines '5)
     :commands lsp-ui-mode)
+#+END_SRC
+
+*** LSP-Mode Integrations
+#+BEGIN_SRC emacs-lisp
+  (use-package consult-lsp
+    :straight '(consult-lsp :host github :repo "gagbo/consult-lsp")
+    :after lsp-mode)
+
+  (use-package lsp-treemacs
+    :straight t
+    :after lsp-mode)
+
+  (use-package lsp-pyright
+    :straight t
+    :custom (lsp-pyright-langserver-command "basedpyright")
+    :hook (python-ts-mode . (lambda ()
+                              (require 'lsp-pyright)
+                              (lsp-deferred)))) 
 #+END_SRC
 
 *** LSP-Booster
