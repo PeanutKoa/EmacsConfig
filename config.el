@@ -245,7 +245,16 @@
   :config
   (dashboard-setup-startup-hook))
 
-;; ADD SOME MORE LATER
+;; window-related keybinds
+(defvar window-keymap
+  (let ((keymap (make-keymap)))
+    (define-key keymap (kbd "w") #'ace-window)
+    (define-key keymap (kbd "s") #'split-window-vertically)
+    (define-key keymap (kbd "v") #'split-window-horizontally)
+    (define-key keymap (kbd "d") #'delete-window)
+    (define-key keymap (kbd "i") #'delete-other-windows)
+    keymap))
+(defalias 'window-keymap window-keymap)
 
 (use-package meow
   :straight t
@@ -273,6 +282,7 @@
      '("8" . meow-digit-argument)
      '("9" . meow-digit-argument)
      '("0" . meow-digit-argument)
+     '("w" . window-keymap)
      '("/" . meow-keypad-describe-key)
      '("?" . meow-cheatsheet))
     (meow-normal-define-key
@@ -337,7 +347,7 @@
   :straight t
   :hook (rainbow-delimiters-mode . puni-mode))
 
-(global-set-key (kbd "C-x M-x") 'redraw-dispay)
+(global-set-key (kbd "C-x M-x") 'redraw-display)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (use-package doom-modeline
